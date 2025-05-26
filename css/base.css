@@ -1,0 +1,30 @@
+
+@font-face {
+    font-family: "Unbounded";
+    src: url("../fonts/Unbounded-Bold.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "SpaceGrotesk-Regular";
+    src: url("../fonts/SpaceGrotesk-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "SpaceGrotesk-Bold";
+    src: url("../fonts/SpaceGrotesk-Bold.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Biro";
+    src: url("../fonts/Biro_Script_reduced.ttf") format("truetype");
+}
+
+/* ─── brand helpers (reuse yours if already declared) ─── */
+:root{
+    --cream:#FFFAEA;
+    --red:#FF502C;
+    --headline:'Unbounded',sans-serif;
+    --body:'SpaceGrotesk-Regular',sans-serif;
+    --bodybold: 'SpaceGrotesk-Bold',sans-serif;
+    --script:'Biro',cursive;
+  }

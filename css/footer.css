@@ -1,0 +1,106 @@
+/* === footer colours & base ----------------------------------------- */
+.site-footer{
+    background:#FF502C;              /* brand orange band               */
+    color:#FFFAEA;
+    padding:90px 6vw 40px;           /* roomy top & side gutters        */
+    font-family:'SpaceGrotesk-Regular', sans-serif;
+}
+
+/* left block now becomes a row:  [logo]  [text]  */
+.footer-left{
+  display:flex;
+  align-items:flex-start;
+  gap:32px;                      /* space between logo and copy */
+  flex:1 1 0;   /* grows, may shrink, min-width 0   */ 
+}
+
+/* copy column: stack vertically */
+.footer-copy{
+  display:flex;
+  flex-direction:column;
+}
+
+/* size the logo responsively */
+.footer-logo{
+    width:clamp(48px,5vw,100px);
+
+    /* ——————————————— */
+    height:auto;              /* keep aspect ratio */
+    flex:0 0 auto;            /* let the text take the rest of the row */
+}
+
+.footer-inner{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:4vw;
+    flex-wrap:nowrap;         /* was wrap — now stays in one line */
+}
+
+/* left column */
+.footer-name{
+    font-family:'Unbounded', sans-serif;
+    font-size:clamp(32px , 5.5vw , 48px);
+    line-height:0.9;
+    margin:0 0 12px;
+}
+
+/* make sure the text can wrap neatly next to the logo */
+.footer-copy{
+  flex:1 1 auto;
+}
+
+.footer-email,
+.footer-tag{ margin:0 0 12px; }
+
+.footer-email a{
+    color:#FFFAEA;
+    text-decoration:underline;
+}
+
+/* right column – social */
+.footer-social p{
+    margin:0 0 18px;
+    font-size:clamp(16px , 1.4vw , 18px);
+    flex:0 0 auto; 
+}
+.footer-social a{
+    color:#FFFAEA;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+.footer-social i{
+    font-size:1.2em;                 /* keep icons proportional         */
+    color:#FFFAEA;                      /* makes them white                */
+}
+
+/* copyright bottom-right */
+copyright,
+.copyright{
+    display:block;
+    text-align:right;
+    margin-top:40px;
+    font-size:13px;
+}
+
+/* === mobile stack (≤ 640 px) --------------------------------------- */
+@media (max-width:640px){
+    .footer-inner{
+        flex-direction:column;
+        align-items:flex-start;
+        flex-wrap:wrap;
+    }
+    .footer-left{
+    flex-direction:column;
+    gap:20px;                     /* tighter gap in vertical layout */
+  }
+    .footer-social{
+        margin-top:32px;
+    }
+    .copyright{
+        text-align:left;
+        margin-top:56px;
+    }
+}

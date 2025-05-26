@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nicole Perez Photography</title>
+    <link rel="icon" href="icons/camera2_on_red.png" type="image/png">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- shared navbar styles -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <style>
+
+        html{
+        background:#FFFAEA !important;
+        }
+        /* Get rid of all padding and margin */
+        body {
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.5s ease; /* Smooth transition effect */
+            background: var(--cream);
+        }
+
+        a {
+            color: inherit; /* Inherits the color from its parent element */
+            text-decoration: none; /* Removes the underline */
+        }
+        
+        .hero-section {
+            z-index: 0;
+            width: 100%;
+            background-image: url('img/palms.png'); /* Hero image */
+            height: 100vh;
+            background-size: cover; /* Ensures the image covers the entire div */
+            background-position: center; /* Centers the image */
+            overflow: hidden;
+            position: relative; /* Ensure the overlay is positioned correctly */
+        }
+
+        .hero-overlay {
+            z-index: 1;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.25); /* 25% transparent black */
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            color: white;
+        }
+
+        .brand-pill {
+        z-index:2;
+        font-family:var(--headline);
+        font-size:clamp(14px , 2.5vw , 20px);
+        letter-spacing:.5px;
+        text-transform:uppercase;
+        color:#616161;                 /* light-grey text  */
+        background:var(--red);         /* red pill        */
+        padding:12px 36px;
+        border-radius:4px;
+        margin:100px auto 0;        /* centred top     */
+        width:max-content;          /* shrink-wrap     */
+    }
+
+        .center-aligned {
+            z-index: 2;
+            font-family: var(--headline);
+            color: var(--cream);
+            font-size: clamp(28px , 12vw , 85px);
+            position: absolute;
+            top: 50%; /* Adjust this value to control the height from the top */
+            left: 50%;
+            transform: translate(-50%, -50%); /* Centers the text horizontally and vertically */
+            text-align: center;
+        }
+
+        .center-aligned div {
+            line-height: 0.9; /* Adjust line height as needed */
+        }
+
+
+        .button-text {
+            z-index: 2;
+            font-family: var(--body);
+            color: var(--cream);
+            font-size: 20px;
+            position: absolute;
+            top: 70%; /* Adjust this value to control the height from the top */
+            left: 50%;
+            transform: translate(-50%, -50%); /* Centers the text horizontally and vertically */
+            text-align: center;
+        }
+
+        .arrow {
+            z-index: 2;
+            position: absolute;
+            top: 78%; /* Adjust this value to position the arrow */
+            left: 50%;
+            transform: translateX(-50%); /* Centers the arrow horizontally */
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0)
+            }
+            50% {
+                transform: translateY(-7px)
+            }
+
+        }
+        
+        .galleries {
+            display: flex;
+            justify-content: center; /* Centers the divs horizontally */
+            align-items: center; /* Centers the divs vertically */
+            height: 590px; /* Set the desired height */
+            font-size: clamp(14px , 2vw , 30px);
+            padding: 50px 7vw 150px; /* Adds padding to all sides */
+            gap: 4vw; /* Adds space between the panels - if you change here change in the .film/digital/video block!! */
+            opacity: 0; /* Initially hidden */
+            transform: translateY(50px); /* Initially positioned lower */
+            transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth transition */
+            background:var(--cream);  
+        }
+
+        .galleries.visible {
+            opacity: 1; /* Fully visible */
+            transform: translateY(0); /* Moves to original position */
+        }
+
+        .film, .digital, .video {
+            width: calc(33% - 8px); /* Adjust width to account for gap */
+            height: 100%; /* Ensures the divs take up the full height of the galleries div */
+            background-size: cover; /* Ensures the background image covers the entire div */
+            background-position: center; /* Centers the background image */
+            
+        }
+
+        .film {
+            background-image: url('img/gallery/02170004.jpeg'); /*url('img/36822036144-R1-015-6.jpg'); 'img/gallery/frank\ and\ austin.jpg'*/
+            font-family: var(--headline);
+            color: var(--cream); /* Example text color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .digital {
+            background-image: url('img/IMG_0832.jpeg'); /*url('img/R1-08043-0024.jpg');*/
+            font-family: var(--headline);
+            color: var(--cream); /* Example text color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column; /* Aligns text vertically */
+            text-align: center;
+        }
+
+        .video {
+            background-image: url('img/hawaii_video1.jpeg'); /*url('img/36822036144-R1-015-6.jpg');*/
+            font-family: var(--headline);
+            color: var(--cream); /* Example text color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column; /* Aligns text vertically */
+            text-align: center;
+        }
+
+        /* big red “GALLERIES” headline ------------------------------------ */
+        .galleries-title{
+            font-family:var(--headline);
+            font-size:clamp(48px,5vw,90px);
+            line-height:.9;
+            text-align:center;
+            color:var(--red);
+
+            /* use padding, not margin, so the cream colour paints too */
+            padding:60px 0 50px;
+            margin:0;                 /* kill the collapsing margin */
+            background:var(--cream);       /* keep the cream */
+            }
+
+        .galleries-band{
+            background:var(--cream);
+            padding-top:60px;   /* was margin-top on h2 */
+            }
+
+
+
+        /* desktop: keep the wide banners ----------------------------- */
+        .film,
+        .digital,
+        .video{
+        flex:0 0 calc(33.333% - 7px);   /* your original width rule      */
+        aspect-ratio: 6 / 1;            /* ≈ 6 wide × 1 high banner      */
+        min-height:180px;               /* never shorter than 180 px     */
+        background-size:cover;
+        background-position:center;
+        }
+
+
+        /* === stack the 3 gallery panels on very small screens =============== */
+        @media (max-width: 800px){
+
+        /* 1 . let the wrapper hug the edges a bit closer */
+        .galleries{
+            flex-direction: column;   /* ⇢ stack children */
+            align-items: stretch;     /* keep them full-width */
+            height: auto;             /* no fixed 700-px box */
+            padding: 10px 7vw 70px; /* Adds padding to all sides */
+        }
+
+        .galleries-title{
+            /* use padding, not margin, so the cream colour paints too */
+            padding:30px 0 50px;
+            }
+
+        /* 2 . give each banner the whole width and a friendlier aspect-ratio */
+        .film,
+        .digital,
+        .video{
+            width : 100%;
+            height: 240px;            /* tweak to taste (or use min-height) */
+        }
+        }
+        /* ==================================================================== */
+
+        /* === BIO SECTION ===================================================== */
+
+        .bio-section{
+            background:var(--red);
+            display:flex;
+            align-items:flex-start;
+            gap:1.5vw;
+            padding:180px 10vw 150px 13vw;
+            overflow:hidden;                  /* keeps things tidy               */
+        }
+
+
+        /* --- portrait -------------------------------------------------------- */
+        .bio-image{
+           /* margin:0;                               /* reset <figure> defaults    */
+
+            order:2;                                   /* sits after the copy  */
+            flex:0 0 clamp(220px,28vw,360px);          /* narrower everywhere  */
+            margin-top:80px;                           /* starts below h-line  */
+            align-self:flex-start;                     /* obey the margin-top  */
+
+        }
+
+        .bio-image img{
+            width:auto;
+            height:500px;
+            display:block;
+            border:12px solid #000;   /* thickness & colour */
+            box-sizing:border-box;    /* keeps the 400 px height including the border */
+
+        }
+
+        /* --- text block ------------------------------------------------------ */
+
+        /* headline */
+        .bio-headline{
+            font-family:var(--headline);
+            font-size:clamp(48px , 5vw , 65px);
+            line-height:0.9;
+            letter-spacing:-0.02em;
+            margin:0 0 10px;
+            text-align:left;
+            max-width:600px; 
+        }
+
+        .bio-headline span{ display:block; 
+                            text-align:center;      /* optional – keeps each word centred even if spans stay 100 % wide */
+                        }
+
+        .bio-text{
+            color: var(--cream);                    /* same warm orange as your brand  */
+            max-width:430px;
+            font-family:'SpaceGrotesk-Regular', sans-serif;
+            flex:1 1 430px;      /* basis 430, but may grow & shrink */
+            max-width:90ch;      /* feel free to change to 55-65ch or remove entirely */
+            font-size:clamp(15px , 1.3vw , 25px);
+            line-height:1.05;
+            margin:0 0 28px;
+        }
+
+        /* keeps the little squiggle centred and with some breathing room */
+        .wave-divider{
+        width:300px;      /* adjust to match your PNG */
+        height:auto;
+        display:block;
+        margin:25px 0 25px; /* top gap, bottom gap */
+        }
+
+
+        /* === tighter crop for very small view-ports ========================= */
+        @media (max-width:700px){
+
+        .bio-section{
+            flex-direction:column;
+            text-align:center;
+            padding:80px 6vw 90px;
+        }
+
+        .bio-headline{
+            font-size:clamp(48px , 5vw , 65px);
+            text-align: center;
+        }
+        .bio-text { order:2; }                 /* copy comes second        */
+
+
+        /* ► 1. photo: centred, fixed height, nice top/btm gap */
+        .bio-image{
+            width: 80%;            /* keep some cream gutter at the sides   */
+            max-width: 340px;      /* optional – stops it getting too wide   */
+            height: 280px;         /* ← pick any height you like            */
+            margin: 0 auto 32px;   /* centre it & leave 32 px below          */
+        }
+        .bio-image img{
+            width:100%;
+            height:100%;
+            object-fit:cover;      /* fill the frame, crop overflow          */
+            object-position:center 65%; /* keep your face nicely in view     */
+        }
+
+        /* ► 2. headline, subtitle & copy all centred */
+        .bio-headline,
+        .bio-text{
+            text-align:center;
+        }
+
+        /* ► 3. wave squiggle – centred block with some air above & below */
+        .wave-divider{
+            margin: 24px auto;     /* top & bottom gap, auto-centre          */
+            display:block;
+        }
+        }
+
+        /* ==== carousel base =============================================== */
+        .carousel-section{
+        background:var(--cream);                 /* same cream you use elsewhere   */
+        padding:180px 12vw 120px;
+        }
+
+        /* big orange headline --------------------------------------------- */
+        .carousel-title{
+        font-family:'Unbounded', sans-serif;
+        font-size:clamp(45px , 4vw , 100px);
+        line-height:0.9;
+        text-align:center;
+        color:var(--red);
+        margin:0 0 90px;           /* bottom gap above the strip */
+        }
+
+        /* viewport mask ---------------------------------------------------- */
+        .carousel-window{
+                        max-width:1400px;
+                        max-height:320px;      /* overall height of strip */
+                        margin:0 auto;
+                        overflow:hidden;}
+
+        /* horizontal film-strip -------------------------------------------- */
+        .carousel-track{
+        display:flex;
+        transition:transform .5s ease;
+        gap:1vw;                            /* space between polaroids        */
+        padding:0; 
+        margin:0; 
+        list-style:none;
+        }
+
+        .carousel-track li{  
+                        flex:0 0 calc((100% - 2vw * 2)/5);  /*   2 gaps × 1 vw each   */
+                        height:100%;           /* slide height = window height */
+                        display:flex;          /* lets us centre the picture */
+                        align-items:flex-start;
+                        justify-content:center;
+                        }  /* each slide : 28 % of viewport  */
+
+        .carousel-track img{ 
+                    max-width:100%;        /* ...nor the slide width              */
+                    object-fit:contain;    /* scale down, show whole Polaroid     */
+                    max-height:320px;        /* ← pick your final strip height   */
+                    width:auto;              /* keep aspect ratio                */
+                    height:auto;
+                    }
+
+        /* controls --------------------------------------------------------- */
+        .carousel-controls{
+        display:flex;
+        justify-content:center;
+        gap:120px;                          /* distance between arrows        */
+        margin-top:48px;
+        }
+
+        .carousel-btn{
+        background:none;
+        border:none;
+        font-size:48px;
+        line-height:1;
+        cursor:pointer;
+        color:#000;
+        }
+
+        .carousel-btn:disabled{ opacity:.25; cursor:default; }
+
+        /* caption under the arrows ---------------------------------------- */
+        .carousel-caption{
+        font-family:var(--body);
+        font-size:clamp(18px , 2vw , 20px);
+        text-align:center;
+        margin:40px 0 0;           /* top gap below the arrows   */
+        color:#000;
+        }
+
+        /* small screens – show 1 photo at a time --------------------------- */
+
+        /* ───── phone-size carousel tweaks ───── */
+        @media (max-width: 600px){
+
+        /* headline: still centred & wrapped */
+        .carousel-title{
+        font-size:clamp(40px, 4vw, 64px);
+        max-width:90%;
+        margin:0 auto 64px;
+        word-break:break-word;
+        }
+
+        /* keep a ceiling, but let the window shrink/expand with the slide   */
+        .carousel-window{
+        max-height:250px;          /* 🔹 ← pick any max you like            */
+        height:auto;              /* no fixed number, grows if needed      */
+        }
+
+        .carousel-track li{
+        flex:0 0 90vw;            /* one photo per swipe                   */
+        display:flex;             /* centre the image                      */
+        justify-content:center;
+        align-items:flex-start;
+        }
+
+        .carousel-track img{
+        max-height:250px;          /* 🔹 same cap as the window             */
+        width:auto;               /* preserve aspect ratio                 */
+        height:100%;              /* obey the cap instead of overflowing   */
+        object-fit:contain;       /* never crop, always show whole Polaroid*/
+        }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="hero-section">
+        <!-- Black transparent overlay with title text -->
+        <div class="hero-overlay">
+            <div class="brand-pill">
+                NICOLE PEREZ
+            </div>
+            <div class="hamburger" id="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+            
+            <div class="center-aligned">
+                <div>DAY SEIZED:</div>
+                <div>CHECK.</div>
+            </div>
+            <div class="button-text">
+                <a href="#galleries" id="scroll-link" style="color: white; text-decoration: underline;">Galleries</a>
+            </div>
+            <div class="arrow">
+                <img src="img/arrow.png" alt="Arrow" style="height: 55px;">
+            </div>
+        </div>
+    </div>
+
+<!-- GALLERIES SECTION  -->
+<section class="galleries-band">
+<h2 class="galleries-title">GALLERIES</h2>
+
+    <div id="galleries" class="galleries">
+        <div class="film"><a href="film.html">FILM<br> PHOTOS</a></div>
+        <div class="digital">
+            <div><a href="digital.html">DIGITAL <br> PHOTOS</a></div>
+        </div>
+        <div class="video">
+            <div><a href="video.html">VIDEO</a></div>
+        </div>
+    </div>
+    </section>
+  
+
+<!-- === BIO SECTION =================================================== -->
+<section class="bio-section">
+    <!-- left-hand portrait -->
+    <figure class="bio-image">
+      <img src="img/profile_cropped.png"> <!--profile_cropped.png-->
+    </figure>
+  
+    <!-- right-hand heading + copy -->
+    <div class="bio-text">
+      <!-- manual line-breaks to force the 4-line headline -->
+      <h2 class="bio-headline">
+        ALOHA AND WELCOME
+      </h2>
+
+      <p>(in the words of Michael Scott LOL)</p>
+      
+        <!-- NEW  divider  -->
+     <img class="wave-divider" src="icons/border_tight_cream.png" alt="" aria-hidden="true">
+
+      <p>I’m Nicole, your friendly Twin Cities-area photographer specializing in 35mm film, mini polaroids, and filmic-graded digital video. 
+        I got my start in film photography on a Pikachu camera in the early 2000s - fast forward to today, and I’m still all about capturing candid moments, whether it be during an event, or an unplanned break in the poses during portrait shoots.
+        Ultimately it’s seeing others’ happy moments come to life with the colors of film that makes my heart sing and my retinas dance.
+        
+        </p> <br>
+         <a href="about.html"><u>Read more ></u></a>
+  <br>
+  <br>
+    </div>
+    <div>
+
+    </div>
+  </section>
+
+      <!-- === POLAROID CAROUSEL ========================================== -->
+<section class="carousel-section">
+
+      <!-- ▲ NEW headline -->
+  <h2 class="carousel-title">MINI POLAROIDS</h2>
+    <div class="carousel-window">
+      <ul class="carousel-track">
+        <li><img src="img/gallery_polaroids/005.jpg"  alt=""></li>
+        <li><img src="img/gallery_polaroids/007.jpg"  alt=""></li>
+        <li><img src="img/gallery_polaroids/008.jpg"  alt=""></li>
+        <li><img src="img/gallery_polaroids/006.jpg"  alt=""></li>
+        <li><img src="img/gallery_polaroids/001.jpg"  alt=""></li>
+        <li><img src="img/gallery_polaroids/002.jpg"  alt=""></li>
+        <li><img src="img/gallery_polaroids/003.jpg"  alt=""></li>
+        <li><img src="img/gallery_polaroids/004.jpg"  alt=""></li>
+        <li><img src="img/gallery_polaroids/009.jpg"  alt=""></li>
+        <li><img src="img/gallery_polaroids/010.jpg"  alt=""></li>
+        <li><img src="img/gallery_polaroids/011.jpg"  alt=""></li>
+      </ul>
+    </div>
+  
+    <div class="carousel-controls">
+      <button class="carousel-btn" id="prev">←</button>
+      <button class="carousel-btn" id="next">→</button>
+    </div>
+
+      <!-- ▼ NEW caption -->
+  <p class="carousel-caption">(Every session comes with a set!)</p>
+  
+  </section>
+  <!-- ================================================================= -->
+
+  <!-- === SITE FOOTER =================================================== -->
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+  
+      <!-- LEFT block : logo + text ------------------------------------ -->
+      <div class="footer-left">
+        <img class="footer-logo" src="icons/camera_in_hand.png" alt="Camera logo">
+  
+        <div class="footer-copy">
+          <h2 class="footer-name"><a href="index.html">NICOLE PEREZ</a></h2>
+  
+          <p class="footer-email">
+            <a href="mailto:nicoleandperez@gmail.com">nicoleandperez@gmail.com</a>
+          </p>
+  
+          <p class="footer-tag">
+            Film photographer & videographer in the greater Twin Cities, MN.
+          </p>
+        </div>
+      </div>
+  
+      <!-- RIGHT block : socials --------------------------------------- -->
+      <div class="footer-social">
+        <p>
+          <a href="https://www.instagram.com/nperez.film/" target="_blank" rel="noopener">
+            <i class="fa-brands fa-instagram"></i> @nperez.film
+          </a>
+        </p>
+        <p>
+          <a href="https://www.instagram.com/nperez.digital/" target="_blank" rel="noopener">
+            <i class="fa-brands fa-instagram"></i> @nperez.digital
+          </a>
+        </p>
+      </div>
+  
+    </div> <!-- /.footer-inner -->
+  
+    <small class="copyright">© Nicole Perez Studio 2025</small>
+  </footer>
+  
+  <!-- ================================================================== -->
+  <!-- ───────── FULL-SCREEN NAV OVERLAY ───────── -->
+<nav id="site-menu" aria-label="Site" class="menu">
+    <button class="menu-close" aria-label="Close menu">×</button>
+  
+    <h1 class="menu-name">NICOLE<br>PEREZ</h1>
+    <p class="menu-tag">Film photographer in the<br>Twin Cities, MN</p>
+  
+    <img class="menu-wave" src="icons/border_tight_red.png" alt="" aria-hidden="true">
+  
+    <ul class="menu-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="film.html">Film&nbsp;Photos</a></li>
+      <li><a href="digital.html">Digital&nbsp;Photos</a></li>
+      <li><a href="video.html">Video</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+  
+  <!-- =================================================================== -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const bottomDiv = document.querySelector('.galleries');
+            const scrollLink = document.getElementById('scroll-link');
+            
+            scrollLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                bottomDiv.scrollIntoView({ behavior: 'smooth' });
+            });
+
+            const observerOptions = {
+                root: null, // Use the viewport as the container
+                rootMargin: '0px',
+                threshold: 0.1 // Trigger when 10% of the div is visible
+            };
+            
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        document.body.style.backgroundColor = '#fff'; // Change to white
+                        observer.unobserve(entry.target); // Stop observing once the div is visible
+                    }
+                });
+            }, observerOptions);
+            
+            observer.observe(bottomDiv);
+        });
+
+        document.addEventListener('DOMContentLoaded',()=>{
+
+        const track = document.querySelector('.carousel-track');
+        const slides = Array.from(track.children);
+        const prevBtn = document.getElementById('prev');
+        const nextBtn = document.getElementById('next');
+
+        const slideGap = parseFloat(getComputedStyle(track).gap);
+        let index = 0;
+
+        function updateButtons(){
+        prevBtn.disabled = index === 0;
+        nextBtn.disabled = index === slides.length - 1;
+        }
+
+        function slideTo(idx){
+        const slideWidth = slides[0].getBoundingClientRect().width + slideGap;
+        track.style.transform = `translateX(${ -idx * slideWidth }px)`;
+        index = idx;
+        updateButtons();
+        }
+
+        prevBtn.addEventListener('click', ()=> slideTo(index - 1));
+        nextBtn.addEventListener('click', ()=> slideTo(index + 1));
+
+        /* enable keyboard left/right when buttons have focus */
+        [prevBtn,nextBtn].forEach(btn=>{
+        btn.addEventListener('keydown',e=>{
+            if(e.key==='ArrowLeft') prevBtn.click();
+            if(e.key==='ArrowRight') nextBtn.click();
+        });
+        });
+
+        updateButtons();   // initialise
+        });
+
+
+    </script>
+
+<script src="js/nav.js"></script>
+</body>
+</html>
