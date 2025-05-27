@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nicole Perez Photography</title>
+    <link rel="icon" href="icons/camera2_on_red.png" type="image/png">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- shared navbar styles -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <style>
+        /* Get rid of all padding and margin */
+        body {
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.5s ease; /* Smooth transition effect */
+            background: var(--cream);
+        }
+
+        a {
+            color: inherit; /* Inherits the color from its parent element */
+            text-decoration: none; /* Removes the underline */
+        }
+        
+        .hero-section {
+            z-index: 0;
+            width: 100%;
+            background-image: url('img/gallery_digital/IMG_3639_cropped.jpeg'); /* Hero image */
+            height: 100vh;
+            background-size: cover; /* Ensures the image covers the entire div */
+            background-position: center; /* Centers the image */
+            overflow: hidden;
+            position: relative; /* Ensure the overlay is positioned correctly */
+        }
+
+        .hero-overlay {
+            z-index: 1;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.25); /* 25% transparent black */
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            color: white;
+        }
+
+        .brand-pill {
+        z-index:2;
+        font-family:'Unbounded';
+        font-size:clamp(14px , 2.5vw , 20px);
+        letter-spacing:.5px;
+        text-transform:uppercase;
+        color: var(--cream);                 /* light-grey text  */
+        /*background:#FF502C;         /* red pill        */
+        background: var(--red);
+        padding:12px 36px;
+        border-radius:4px;
+        margin:100px auto 0;        /* centred top     */
+        width:max-content;          /* shrink-wrap     */
+    }
+
+        .center-aligned {
+            z-index: 2;
+            font-family: var(--headline);
+            color: var(--cream);
+            font-size:clamp(28px , 10vw , 55px);
+            max-width:90vw;          /* prevents words spilling outside the screen */
+            padding:0;           /* gives a little breathing room on small viewports */
+            position: absolute;
+            top: 55%; /* Adjust this value to control the height from the top */
+            left: 50%;
+            transform: translate(-50%, -50%); /* Centers the text horizontally and vertically */
+            text-align: center;
+        }
+
+        /* phones & small tablets get the breathing room */
+        @media (max-width: 768px){     /* tweak the breakpoint to taste */
+            .center-aligned{
+                padding:0 5vw;         /* 5 % of the viewport on each side */
+            }
+        }
+
+        .center-aligned div {
+            line-height: 0.9; /* Adjust line height as needed */
+        }
+
+        /* === Gallery === */
+
+        .gallery-section{
+            display:flex;
+            flex-wrap:wrap;
+            gap:70px;          /* ⇢ 70 px between every pair of pictures – both axes   */
+            padding:0 40px;    /* ⇢ 40 px to the left of the first and right of the last */
+        }
+
+        .gallery-section img{
+            height:700px;      /* “target” height – it will be scaled row-by-row      */
+            width:auto;
+            flex:0 0 auto;
+            object-fit:cover;
+            display:block;
+        }
+
+        /* === Row-fade effect ====================================== */
+        .gallery-section img.row-hidden{
+            opacity: 0;
+            transform: translateY(40px);
+            filter: brightness(1);      /* starts “washed-out” white */
+        }
+
+        .gallery-section img.row-visible{
+            opacity: 1;
+            transform: translateY(0);
+            filter: brightness(1);
+            transition: opacity .8s ease-out,
+                        transform .8s ease-out,
+                        filter .8s ease-out;
+        }
+/* ========================================================== */
+
+    </style>
+</head>
+<body>
+    <div class="hero-section">
+        <!-- Black transparent overlay with title text -->
+        <div class="hero-overlay">
+            <div class="brand-pill">
+                <a href="index.html">NICOLE PEREZ</a>
+            </div>
+            <div class="hamburger" id="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+            
+            <div class="center-aligned">
+                <div>FRIENDSHIP <br> NEVER ENDS</div>
+            </div>
+        </div>
+    </div>
+
+    <div style="height: 60px;"></div>
+
+    <div id="bottom-div" class="bottom-div">
+        <!-- Gallery Section -->  
+        <div class="gallery-section"> 
+
+            <img src="img/gallery_digital/IMG_3598.jpeg" alt="Image 9">
+        
+            <img src="img/gallery_digital/IMG_3605.jpeg" alt="Image 12">
+            <img src="img/gallery_digital/IMG_3629.jpeg" alt="Image 13">
+            <img src="img/gallery_digital/IMG_3633.jpeg" alt="Image 16"> 
+            <img src="img/gallery_digital/IMG_3636.jpeg" alt="Image 18">
+
+
+            <img src="img/gallery_digital/IMG_3558.jpeg" alt="Image 1"> 
+            <img src="img/gallery_digital/IMG_3561.jpeg" alt="Image 2"> 
+    
+
+            <img src="img/gallery_digital/IMG_3572.jpeg" alt="Image 14">
+            <img src="img/gallery_digital/IMG_3565.jpeg" alt="Image 22">
+            <img src="img/gallery_digital/IMG_3573.jpeg" alt="Image 17">
+            <img src="img/gallery_digital/IMG_3564.jpeg" alt="Image 3"> 
+
+
+            <img src="img/gallery_digital/IMG_3574.jpeg" alt="Image 7">
+            <img src="img/gallery_digital/IMG_3582.jpeg" alt="Image 4">
+            <img src="img/gallery_digital/IMG_3587.jpeg" alt="Image 8">
+    
+
+
+            <img src="img/gallery_digital/IMG_3639.jpeg" alt="Image 21">
+
+            <img src="img/gallery_digital/IMG_3651.jpeg" alt="Image 37">
+            <img src="img/gallery_digital/IMG_3665.jpeg" alt="Image 36">
+    
+            <img src="img/gallery_digital/IMG_3673.jpeg" alt="Image 31">
+            <img src="img/gallery_digital/IMG_3677.jpeg" alt="Image 32">
+            <img src="img/gallery_digital/IMG_3680.jpeg" alt="Image 33">
+            <img src="img/gallery_digital/IMG_3684.jpeg" alt="Image 27">
+
+            <img src="img/gallery_digital/IMG_3693 (1).jpeg" alt="Image 35">
+
+            <img src="img/gallery_digital/IMG_3695.jpeg" alt="Image 35">
+            <img src="img/gallery_digital/IMG_3702.jpeg" alt="Image 35">
+            <img src="img/gallery_digital/IMG_3716.jpeg" alt="Image 35">
+            <img src="img/gallery_digital/IMG_3736.jpeg" alt="Image 35">
+            <img src="img/gallery_digital/IMG_3740.jpeg" alt="Image 35">
+
+            <img src="img/gallery_digital/IMG_3743.jpeg" alt="Image 35">
+            <img src="img/gallery_digital/IMG_3751.jpeg" alt="Image 35">
+
+            <img src="img/gallery_digital/IMG_3760.jpeg" alt="Image 35">
+            <img src="img/gallery_digital/IMG_3766.jpeg" alt="Image 35">
+            <img src="img/gallery_digital/IMG_3826.jpeg" alt="Image 35">
+            <img src="img/gallery_digital/IMG_3831.jpeg" alt="Image 35">
+
+            <img src="img/gallery_digital/IMG_3836.jpeg" alt="Image 35">
+            <img src="img/gallery_digital/IMG_3841.jpeg" alt="Image 35">
+            <img src="img/gallery_digital/IMG_3844.jpeg" alt="Image 35">
+            <img src="img/gallery_digital/IMG_3850.jpeg" alt="Image 35">
+
+            <img src="img/gallery_digital/IMG_3865.jpeg" alt="Image 35">
+
+            <img src="img/gallery_digital/IMG_3419.jpeg" alt="Image 28">
+            <img src="img/gallery_digital/IMG_3448.jpeg" alt="Image 23">
+
+
+            <img src="img/gallery_digital/IMG_3871.jpeg" alt="Image 35">
+            <img src="img/gallery_digital/IMG_3874.jpeg" alt="Image 35">
+            <img src="img/gallery_digital/IMG_3885.jpeg" alt="Image 35">
+
+            <img src="img/gallery_digital/IMG_3895.jpeg" alt="Image 35">
+            <img src="img/gallery_digital/IMG_3905.jpeg" alt="Image 35">
+
+
+        </div>
+    </div>
+
+
+    <div style="height:8vh;"></div>
+
+  <!-- === SITE FOOTER =================================================== -->
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+  
+      <!-- LEFT block : logo + text ------------------------------------ -->
+      <div class="footer-left">
+        <img class="footer-logo" src="icons/camera_in_hand.png" alt="Camera logo">
+  
+        <div class="footer-copy">
+          <h2 class="footer-name"><a href="index.html">NICOLE PEREZ</a></h2>
+  
+          <p class="footer-email">
+            <a href="mailto:nicoleandperez@gmail.com">nicoleandperez@gmail.com</a>
+          </p>
+  
+          <p class="footer-tag">
+            Film photographer & videographer in the greater Twin Cities, MN.
+          </p>
+        </div>
+      </div>
+  
+      <!-- RIGHT block : socials --------------------------------------- -->
+      <div class="footer-social">
+        <p>
+          <a href="https://www.instagram.com/nperez.film/" target="_blank" rel="noopener">
+            <i class="fa-brands fa-instagram"></i> @nperez.film
+          </a>
+        </p>
+        <p>
+          <a href="https://www.instagram.com/nperez.digital/" target="_blank" rel="noopener">
+            <i class="fa-brands fa-instagram"></i> @nperez.digital
+          </a>
+        </p>
+      </div>
+  
+    </div> <!-- /.footer-inner -->
+  
+    <small class="copyright">© Nicole Perez Studio 2025</small>
+  </footer>
+  <!-- ───────── FULL-SCREEN NAV OVERLAY ───────── -->
+  <nav id="site-menu" aria-label="Site" class="menu">
+    <button class="menu-close" aria-label="Close menu">×</button>
+  
+    <h1 class="menu-name">NICOLE<br>PEREZ</h1>
+    <p class="menu-tag">Film photographer in the<br>Twin Cities, MN</p>
+  
+    <img class="menu-wave" src="icons/border_tight_red.png" alt="" aria-hidden="true">
+  
+    <ul class="menu-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="film.html">Film&nbsp;Photos</a></li>
+      <li><a href="digital.html">Digital&nbsp;Photos</a></li>
+      <li><a href="video.html">Video</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+	<script>
+        // Fade in images in gallery
+            document.addEventListener("DOMContentLoaded", function() {
+            const images = document.querySelectorAll('.gallery-section img');
+        
+            const observerOptions = {
+                root: null, // Use the viewport as the container
+                rootMargin: '0px',
+                threshold: 0.1 // Trigger when 10% of the image is visible
+        
+            };
+        
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // Stop observing once the image is visible
+                }
+        
+            });
+            }, observerOptions);
+        
+            images.forEach(image => {
+            observer.observe(image);
+            });
+            });
+        
+        
+            // Gallery code
+/* === gallery-layout.js =============================================== */
+document.addEventListener('DOMContentLoaded', () => {
+  /* --- constants that must stay in sync with your CSS --- */
+  const GAP   = 70;   // = gap between pictures
+  const SIDE  = 40;   // = left / right gutter
+  const ROW_H = 700;  // = target row height
+  /* ------------------------------------------------------- */
+
+  const box  = document.querySelector('.gallery-section');
+  const pics = Array.from(box.children);
+
+  /* 1.  Lay out the gallery exactly as before
+   * ----------------------------------------- */
+  function layout () {
+    const usable = box.clientWidth - SIDE * 2;   // width pictures + gaps must fill
+    let row = [], rowSumW = 0;
+
+    pics.forEach(pic => {
+      const w = (pic.naturalWidth / pic.naturalHeight) * ROW_H;
+
+      row.push({ pic, w });
+      rowSumW += w;
+
+      const totalWithGaps = rowSumW + GAP * (row.length - 1);
+
+      if (totalWithGaps >= usable) {             // row is “full”
+        const scale = (usable - GAP * (row.length - 1)) / rowSumW;
+
+        row.forEach(({ pic, w }) => {
+          pic.style.width  = (w       * scale) + 'px';
+          pic.style.height = (ROW_H   * scale) + 'px';
+        });
+
+        row.length = 0;
+        rowSumW    = 0;
+      }
+    });
+
+    /* once the layout is done we (re-)build the row observer */
+    buildRowObserver();
+  }
+
+  /* 2.  Fade each row in when it scrolls into view
+   * ---------------------------------------------- */
+  let rowObserver;                                    // keeps the latest observer
+
+  function buildRowObserver () {
+    /* clear any previous observer */
+    if (rowObserver) rowObserver.disconnect();
+
+    /* group pictures by their Y-position (rows) */
+    const rows = {};
+    pics.forEach(pic => {
+      const top = pic.offsetTop;                      // row identifier
+      (rows[top] ??= []).push(pic);
+
+      /* reset state */
+      pic.classList.add   ('row-hidden');
+      pic.classList.remove('row-visible');
+    });
+
+    /* one IntersectionObserver that watches the first picture of each row */
+    rowObserver = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          /* reveal the whole row */
+          const rowTop = entry.target.offsetTop;
+          rows[rowTop].forEach(p =>
+            p.classList.replace('row-hidden', 'row-visible')
+          );
+          obs.unobserve(entry.target);                // row done → stop watching
+        }
+      });
+    }, { root: null, threshold: 0.1 });
+
+    /* attach the observer */
+    Object.values(rows).forEach(rowPics =>
+      rowObserver.observe(rowPics[0])                 // first img = anchor
+    );
+  }
+
+  /* 3.  Run once everything is ready, and again on resize */
+  if (pics.every(p => p.complete)) layout();
+  window.addEventListener('load',  layout);
+  window.addEventListener('resize',layout);
+});
+/* ===================================================================== */
+    
+        </script>
+<script src="js/nav.js"></script>
+</body>
+</html>

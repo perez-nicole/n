@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nicole Perez Photography</title>
+    <link rel="icon" href="icons/camera2_on_red.png" type="image/png">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- shared navbar styles -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <style>
+        /* Get rid of all padding and margin */
+        body {
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.5s ease; /* Smooth transition effect */
+            background: var(--cream);
+        }
+
+        a {
+            color: inherit; /* Inherits the color from its parent element */
+            text-decoration: none; /* Removes the underline */
+        }
+        
+        .hero-section {
+            z-index: 0;
+            width: 100%;
+            background-image: url('img/IMG_0832.jpeg'); /* Hero image */
+            height: 100vh;
+            background-size: cover; /* Ensures the image covers the entire div */
+            background-position: center; /* Centers the image */
+            overflow: hidden;
+            position: relative; /* Ensure the overlay is positioned correctly */
+        }
+
+        .hero-overlay {
+            z-index: 1;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.25); /* 25% transparent black */
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            color: white;
+        }
+
+        .brand-pill {
+        z-index:2;
+        font-family:'Unbounded';
+        font-size:clamp(14px , 2.5vw , 20px);
+        letter-spacing:.5px;
+        text-transform:uppercase;
+        color: var(--cream);                 /* light-grey text  */
+        /*background:#FF502C;         /* red pill        */
+        background: var(--red);
+        padding:12px 36px;
+        border-radius:4px;
+        margin:100px auto 0;        /* centred top     */
+        width:max-content;          /* shrink-wrap     */
+    }
+
+
+        .center-aligned {
+            z-index: 2;
+            font-family: var(--headline);
+            color: var(--cream);
+            font-size:clamp(28px , 10vw , 55px);
+            max-width:90vw;          /* prevents words spilling outside the screen */
+            padding:0;           /* gives a little breathing room on small viewports */
+            position: absolute;
+            top: 55%; /* Adjust this value to control the height from the top */
+            left: 50%;
+            transform: translate(-50%, -50%); /* Centers the text horizontally and vertically */
+            text-align: center;
+        }
+
+        /* phones & small tablets get the breathing room */
+        @media (max-width: 768px){     /* tweak the breakpoint to taste */
+            .center-aligned{
+                padding:0 5vw;         /* 5 % of the viewport on each side */
+            }
+        }
+
+        .center-aligned div {
+            line-height: 0.9; /* Adjust line height as needed */
+        }
+
+
+        @media (max-width:480px){
+            .hamburger{ right:24px; }
+        }
+
+        /* === basic layout =================================================== */
+        .events-section{
+            display:flex;
+            flex-direction:column;
+            gap:180px;                 /* vertical space between rows        */
+            padding:80px 4vw;         /* 6 vw side gutters                  */
+        }
+
+        /* a single row */
+        .event-row{
+            display:flex;
+            align-items:center;
+            gap:5vw;                   /* space between photo & headline     */
+            position:relative;         /* needed for mobile overlay          */
+        }
+       /* .event-row.reverse{ flex-direction:row-reverse; }*/
+
+        /* image block */
+        .event-img{
+            flex:0 0 clamp(260px , 45vw , 700px);     /* responsive width       */
+        }
+        .event-img img{
+            width:100%;
+            height:auto;
+            display:block;
+        }
+
+        /* headline block */
+        .event-title{
+            flex:1 1 350px;
+            color:var(--red);             /* brand orange                       */
+            text-decoration:none;
+        }
+        .event-title h3{
+            font-family:var(--headline);
+            font-size:clamp(36px , 4.2vw , 60px);
+            line-height:0.5;
+            letter-spacing:-0.015em;
+            text-transform:uppercase;
+            margin:0;
+        }
+        .event-title span{ display:block; }
+
+        /* === scroll-fade effect ============================================ */
+        .fade{
+            opacity:0;
+            transform:translateY(60px);
+            filter:brightness(1);
+            transition:opacity .9s ease-out,
+                    transform .9s ease-out,
+                    filter .9s ease-out;
+        }
+        .fade.visible{
+            opacity:1;
+            transform:translateY(0);
+            filter:brightness(1);
+        }
+
+        /* === mobile / small tablets (<700 px) ============================== */
+        @media (max-width:700px){
+            .events-section{
+                gap:15px;
+            }
+            .event-row{
+                flex-direction:column;         /* stack */
+                gap:0;
+            }
+            .event-img{ width:100%; }
+            .event-title{
+                position:absolute;             /* overlay text on photo          */
+                top:50%; left:50%;
+                transform:translate(-50%,-50%);
+                text-align:center;
+                pointer-events:none;           /* headline still clickable via    */
+            }                                   /* its parent <a> (event-img)      */
+            .event-title h3{
+                font-size:clamp(28px , 8vw , 40px);
+                line-height:0.5;
+                color: var(--cream);
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="hero-section">
+        <!-- Black transparent overlay with title text -->
+        <div class="hero-overlay">
+            <div class="brand-pill">
+                <a href="index.html">NICOLE PEREZ</a>
+            </div>
+            <div class="hamburger" id="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+            
+            <div class="center-aligned">
+                <div>PUNCHY DIGITAL STILLS FOR YOU AND YOURS.</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="bottom-div" class="bottom-div">
+
+<!-- === FEATURED EVENTS ============================================== -->
+<section class="events-section">
+
+    <!-- —— Event 1 (photo right, text left) —— -->
+    <article class="event-row reverse fade">
+        <a class="event-img"   href="digital1.html">
+            <img src="img/gallery_digital/IMG_0618.jpeg">
+        </a>
+    
+        <a class="event-title" href="digital1.html">
+            <h3>
+            <span>Payten’s&nbsp;First</span><br>
+            <span>Birthday</span>
+            </h3>
+        </a>
+        </article>
+
+
+    <article class="event-row reverse fade">
+        <a class="event-img"   href="digital2.html">
+            <img src="img/gallery_digital/IMG_3639.jpeg">
+        </a>
+    
+        <a class="event-title" href="digital2.html">
+            <h3>
+            <span>Bri's</span><br>
+            <span>bachelorette</span>
+            </h3>
+        </a>
+        </article>
+
+    <!-- —— Event 2 —— -->
+    <article class="event-row fade">
+      <a class="event-img"   href="digital3.html">
+        <img src="img/gallery_digital/IMG_5194.jpeg"
+             alt="Candids from Ashanti’s graduation">
+      </a>
+  
+      <a class="event-title" href="digital3.html">
+        <h3>
+          <span>Ashanti’s</span><br>
+          <span>Graduation</span>
+        </h3>
+      </a>
+    </article>
+  
+
+  
+    <!-- add more <article> rows the same way… -->
+  
+  </section>
+  <!-- ================================================================== -->
+
+    </div>
+
+    <div style="height:8vh;"></div>
+
+  <!-- === SITE FOOTER =================================================== -->
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+  
+      <!-- LEFT block : logo + text ------------------------------------ -->
+      <div class="footer-left">
+        <img class="footer-logo" src="icons/camera_in_hand.png" alt="Camera logo">
+  
+        <div class="footer-copy">
+          <h2 class="footer-name"><a href="index.html">NICOLE PEREZ</a></h2>
+  
+          <p class="footer-email">
+            <a href="mailto:nicoleandperez@gmail.com">nicoleandperez@gmail.com</a>
+          </p>
+  
+          <p class="footer-tag">
+            Film photographer & videographer in the greater Twin Cities, MN.
+          </p>
+        </div>
+      </div>
+  
+      <!-- RIGHT block : socials --------------------------------------- -->
+      <div class="footer-social">
+        <p>
+          <a href="https://www.instagram.com/nperez.film/" target="_blank" rel="noopener">
+            <i class="fa-brands fa-instagram"></i> @nperez.film
+          </a>
+        </p>
+        <p>
+          <a href="https://www.instagram.com/nperez.digital/" target="_blank" rel="noopener">
+            <i class="fa-brands fa-instagram"></i> @nperez.digital
+          </a>
+        </p>
+      </div>
+  
+    </div> <!-- /.footer-inner -->
+  
+    <small class="copyright">© Nicole Perez Studio 2025</small>
+  </footer>
+
+    <!-- ───────── FULL-SCREEN NAV OVERLAY ───────── -->
+<nav id="site-menu" aria-label="Site" class="menu">
+    <button class="menu-close" aria-label="Close menu">×</button>
+  
+    <h1 class="menu-name">NICOLE<br>PEREZ</h1>
+    <p class="menu-tag">Film photographer in the<br>Twin Cities, MN</p>
+  
+    <img class="menu-wave" src="icons/border_tight_red.png" alt="" aria-hidden="true">
+  
+    <ul class="menu-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="film.html">Film&nbsp;Photos</a></li>
+      <li><a href="digital.html">Digital&nbsp;Photos</a></li>
+      <li><a href="video.html">Video</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+  
+  <!-- =================================================================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const rows = document.querySelectorAll('.event-row.fade');
+        
+          const io = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting){
+                entry.target.classList.add('visible');
+                obs.unobserve(entry.target);
+              }
+            });
+          }, { threshold:0.1 });
+        
+          rows.forEach(r => io.observe(r));
+        });
+        </script>
+        
+        <script src="js/nav.js"></script>
+
+</body>
+</html>

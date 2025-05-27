@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nicole Perez Photography</title>
+    <link rel="icon" href="icons/camera2_on_red.png" type="image/png">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- shared navbar styles -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <style>
+        /* Get rid of all padding and margin */
+        body {
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.5s ease; /* Smooth transition effect */
+            background: var(--cream);
+        }
+
+        a {
+            color: inherit; /* Inherits the color from its parent element */
+            text-decoration: none; /* Removes the underline */
+        }
+        
+        .hero-section {
+            z-index: 0;
+            width: 100%;
+            background-image: url('img/gallery/R1-08043-0025.JPG'); /* Hero image */
+            height: 100vh;
+            background-size: cover; /* Ensures the image covers the entire div */
+            background-position: center; /* Centers the image */
+            overflow: hidden;
+            position: relative; /* Ensure the overlay is positioned correctly */
+        }
+
+        .hero-overlay {
+            z-index: 1;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.25); /* 25% transparent black */
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            color: white;
+        }
+
+        .brand-pill {
+        z-index:2;
+        font-family:var(--headline);
+        font-size:clamp(14px , 2.5vw , 20px);
+        letter-spacing:.5px;
+        text-transform:uppercase;
+        color: var(--cream);                 /* light-grey text  */
+        /*background:#FF502C;         /* red pill        */
+        background: var(--red);
+        padding:12px 36px;
+        border-radius:4px;
+        margin:100px auto 0;        /* centred top     */
+        width:max-content;          /* shrink-wrap     */
+    }
+
+        .center-aligned {
+            z-index: 2;
+            font-family: var(--headline);
+            color: var(--cream);
+            font-size:clamp(28px , 10vw , 85px);
+            max-width:95vw;          /* prevents words spilling outside the screen */
+            padding:0;           /* gives a little breathing room on small viewports */
+            position: absolute;
+            top: 55%; /* Adjust this value to control the height from the top */
+            left: 50%;
+            transform: translate(-50%, -50%); /* Centers the text horizontally and vertically */
+            text-align: center;
+        }
+
+        /* phones & small tablets get the breathing room */
+        @media (max-width: 768px){     /* tweak the breakpoint to taste */
+            .center-aligned{
+                padding:0 5vw;         /* 5 % of the viewport on each side */
+            }
+        }
+
+        .center-aligned div {
+            line-height: 0.9; /* Adjust line height as needed */
+        }
+
+
+        @media (max-width:480px){
+            .hamburger{ right:24px; }
+        }
+
+      /* ===== overall layout (note + grid) ================================ */
+      .pricing{
+        display:flex;
+        align-items:flex-start;
+        gap:40px;                      /* space between note and table   */
+        padding:60px 6vw;
+        max-width:1300px;
+        margin-inline:auto;
+        font-family:'SpaceGrotesk-Regular',sans-serif;
+      }
+
+      /* === header wrapper (same gutters as the table) ---------------------- */
+      .pricing-header{
+        padding:150px 6vw 0;          /* wide top gap, same side gutters  */
+        max-width:1300px;
+        margin-inline:auto;           /* centre the whole block */        
+        font-family:'SpaceGrotesk-Regular',sans-serif;
+        text-align: center;
+      } 
+
+      .pricing-hd{
+          font-family: var(--headline);
+          font-size:clamp(45px , 7vw , 80px);
+          color:var(--red);
+          margin:0 0 20px;
+          line-height:0.9;
+      }
+
+      .pricing-wave{
+        width:500px;       /* ← 100 px exactly */
+        height:auto;
+        display:block;
+        margin:40px auto;  /* auto L/R → centred */
+      }
+
+      .pricing-intro{
+          font-size:clamp(16px , 1.25vw , 22px);
+          color:var(--red);
+          margin:50px 12vw 50px;
+          text-align: left;
+      }
+
+      .pick-note{
+        font-family:'SpaceGrotesk-Regular',sans-serif;
+        font-size:clamp(18px,2vw,30px);
+        color:var(--red);
+        text-align:left;
+        line-height:1.15;
+        margin:0;
+
+        /* NEW — centre the note vertically beside the table */
+        align-self:center;
+      }
+      .pick-note span{ display:inline-block; }
+
+      /* ===== grid ======================================================== */
+      .price-table{
+        display:grid;
+        grid-template-columns:minmax(180px,22%) repeat(3,1fr);
+        width:100%;
+      }
+
+      /* --- column headings ---------------------------------------------- */
+      .head{
+        font-family:var(--headline);
+        font-size:clamp(20px,2.5vw,36px);
+        color:var(--red);
+        text-align:center;
+        padding:28px 12px 24px;
+        border-bottom:4px solid var(--red);      /* thick red rule under heads */
+      }
+      .head:not(:first-child){               /* dotted vertical guides     */
+        border-left:4px dotted var(--red);
+      }
+
+      /* --- row labels ---------------------------------------------------- */
+      .row-label{
+        background:var(--red);
+        color:var(--cream);
+        font-family:var(--headline);
+        font-size:clamp(18px,2.3vw,28px);
+        line-height:1.1;
+        padding:40px 22px;
+        border-right:4px dotted var(--red);     /* dotted vertical guide      */
+      }
+
+      /* --- price cells --------------------------------------------------- */
+      .price{
+        font-size:clamp(24px,3vw,30px);
+        text-align:center;
+        padding:40px 12px;
+        border-left:4px dotted var(--red);      /* dotted vertical guides     */
+      }
+
+      /* --- horizontal dotted rule between rows -------------------------- */
+      .hr{ border-top:4px dotted var(--red); }
+
+      /* ─── remove the far-left dotted line ────────────────────────────── */
+
+      /* 1.  orange label cells (PHOTO – …, DIGITAL VIDEO)                */
+      .row-label{ border-right:none; }
+
+      /* 2.  the header on top of that column (“2-HOUR SHOOT”)             */
+      .head:nth-child(2){ border-left:none; }
+
+      /* 3.  the price cells that sit in that column ($200, $350, …)       */
+      .price:nth-child(4n + 2){ border-left:none; }   /* 2, 6, 10, 14 … */
+
+
+      /* ===== mobile (≤ 700 px) — keep the 4-column grid ================== */
+      @media(max-width:700px){
+
+          /* keep the note & table side-by-side (no column stack)  */
+          .pricing{
+          flex-direction:row;          /* default is already ‘row’, but we
+                                          set it explicitly in case you keep
+                                          other overrides                     */
+          gap:24px;
+          }
+
+    .pricing-wave{
+      width:250px;
+      height:auto;
+      display:block;
+      margin:40px auto;  /* auto L/R → centred */
+    }
+
+    /* optional: hide the note if you need the room */
+    .pick-note{ display:none; }
+
+    /* — table — */
+    .price-table{
+    /* four columns: 1 fixed-ish label column, 3 flexible price columns */
+    grid-template-columns:minmax(120px,28%) repeat(3,1fr);
+
+    /* allow a gentle sideways scroll if the phone is *really* narrow  */
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    }
+
+    /* headings */
+    .head{
+    font-size:clamp(10px,3vw,26px);
+    padding:20px 8px 16px;
+    }
+
+    /* row labels */
+    .row-label{
+    font-size:clamp(10px,3vw,24px);
+    padding:28px 16px;
+    }
+
+    /* prices */
+    .price{
+    font-size:clamp(13px,3.5vw,30px);
+    padding:28px 8px;
+    }
+}
+
+
+    /* ===== simple fade-up (optional) =================================== */
+    .fade-up{ opacity:0; transform:translateY(80px);
+              transition:opacity .8s ease, transform .8s ease; }
+    .fade-up.visible{ opacity:1; transform:translateY(0); }
+
+    .book{
+        font-family:var(--headline);
+        font-size:clamp(18px , 5vw , 30px);
+        text-align: center;
+        color: var(--red);
+        padding: 50px 0 50px;
+    }
+
+    .faqs{
+      background: var(--red);
+      padding: 120px 6vw 0;
+
+    }
+
+    .faqs-hd{
+        font-family:var(--headline);
+        font-size:clamp(45px , 7vw , 80px);
+        color: var(--cream);
+        margin:0 0 20px;
+        line-height:0.9;
+        text-align: center;
+    }
+
+    .faqs-text{
+        font-family: var(--body);
+        font-size:clamp(16px , 1.25vw , 22px);
+        color: var(--cream);
+        padding: 50px 4vw 100px;
+        margin-bottom:0; 
+    }
+
+    </style>
+</head>
+<body>
+    <div class="hero-section">
+        <!-- Black transparent overlay with title text -->
+        <div class="hero-overlay">
+            <div class="brand-pill">
+                <a href="index.html">NICOLE PEREZ</a>
+            </div>
+            <div class="hamburger" id="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+            
+            <div class="center-aligned">
+                <div>¿CUÁNTO CUESTA?</div>
+                <div style="font-family:'SpaceGrotesk-Regular'; font-size:clamp(16px , 1.4vw , 20px);"><br>(That's Spanish for "What's this gonna run me?")</div>
+            </div>
+        </div>
+    </div>
+
+
+<!-- === PRICING SECTION ============================================== -->
+
+<!-- === PRICING HEADER ================================================= -->
+<section class="pricing-header fade-up">
+
+    <h2 class="pricing-hd">PRICING</h2>
+
+    <img class="pricing-wave" src="icons/border_red.png" alt="" aria-hidden="true">
+  
+    <p class="pricing-intro">
+      Unlike Jan Levinson, I <em>don't</em> believe that "it costs what it costs." (ifykyk) You have a budget, so let's not blow it!
+      Need something you don't see listed, or prices still seem out of range for your shoot or event? Hit me up! I do my absolute best to meet
+      folks where they're at.
+    </p>
+  
+  </section>
+  <!-- ==================================================================== -->
+  
+
+
+<!-- === PRICING TABLE =============================================== -->
+
+<section class="pricing fade-up">
+
+    <!-- left-hand note (now a direct flex-child) -->
+    <p class="pick-note">
+        <br>
+        <br>
+      Pick<br><span><strong>one</strong> of:</span>
+    </p>
+  
+    <!-- grid table -->
+    <div class="price-table">
+  
+      <!-- ———  header row  ——— -->
+      <div class="head"></div>                         <!-- blank corner cell -->
+      <div class="head">2-HOUR<br>SHOOT</div>
+      <div class="head">UP&nbsp;TO&nbsp;4<br>HOURS</div>
+      <div class="head">UP&nbsp;TO&nbsp;8<br>HOURS</div>
+  
+      <!-- ———  row 1  ——— -->
+      <div class="row-label">PHOTO –<br>FILM&nbsp;&amp;<br>DIGITAL</div>
+      <div class="price">$200</div>
+      <div class="price">$500</div>
+      <div class="price">$900</div>
+  
+      <!-- ———  row 2  ——— -->
+      <div class="row-label hr">DIGITAL<br>VIDEO</div>
+      <div class="price hr">$350</div>
+      <div class="price hr">$700</div>
+      <div class="price hr">$1,300</div>
+  
+    </div>
+  
+  </section>
+  <!-- ================================================================== -->
+
+  <section class="book">
+    BOOK NICOLE: <span style="font-family: var(--body);"><u><a href="mailto:nicoleandperez@gmail.com">nicoleandperez@gmail.com</a></u></span>
+  </section>
+
+  <section class="faqs">
+    <h2 class="faqs-hd">FAQS</h2>
+
+    <p class="faqs-text">
+      <span style="font-family:var(--bodybold)">Do you do weddings? If so, is there a different pricing system for them?</span>
+      <br>
+      <br>
+      Absolutely I do weddings! And I don't have a "special" pricing system for weddings; the above pricing applies for all my events & shoots, weddings included.
+      I put my whole heart into every event I do, and I don't believe in charging more simply because it's your "big day." So let's get you hitched!
+      <br>
+      <br>
+      <br>
+      <span style="font-family:var(--bodybold)">Would you shoot both photo and video for my event?</span>
+      <br>
+      <br>
+      <br>
+      Generally, I only do photo <b>or</b> video for a given event, since doing both would inevitably mean missing big moments on one medium or the other. However,
+      I'm always happy to recommend other photographers/videographers for the medium I'm not doing for you!
+      <br>
+      <br>
+      <br>
+      <span style="font-family:var(--bodybold)">How soon after my shoot/event will I get the photos/video back?</span>
+      <br>
+      <br>
+      <br>
+      For 2-hour photoshoots, you'll get your photos back within 2-3 weeks, and for larger events (4+ hours), you'll usually get your photos back within 4-6 weeks. 
+      Every event and shoot is unique, though, so a firm delivery timeline will be agreed on during our consultation call and included in our contract.
+
+    </p>
+
+  </section>
+
+  <!-- === SITE FOOTER =================================================== -->
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+  
+      <!-- LEFT block : logo + text ------------------------------------ -->
+      <div class="footer-left">
+        <img class="footer-logo" src="icons/camera_in_hand.png" alt="Camera logo">
+  
+        <div class="footer-copy">
+          <h2 class="footer-name"><a href="index.html">NICOLE PEREZ</a></h2>
+  
+          <p class="footer-email">
+            <a href="mailto:nicoleandperez@gmail.com">nicoleandperez@gmail.com</a>
+          </p>
+  
+          <p class="footer-tag">
+            Film photographer & videographer in the greater Twin Cities, MN.
+          </p>
+        </div>
+      </div>
+  
+      <!-- RIGHT block : socials --------------------------------------- -->
+      <div class="footer-social">
+        <p>
+          <a href="https://www.instagram.com/nperez.film/" target="_blank" rel="noopener">
+            <i class="fa-brands fa-instagram"></i> @nperez.film
+          </a>
+        </p>
+        <p>
+          <a href="https://www.instagram.com/nperez.digital/" target="_blank" rel="noopener">
+            <i class="fa-brands fa-instagram"></i> @nperez.digital
+          </a>
+        </p>
+      </div>
+  
+    </div> <!-- /.footer-inner -->
+  
+    <small class="copyright">© Nicole Perez Studio 2025</small>
+  </footer>
+
+  <!-- ───────── FULL-SCREEN NAV OVERLAY ───────── -->
+  <nav id="site-menu" aria-label="Site" class="menu">
+    <button class="menu-close" aria-label="Close menu">×</button>
+  
+    <h1 class="menu-name">NICOLE<br>PEREZ</h1>
+    <p class="menu-tag">Film photographer in the<br>Twin Cities, MN</p>
+  
+    <img class="menu-wave" src="icons/border_tight_red.png" alt="" aria-hidden="true">
+  
+    <ul class="menu-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="film.html">Film&nbsp;Photos</a></li>
+      <li><a href="digital.html">Digital&nbsp;Photos</a></li>
+      <li><a href="video.html">Video</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+  
+  <!-- =================================================================== -->
+
+    <script>
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('.fade-up').forEach(el=>{
+    new IntersectionObserver((e,o)=>{
+      if(e[0].isIntersecting){ el.classList.add('visible'); o.disconnect(); }
+    }).observe(el);
+  });
+});
+        </script>
+<script src="js/nav.js"></script>
+</body>
+</html>
