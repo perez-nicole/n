@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nicole Perez Photography</title>
+    <link rel="icon" href="icons/camera2_on_red.png" type="image/png">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- shared navbar styles -->
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/base.css">
+    <style>
+
+        html{
+        background: var(--cream) !important;
+        }
+        /* Get rid of all padding and margin */
+        body {
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.5s ease; /* Smooth transition effect */
+            background: var(--cream);
+        }
+
+        a {
+            color: inherit; /* Inherits the color from its parent element */
+            text-decoration: none; /* Removes the underline */
+        }
+        
+        .hero-section {
+            z-index: 0;
+            width: 100%;
+            background-image: url('img/000161740036.jpeg'); /* Hero image */
+            height: 100vh;
+            background-size: cover; /* Ensures the image covers the entire div */
+            background-position: center; /* Centers the image */
+            overflow: hidden;
+            position: relative; /* Ensure the overlay is positioned correctly */
+        }
+
+        .hero-overlay {
+            z-index: 1;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.25); /* 25% transparent black */
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            color: white;
+        }
+
+        .brand-pill {
+        z-index:2;
+        font-family:'Unbounded';
+        font-size:clamp(14px , 2.5vw , 20px);
+        letter-spacing:.5px;
+        text-transform:uppercase;
+        color:#616161;                 /* light-grey text  */
+        background: var(--red);         /* red pill        */
+        padding:12px 36px;
+        border-radius:4px;
+        margin:100px auto 0;        /* centred top     */
+        width:max-content;          /* shrink-wrap     */
+    }
+
+        .center-aligned {
+            z-index: 2;
+            font-family: var(--headline);
+            color: var(--cream);
+            font-size: clamp(48px , 5vw , 120px);
+            position: absolute;
+            top: 50%; /* Adjust this value to control the height from the top */
+            left: 50%;
+            transform: translate(-50%, -50%); /* Centers the text horizontally and vertically */
+            text-align: center;
+        }
+
+        .center-aligned div {
+            line-height: 0.9; /* Adjust line height as needed */
+        }
+
+        /* === ALOHA hero ====================================================== */
+        .aloha-hero{
+        background:var(--cream);
+        text-align:left;
+        padding:10vw 8vw 0;
+        position:relative;           /* establishes the overlay context    */
+        overflow:hidden;             /* trims the rotated script overflow  */
+        }
+
+        /* big red headline --------------------------------------------------- */
+        .aloha-header{
+        font-family:var(--headline);
+        font-size:clamp(20px,10vw,30px);
+        line-height:.9;
+        letter-spacing:-.01em;
+        color:var(--red);
+        margin:0 0 50px;
+        text-align: center;
+        }
+
+        /* keep the ! from wrapping weirdly */
+        .title-bang{ display:inline-block; }
+
+        /* black script overlay ----------------------------------------------- */
+        .aloha-script{
+        position:absolute;
+        left:50%; 
+        top:90%;           /* adjust to taste                    */
+        transform:translate(-50%,-50%) rotate(-7deg);
+        font-family:'Biro',cursive;
+        font-size:clamp(40px,8vw,110px);
+        color:var(--red);
+        pointer-events:none;         /* so the text doesn’t capture clicks */
+        white-space:nowrap;
+        }
+
+        /* divider ------------------------------------------------------------ */
+        .aloha-wave{
+        display:block;
+        width:300px;
+        max-width:60%;
+        margin:5vw auto 0;
+        }
+
+        /* fun-facts list ----------------------------------------------------- */
+        .aloha-facts{
+        list-style:none;
+        padding:0 24px;            /* inner breathing room       */
+        margin:0 auto;             /* ← equal outer gutters      */
+        max-width:900px;           /* cap the line length        */
+
+        /* remove the previous centring rule */
+        text-align:left;           /* (or just delete the prop)  */
+        font-family:var(--body);
+        font-size:clamp(16px,3.3vw,25px);
+        line-height:1.4;
+        }
+
+        .aloha-facts li{ margin:0 0 0.4em; }   /* tidy spacing between lines */
+
+        .aloha-facts strong{
+        color:var(--red);                    /* brand red */
+        font-weight:700;
+        }
+
+        .aloha-facts em{ font-style:italic; }
+
+        .aloha-text{
+                margin:40px auto 0;          /* equal side-gutters + gap above */
+                max-width:900px;             /* match the facts column width   */
+                padding:0 24px;              /* same inner breathing room      */
+
+                font-family:var(--body);
+                font-size:clamp(15px , 2vw , 20px);
+                line-height:1.1;
+                color:var(--red);               /* or whatever colour you need    */
+                }
+
+        @media (max-width: 700px){
+            .aloha-title{margin-top:50px;}
+            .aloha-script{top:16%;}
+
+        }
+
+        .aloha-signature{
+                    margin:0 auto 0;          /* equal side-gutters + no gap above/below */
+                    max-width:900px;             /* match the facts column width   */
+                    padding:0 24px;              /* same inner breathing room      */
+                    font-family: var(--script); 
+                    font-size: clamp(30px , 4vw , 70px);
+                    color: black;
+        }
+
+        /* ───────── Carousel rules ───────── */
+    /* Container for the whole carousel */
+    .carousel {
+      position: relative;
+      width: 80%;               /* change to suit your layout */
+      max-width: 1200px;
+      margin: 50px auto;
+      overflow: hidden;         /* hide images that overflow */
+      border: none;
+    }
+
+    /* The “track” that you translate left/right */
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+
+    /* Each slide holds one image */
+    .carousel-item {
+      flex: 0 0 auto;           /* don’t grow or shrink */
+      height: 300px;            /* your carousel height */
+      margin-right: 10px;       /* gap between images */
+    }
+    .carousel-item img {
+      height: 100%;
+      width: auto;              /* preserve aspect ratio */
+      display: block;
+    }
+
+    /* Prev/Next buttons */
+    .carousel-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.8);
+      border: none;
+      font-size: 2rem;
+      padding: 0.2em 0.5em;
+      cursor: pointer;
+      z-index: 10;
+    }
+    .carousel-button:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+    .carousel-button.prev { left: 10px; }
+    .carousel-button.next { right: 10px; }
+
+        /*  ——— section shell ——— */
+        .travel-section{
+        background:var(--cream);          /* same warm cream you’re using elsewhere  */
+        padding:120px 3vw 140px;
+        text-align:center;
+        }
+
+        .travel-headline{
+        font-family:var(--headline);
+        font-size:clamp(48px,9vw,80px);
+        line-height:.9;
+        color:var(--red);
+        margin:0 0 100px;
+        }
+
+        .travel-subtitle{font-family: var(--body); 
+                        font-size: 20px; 
+                        text-align: center; 
+                        color:var(--red);
+                        margin:0 0 80px;}
+
+        /*  ——— 3-up gallery ——— */
+
+        /* grid container */
+        .travel-grid{
+        display:flex;
+        gap:4vw;
+        flex-wrap:nowrap;      /* keep single row */
+        }
+
+        /* let each card shrink as needed */
+        .travel-card{
+        flex:1 1 0;            /* grow equally, shrink below 33 % */
+        min-width:0;           /* allow them to go very small     */
+        }
+
+
+        /* optional: set a *maximum* desktop width so they don’t become huge */
+        @media(min-width:1200px){
+        .travel-card{max-width:420px;}
+        }
+
+
+        /* ===== PHONE / NARROW TABLET ============================= */
+        @media(max-width:700px){
+
+            /* turn the strip into a vertical stack */
+        .travel-grid{
+            flex-direction:column;       /* <─ was horizontal               */
+            gap:60px;                    /* vertical space between cards    */
+            padding:0 6vw;               /* equal gutters                   */
+        }
+
+            /* make each card a vertical flex-box              */
+            .travel-card{
+            display:flex;            /* <figcaption> + <img> become flex items */
+            flex-direction:column;   /* vertical stack                         */
+            align-items:center;      /* keeps things tidy & centred            */
+            flex:0 0 auto;      /* natural height, no shrinking to zero   */
+            width:100%;         /* fills the column; remove if you prefer */
+        }
+
+        /* always show the handwritten caption first        */
+        .travel-card figcaption{
+            order:1;                 /* comes before the photo                 */
+            margin:0 0 16px;         /* gap BELOW the caption                  */
+        }
+
+        /* picture goes second                              */
+        .travel-card img{
+            order:2;
+        }
+        }
+
+        /* centre or left/right swapping of caption */
+        .top-caption   figcaption{order:-1; margin:0 0 30px;}
+        .bottom-caption figcaption{margin:30px 0 0;}
+
+        /* photo itself */
+        .travel-card img{
+        width:100%;
+        /*aspect-ratio:3 / 4;          /* square-ish Polaroid crop */
+        object-fit:cover;
+        display:block;
+        }
+
+        /* handwritten captions */
+        .travel-card figcaption{
+        font-family:var(--script);  /* your script face                     */
+        font-size:clamp(40px,4vw,65px);
+        color:var(--red);
+        letter-spacing:.5px;
+        }
+
+        /* desktop tilts */
+        @media (min-width:700px){
+        .travel-card:nth-of-type(1) figcaption{transform: rotate(-7deg);}
+        .travel-card:nth-of-type(2) figcaption{transform: rotate(-3deg);}
+        .travel-card:nth-of-type(3) figcaption{transform: rotate(9deg);}
+        }
+
+        /*  ——— mobile stack ——— */
+        @media(max-width:900px){
+        .travel-card{
+            flex:0 0 100%;
+            margin:0 auto;             /* centre the single column               */
+        }
+        .travel-grid{ gap:60px; }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="hero-section">
+        <!-- Black transparent overlay with title text -->
+        <div class="hero-overlay">
+            <div class="brand-pill">
+                <a href="index.html">NICOLE PEREZ</a>
+            </div>
+            <div class="hamburger" id="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+            
+            <div class="center-aligned">
+                <div>ALOHA AND WELCOME</div>
+                <span class="aloha-script">from&nbsp;Nicole</span>
+            </div>
+        </div>
+    </div>
+  
+
+<!--  ALOHA hero --------------------------------------------------------->
+<section class="aloha-hero">
+
+  
+    <!-- script overlay -->
+    <div class="aloha-header">A LITTLE BIT ABOUT NICOLE</div>
+  
+    <!-- fun facts -->
+    <ul class="aloha-facts">
+      <li><strong>Runs on:</strong> <span style="font-family:var(--script)">espresso (“gotta love the Bucks”) &amp; a whole lotta joy of the Lord</span></li>
+      <li><strong>Most useless skill:</strong> <span style="font-family:var(--script)">quoting the <em>Office</em>, ’cos I’m an <em>Office</em> <u>fiend</u></span></li>
+      <li><strong>Has on repeat:</strong> <span style="font-family:var(--script)">NEEDTOBREATHE, Maverick City Music, Josiah Queen</span></li>
+    </ul>
+
+        <!-- squiggle divider -->
+        <img class="aloha-wave" src="icons/border_tight_red.png" alt="" aria-hidden="true">
+  
+    <p class="aloha-text">
+        <br>
+        <br>
+        I’m Nicole, your friendly Twin Cities-area photographer specializing in 35mm film, mini polaroids, and filmic-graded digital video. 
+        I got my start in film photography on a Pikachu camera in the early 2000s - fast forward to today, and I’m still all about capturing candid moments, whether it be during an event, or an unplanned break in posing during portrait shoots. 
+        Ultimately it’s seeing others’ happy moments come to life with the colors of film that makes my heart sing and my retinas dance.
+        <br>
+        <br>
+        Other things to know about me? For starters, I probably wouldn't even be doing this today if it weren't for my bff of 7+ years (my husband), Cristian.
+        I'm super blessed to be his wife (read: I married up)! And a fun tidbit? Any aerial drone footage you see around here is his - check out the <a href="video.html"><u>Video</u></a> page to learn more!
+        <br>
+        <br>
+        When we're not shooting or snapping away - I wanted to say you could find us on a hike or at an airport jetting off, but let's be honest...we're mostly cleaning and doing house projects these days lol.
+        <br>
+        <br>
+        Now that I've shared a little bit about me, I wanna get to know YOU! Let's chat!
+        <br>
+        <br>
+        Drop me a line at <a href="mailto:nicoleandperez@gmail.com"><u>nicoleandperez@gmail.com</u></a>!
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="aloha-signature">~Nicole</div>
+    </p>
+
+
+  </section>
+  
+    <!-- === CAROUSEL ========================================== -->
+    <div class="carousel">
+      <button class="carousel-button prev">&larr;</button>
+      <div class="carousel-track">
+
+        <div class="carousel-item"><img src="img/gallery_polaroids/Wedding_016.jpg" alt="…"></div>
+        <div class="carousel-item"><img src="img/gallery/IMG_Film_00368.jpg" alt="…"></div>
+        <div class="carousel-item"><img src="img/gallery/IMG_Film_00310.jpg" alt="…"></div>
+        <div class="carousel-item"><img src="img/gallery_polaroids/Wedding_018.jpg" alt="…"></div>
+        <div class="carousel-item"><img src="img/gallery/IMG_Film_00312.jpg" alt="…"></div>
+        <div class="carousel-item"><img src="img/gallery/36822036142-R1-025-11.jpg" alt="…"></div>
+        <div class="carousel-item"><img src="img/gallery_digital/IMG_1566.jpeg" alt="…"></div>
+        <div class="carousel-item"><img src="img/gallery_digital/IMG_1807 (1).jpeg" alt="…"></div>
+        <div class="carousel-item"><img src="img/gallery_digital/IMG_1815 (1).jpeg" alt="…"></div>
+        <div class="carousel-item"><img src="img/gallery_digital/IMG_1851.jpeg" alt="…"></div>
+        <div class="carousel-item"><img src="img/gallery_digital/IMG_2185.jpeg" alt="…"></div>
+        <div class="carousel-item"><img src="img/gallery_digital/IMG_2528.jpeg" alt="…"></div>
+        <div class="carousel-item"><img src="img/gallery_digital/IMG_2445.jpeg" alt="…"></div>
+        <div class="carousel-item"><img src="img/gallery_digital/IMG_3949.jpeg" alt="…"></div>
+
+        <!-- add as many items as you like -->
+      </div>
+      <button class="carousel-button next">&rarr;</button>
+    </div>
+<!-- ================================================================= -->
+
+
+  <!--  GONE TRAVELING  ================================================= -->
+<section class="travel-section">
+    <h2 class="travel-headline">GONE TRAVELING…</h2>
+    <!--<div class="travel-subtitle"><br>(I love me some:)</div>-->
+    <div class="travel-grid">
+      <!-- left card ─ caption UNDER the photo -->
+      <figure class="travel-card bottom-caption">
+        <img src="img/R1-09517-0027.JPG" alt="Cathedral façade">
+        <figcaption>architecture</figcaption>
+      </figure>
+  
+      <!-- centre card ─ caption ABOVE the photo -->
+      <figure class="travel-card top-caption">
+        <figcaption>coasts</figcaption>
+        <img src="img/36822036142-R1-051-24.jpg" alt="Steep green sea-cliff">
+      </figure>
+  
+      <!-- right card ─ caption UNDER the photo -->
+      <figure class="travel-card bottom-caption">
+        <img src="img/12331001762-R1-038-17A.jpg"  alt="Café table with espresso">
+        <figcaption>coffeeshops</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- === SITE FOOTER =================================================== -->
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+  
+      <!-- LEFT block : logo + text ------------------------------------ -->
+      <div class="footer-left">
+        <img class="footer-logo" src="icons/camera_in_hand.png" alt="Camera logo">
+  
+        <div class="footer-copy">
+          <h2 class="footer-name"><a href="index.html">NICOLE PEREZ</a></h2>
+  
+          <p class="footer-email">
+            <a href="mailto:nicoleandperez@gmail.com">nicoleandperez@gmail.com</a>
+          </p>
+  
+          <p class="footer-tag">
+            Film photographer & videographer in the greater Twin Cities, MN.
+          </p>
+        </div>
+      </div>
+  
+      <!-- RIGHT block : socials --------------------------------------- -->
+      <div class="footer-social">
+        <p>
+          <a href="https://www.instagram.com/nperez.film/" target="_blank" rel="noopener">
+            <i class="fa-brands fa-instagram"></i> @nperez.film
+          </a>
+        </p>
+        <p>
+          <a href="https://www.instagram.com/nperez.digital/" target="_blank" rel="noopener">
+            <i class="fa-brands fa-instagram"></i> @nperez.digital
+          </a>
+        </p>
+      </div>
+  
+    </div> <!-- /.footer-inner -->
+  
+    <small class="copyright">© Nicole Perez Studio 2025</small>
+  </footer>
+  
+  <!-- ================================================================== -->
+  <!-- ───────── FULL-SCREEN NAV OVERLAY ───────── -->
+<nav id="site-menu" aria-label="Site" class="menu">
+    <button class="menu-close" aria-label="Close menu">×</button>
+  
+    <h1 class="menu-name">NICOLE<br>PEREZ</h1>
+    <p class="menu-tag">Film photographer in the<br>Twin Cities, MN</p>
+  
+    <img class="menu-wave" src="icons/border_tight_red.png" alt="" aria-hidden="true">
+  
+    <ul class="menu-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="film.html">Film&nbsp;Photos</a></li>
+      <li><a href="digital.html">Digital&nbsp;Photos</a></li>
+      <li><a href="video.html">Video</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+  
+  <!-- =================================================================== -->
+
+    <script>
+   const track       = document.querySelector('.carousel-track');
+    const items       = Array.from(track.children);
+    const prevButton  = document.querySelector('.carousel-button.prev');
+    const nextButton  = document.querySelector('.carousel-button.next');
+    let currentIndex  = 0;
+
+    // Move the track so that item[index] sits flush at the left edge
+    function moveToIndex(index) {
+      const x = items[index].offsetLeft;
+      track.style.transform = `translateX(-${x}px)`;
+      currentIndex = index;
+      updateButtons();
+    }
+
+    // Figure out how many items fit fully from a given start index
+    function countFitFrom(startIdx) {
+      const containerWidth = track.parentElement.clientWidth;
+      const baseLeft = items[startIdx].offsetLeft;
+      let count = 0;
+      for (let i = startIdx; i < items.length; i++) {
+        const rightEdge = items[i].offsetLeft + items[i].offsetWidth - baseLeft;
+        if (rightEdge <= containerWidth) count++;
+        else break;
+      }
+      return count;
+    }
+
+    // Enable/disable arrows
+    function updateButtons() {
+      prevButton.disabled = currentIndex <= 0;
+      nextButton.disabled = currentIndex >= items.length - 1;
+    }
+
+    // Arrow handlers
+    prevButton.addEventListener('click', () => {
+      moveToIndex(Math.max(0, currentIndex - 1));
+    });
+
+    nextButton.addEventListener('click', () => {
+      // if nothing fits, at least jump by 1
+      let step = countFitFrom(currentIndex);
+      if (step < 1) step = 1;
+      const newIndex = Math.min(currentIndex + step, items.length - 1);
+      moveToIndex(newIndex);
+    });
+
+    // keep in sync on resize
+    window.addEventListener('resize', () => moveToIndex(currentIndex));
+
+    // init
+    updateButtons();
+    </script>
+
+<script src="js/nav.js"></script>
+</body>
+</html>
