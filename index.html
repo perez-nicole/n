@@ -273,9 +273,9 @@
 
         .bio-image img{
             width:auto;
-            height:500px;
+            height:700px;
             display:block;
-            border:12px solid #000;   /* thickness & colour */
+            /*border:12px solid #000;   /* thickness & colour 
             box-sizing:border-box;    /* keeps the 400 px height including the border */
 
         }
@@ -296,6 +296,19 @@
         .bio-headline span{ display:block; 
                             text-align:center;      /* optional – keeps each word centred even if spans stay 100 % wide */
                         }
+
+        .bio-welcome img{
+            margin:0 0 10px;
+            max-width:700px; 
+        }
+
+        @media (max-width:700px){
+
+        .bio-welcome img{
+            margin:0 0 10px;
+            max-width:250px; 
+        }
+        }
 
         .bio-text{
             color: var(--cream);                    /* same warm orange as your brand  */
@@ -522,10 +535,9 @@
   
     <!-- right-hand heading + copy -->
     <div class="bio-text">
-      <!-- manual line-breaks to force the 4-line headline -->
-      <h2 class="bio-headline">
-        ALOHA AND WELCOME
-      </h2>
+
+    <!-- <h2 class="bio-headline">ALOHA AND WELCOME</h2> -->
+    <div class="bio-welcome"><img src="assets/aloha_and_welcome.png" alt="logo"></div>
 
       <p>(in the words of Michael Scott LOL)</p>
       
