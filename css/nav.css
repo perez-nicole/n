@@ -1,3 +1,13 @@
+/* ─── brand helpers (reuse yours if already declared) ─── */
+:root{
+  --cream:#FFFAEA;
+  --red:#BF3D38;
+  --headline:'Unbounded',sans-serif;
+  --body:'SpaceGrotesk-Regular',sans-serif;
+  --bodybold: 'SpaceGrotesk-Bold',sans-serif;
+  --script:'Biro',cursive;
+}
+
 .hamburger {
     position:absolute;
     /* width scales from 32 px on phones up to the original 50 px */
@@ -19,7 +29,7 @@
     .hamburger span{
         height:4px;                 /* thick strokes   */
         width:100%;
-        background:#FF502C;         /* same red        */
+        background:var(--red);         /* same red        */
         display:block;
     }
 
@@ -32,8 +42,8 @@
     position:fixed;
     inset:0;                       /* top:0 right:0 bottom:0 left:0   */
     z-index:2000;                  /* above every page element        */
-    background:#FFFAEA;
-    color:#FF502C;
+    background:var(--red);
+    color:var(--cream);
     display:flex;
     flex-direction:column;
     align-items:center;
@@ -66,15 +76,24 @@
     border:none;
     font-size:clamp(32px,4vw,54px);
     line-height:1;
-    color:#FF502C;
+    color:var(--cream);
     cursor:pointer;
   }
 
   /* name & tag-line */
   .menu-name{
-    font:clamp(36px,10vw,96px)/.9 "Unbounded", sans-serif;
+    /*font:clamp(36px,10vw,96px)/.9 "Unbounded", sans-serif;*/
+    width: 250px;
     margin:0;
-    margin-top: 3em; 
+    margin-top: 10em; 
+  }
+
+  @media(max-width: 800px) {
+    .menu-name{
+      width: 150px;
+      margin:0;
+      margin-top: 3em; 
+    }
   }
 
   .menu-tag{
@@ -102,7 +121,7 @@
   .menu-links a{
     font:700 clamp(28px,6vw,52px)/1 "Unbounded", sans-serif;
     text-transform:uppercase;
-    color:#FF502C;
+    color:var(--cream);
     text-decoration:none;
     transition:opacity .2s;
   }
