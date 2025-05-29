@@ -52,17 +52,31 @@
 
         .brand-pill {
         z-index:2;
-        font-family:'Unbounded';
+        /*font-family:var(--headline);
         font-size:clamp(14px , 2.5vw , 20px);
         letter-spacing:.5px;
         text-transform:uppercase;
-        color: var(--cream);                 /* light-grey text  */
-        background: var(--red);
+        color:#616161;                 /* light-grey text
+        background:var(--red);         /* red pill        */
         padding:12px 36px;
         border-radius:4px;
-        margin:100px auto 0;        /* centred top     */
+        margin:100px 5vw 0;        /* centred top     */
         width:max-content;          /* shrink-wrap     */
+        
     }
+
+    .brand-pill img {
+        height: 75px;
+
+    }
+
+    @media (max-width: 700px){
+        .brand-pill img {
+        height: 60px;
+
+    }
+
+}
 
 
         .center-aligned {
@@ -130,7 +144,7 @@
         <!-- Black transparent overlay with title text -->
         <div class="hero-overlay">
             <div class="brand-pill">
-                <a href="index.html">NICOLE PEREZ</a>
+              <a href="index.html"><img src="assets/logo_cream.png" alt="logo"></a>
             </div>
             <div class="hamburger" id="menu-toggle">
                 <span></span><span></span><span></span>
@@ -235,16 +249,19 @@
     <div style="height:8vh;"></div>
 
   <!-- === SITE FOOTER =================================================== -->
+
   <footer class="site-footer">
     <div class="footer-inner">
   
       <!-- LEFT block : logo + text ------------------------------------ -->
       <div class="footer-left">
-        <img class="footer-logo" src="icons/camera_in_hand.png" alt="Camera logo">
+        <!--<img class="footer-logo" src="icons/camera_in_hand.png" alt="Camera logo">-->
+        <div style="width: 2vw;"></div>
   
         <div class="footer-copy">
-          <h2 class="footer-name"><a href="index.html">NICOLE PEREZ</a></h2>
-  
+          <!--<h2 class="footer-name"><a href="index.html">NICOLE PEREZ</a></h2>-->
+          <img class="brand-logo" src="assets/logo_w_camera_cream.png" alt="brand logo">
+
           <p class="footer-email">
             <a href="mailto:nicoleandperez@gmail.com">nicoleandperez@gmail.com</a>
           </p>
@@ -255,36 +272,35 @@
         </div>
       </div>
   
-      <!-- right column -------------------------------------------------- -->
+      <!-- RIGHT block : socials --------------------------------------- -->
       <div class="footer-social">
         <p>
-          <a href="https://www.instagram.com/nperez.film/" target="_blank" rel="noopener noreferrer">
-            <i class="fa-brands fa-instagram"></i>
-            @nperez.film
+          <a href="https://www.instagram.com/nperez.film/" target="_blank" rel="noopener">
+            <i class="fa-brands fa-instagram"></i> @nperez.film
           </a>
         </p>
         <p>
-          <a href="https://www.instagram.com/nperez.digital/" target="_blank" rel="noopener noreferrer">
-            <i class="fa-brands fa-instagram"></i>
-            @nperez.digital
+          <a href="https://www.instagram.com/nperez.digital/" target="_blank" rel="noopener">
+            <i class="fa-brands fa-instagram"></i> @nperez.digital
           </a>
         </p>
       </div>
-    </div>
   
-    <!-- copyright line -------------------------------------------------- -->
+    </div> <!-- /.footer-inner -->
+  
     <small class="copyright">© Nicole Perez Studio 2025</small>
   </footer>
+  
   <!-- ================================================================== -->
-
   <!-- ───────── FULL-SCREEN NAV OVERLAY ───────── -->
-  <nav id="site-menu" aria-label="Site" class="menu">
+<nav id="site-menu" aria-label="Site" class="menu">
     <button class="menu-close" aria-label="Close menu">×</button>
   
-    <h1 class="menu-name">NICOLE<br>PEREZ</h1>
+    <!--<h1 class="menu-name">NICOLE<br>PEREZ</h1>-->
+    <img class="menu-name" src="assets/logo_w_camera_cream.png" alt="brand logo">
     <p class="menu-tag">Film photographer in the<br>Twin Cities, MN</p>
   
-    <img class="menu-wave" src="icons/border_tight_red.png" alt="" aria-hidden="true">
+    <img class="menu-wave" src="icons/border_tight_cream.png" alt="" aria-hidden="true">
   
     <ul class="menu-links">
       <li><a href="index.html">Home</a></li>
