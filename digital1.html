@@ -50,18 +50,31 @@
 
         .brand-pill {
         z-index:2;
-        font-family:'Unbounded';
+        /*font-family:var(--headline);
         font-size:clamp(14px , 2.5vw , 20px);
         letter-spacing:.5px;
         text-transform:uppercase;
-        color: var(--cream);                 /* light-grey text  */
-        /*background:#FF502C;         /* red pill        */
-        background: var(--red);
+        color:#616161;                 /* light-grey text
+        background:var(--red);         /* red pill        */
         padding:12px 36px;
         border-radius:4px;
-        margin:100px auto 0;        /* centred top     */
+        margin:100px 5vw 0;        /* centred top     */
         width:max-content;          /* shrink-wrap     */
+        
     }
+
+    .brand-pill img {
+        height: 75px;
+
+    }
+
+    @media (max-width: 700px){
+        .brand-pill img {
+        height: 60px;
+
+    }
+
+}
 
         .center-aligned {
             z-index: 2;
@@ -128,7 +141,7 @@
         <!-- Black transparent overlay with title text -->
         <div class="hero-overlay">
             <div class="brand-pill">
-                <a href="index.html">NICOLE PEREZ</a>
+              <a href="index.html"><img src="assets/logo_cream.png" alt="logo"></a>
             </div>
             <div class="hamburger" id="menu-toggle">
                 <span></span><span></span><span></span>
@@ -217,11 +230,13 @@
   
       <!-- LEFT block : logo + text ------------------------------------ -->
       <div class="footer-left">
-        <img class="footer-logo" src="icons/camera_in_hand.png" alt="Camera logo">
+        <!--<img class="footer-logo" src="icons/camera_in_hand.png" alt="Camera logo">-->
+        <div style="width: 2vw;"></div>
   
         <div class="footer-copy">
-          <h2 class="footer-name"><a href="index.html">NICOLE PEREZ</a></h2>
-  
+          <!--<h2 class="footer-name"><a href="index.html">NICOLE PEREZ</a></h2>-->
+          <img class="brand-logo" src="assets/logo_w_camera_cream.png" alt="brand logo">
+
           <p class="footer-email">
             <a href="mailto:nicoleandperez@gmail.com">nicoleandperez@gmail.com</a>
           </p>
@@ -250,27 +265,28 @@
   
     <small class="copyright">© Nicole Perez Studio 2025</small>
   </footer>
+  
   <!-- ================================================================== -->
-
-<!-- ───────── FULL-SCREEN NAV OVERLAY ───────── -->
+  <!-- ───────── FULL-SCREEN NAV OVERLAY ───────── -->
 <nav id="site-menu" aria-label="Site" class="menu">
-  <button class="menu-close" aria-label="Close menu">×</button>
-
-  <h1 class="menu-name">NICOLE<br>PEREZ</h1>
-  <p class="menu-tag">Film photographer in the<br>Twin Cities, MN</p>
-
-  <img class="menu-wave" src="icons/border_tight_red.png" alt="" aria-hidden="true">
-
-  <ul class="menu-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="pricing.html">Pricing</a></li>
-    <li><a href="film.html">Film&nbsp;Photos</a></li>
-    <li><a href="digital.html">Digital&nbsp;Photos</a></li>
-    <li><a href="video.html">Video</a></li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul>
-</nav>
+    <button class="menu-close" aria-label="Close menu">×</button>
+  
+    <!--<h1 class="menu-name">NICOLE<br>PEREZ</h1>-->
+    <img class="menu-name" src="assets/logo_w_camera_cream.png" alt="brand logo">
+    <p class="menu-tag">Film photographer in the<br>Twin Cities, MN</p>
+  
+    <img class="menu-wave" src="icons/border_tight_cream.png" alt="" aria-hidden="true">
+  
+    <ul class="menu-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="film.html">Film&nbsp;Photos</a></li>
+      <li><a href="digital.html">Digital&nbsp;Photos</a></li>
+      <li><a href="video.html">Video</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
 
 	<script>
         // Fade in images in gallery
