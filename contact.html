@@ -11,261 +11,92 @@
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/footer.css">
-    <style>
-        /* Get rid of all padding and margin */
-        body {
-            margin: 0;
-            padding: 0;
-            transition: background-color 0.5s ease; /* Smooth transition effect */
-            background: var(--cream);
-        }
+<style>
+:root{
+  --green:#1A5D39;
+  --tile-w:411px; /* 548 */
+  --tile-h:388px; /* 517 */
+}
 
-        a {
-            color: inherit; /* Inherits the color from its parent element */
-            text-decoration: none; /* Removes the underline */
-        }
-        
-        .hero-section {
-            z-index: 0;
-            width: 100%;
-            background-image: url('img/gallery/R1-09516-0020.JPG'); /* Hero image */
-            height: 100vh;
-            background-size: cover; /* Ensures the image covers the entire div */
-            background-position: center; /* Centers the image */
-            overflow: hidden;
-            position: relative; /* Ensure the overlay is positioned correctly */
-        }
+html, body{
+  margin: 0;
+  padding: 0;
+  background: var(--cream);
+}
 
-        .hero-overlay {
-            z-index: 1;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background-color: rgba(0, 0, 0, 0.15); /* 25% transparent black */
-            display: flex;
-            flex-direction: column;
-            text-align: center;
-            color: white;
-        }
+/* =====  HEADER  ===== */
+.header{
+  background-color:var(--cream);
+  background-image:url("assets/perez_tile.png");
+  background-size:var(--tile-w) var(--tile-h);       /* keep SVG’s own 210×176 px size */
+  background-repeat:repeat;
+  background-position: 0 center;     /* <-- this is all you need to add */
 
-        .brand-pill {
-        z-index:2;
-        font-family:'Unbounded';
-        font-size:clamp(14px , 2.5vw , 20px);
-        letter-spacing:.5px;
-        text-transform:uppercase;
-        color: var(--cream);                 /* light-grey text  */
-        /*background:#FF502C;         /* red pill        */
-        background: var(--red);
-        padding:12px 36px;
-        border-radius:4px;
-        margin:100px auto 0;        /* centred top     */
-        width:max-content;          /* shrink-wrap     */
+
+  /* presentation */
+  padding:15rem 0;
+  text-align:center;
+}
+
+/* =====  CALL-TO-ACTION  ===== */
+.header__cta{
+  display:inline-block;
+  background:var(--green);
+  color:var(--cream);
+  font-family:var(--headline);
+  letter-spacing:.03em;
+  font-size:clamp(30px,6vw,200px);
+  padding:2vw 7vw;
+}
+
+.contact-text{
+    font-family:var(--body);
+    color: var(--green);
+    font-size:clamp(15px,6vw,20px);
+    padding: 100px 20vw 100px;
+}
+
+@media(max-width: 800px){
+    .header{
+    background-size:calc(var(--tile-w)*0.5) calc(var(--tile-h)*0.5);       /* keep SVG’s own 210×176 px size */
+    padding: 10rem 0;
     }
 
-        .center-aligned {
-            z-index: 2;
-            font-family: var(--headline);
-            color: var(--cream);
-            font-size:clamp(45px , 10vw , 85px);
-            max-width:95vw;          /* prevents words spilling outside the screen */
-            padding:0;           /* gives a little breathing room on small viewports */
-            position: absolute;
-            top: 55%; /* Adjust this value to control the height from the top */
-            left: 50%;
-            transform: translate(-50%, -50%); /* Centers the text horizontally and vertically */
-            text-align: center;
-        }
+    .header__cta{
+    padding:2vw 2vw;
+}
+}
 
-        /* phones & small tablets get the breathing room */
-        @media (max-width: 768px){     /* tweak the breakpoint to taste */
-            .center-aligned{
-                padding:0 5vw;         /* 5 % of the viewport on each side */
-            }
-        }
 
-        .center-aligned div {
-            line-height: 0.9; /* Adjust line height as needed */
-        }
-
-      /* ------- section shell -------- */
-      .contact-band{
-        background:var(--cream);
-        padding:200px 0 110px;  /* ← only top/btm */
-      }
-
-      /* 2 ▸ NEW: make the inner flex box act like a centred “container” */
-      .contact-inner{
-        display:flex;
-        gap:6vw;
-        align-items:flex-start;
-
-        max-width:1400px;           /* ⬅ pick any ceiling width */
-        margin:0 auto;              /* ⬅ equal L/R gutters       */
-        padding:0 8vw;              /* ⬅ min side-gutters        */
-        box-sizing:border-box;      /* includes that padding in the 1200 px */
-      }
-
-      /* slide-up fade (white veil) */
-      @keyframes fadeUp{
-        from{opacity:0;transform:translateY(40px);filter:brightness(120%);}
-        to  {opacity:1;transform:translateY(0); filter:none;}
-      }
-      .fade-in{animation:fadeUp 0.9s ease-out forwards;}
-
-      /* big headline */
-      .contact-headline{
-        font-family:var(--headline);
-        font-size:clamp(45px,5vw,100px);
-        line-height:.85;
-        color:var(--red);
-        margin:0 0 80px;
-        text-align:center;
-      }
-
-      /* ----- left column (copy) ----- */
-      .contact-copy{
-        flex:1 1 0;
-        max-width:700px;
-        font-family:var(--body);
-        font-size:clamp(18px,2.2vw,20px);
-        line-height:1.1;
-        color:var(--red);
-      }
-      .contact-copy p{margin:0 0 1.2em;}
-
-      .contact-email a{
-        color:var(--red);
-        text-decoration:underline;
-      }
-
-      .contact-wave{
-        width:180px;
-        height:auto;
-        display:block;
-        margin:28px 0;
-      }
-
-      .contact-signature{
-        font-family:var(--script);
-        font-size:clamp(40px,6vw,88px);
-        margin:0;
-        color:#000;
-      }
-
-      /* ----- right column (meme) ----- */
-      .contact-meme{
-        flex:0 0 600px;          /* fixed desktop width – shrinks below */
-        max-width: 600px;
-        margin:0;
-        text-align:center;
-      }
-      .contact-meme img{
-        width:100%;
-        height:auto;
-        border:10px solid #000;  /* ◄◄ the bold frame */
-        box-sizing:border-box;
-        display:block;
-      }
-      .contact-meme figcaption{
-        font-family:var(--script);
-        font-size:clamp(32px,4vw,60px);
-        color:var(--red);
-        margin:40px 0 0;
-        transform: rotate(-5deg)
-      }
-
-      /* ------- mobile stack -------- */
-      /*  PHONE / SMALL-TABLET   ─────────────────────────────────── */
-      @media (max-width:820px){
-
-      /* tighter bottom spacing */
-      .contact-band{
-        padding:80px 0px 0px 0px !important;       /* top 75  ·  bottom 60  (was 160) */
-      }
-
-      /* mobile column layout */
-      .contact-inner{
-        flex-direction:column;
-        align-items:center;
-        text-align:center;
-        gap:0 !important;                  /* vertical gap between copy & meme */
-        padding:0 9vw; /* equal-sized-gutter */
-      }
-
-      /* copy column */
-      .contact-copy{
-        max-width:560px;
-      }
-
-      /* MEME image still capped at 600px by the desktop rule */
-
-      /* ──  fixes  ─────────────────────────────── */
-
-      /* 1 ▸ centre the red squiggle */
-      .contact-wave{
-        display:block !important;
-        margin:25px auto;          /* auto L/R → centred               */
-        max-width:260px;           /* keep it reasonable               */
-      }
-
-      /* 2 ▸ trim the gap above the footer a touch */
-      .contact-meme figcaption{
-        margin:0;           /* was 40 px                        */
-      }
-      }
-    </style>
+</style>
 </head>
 <body>
-    <div class="hero-section">
-        <!-- Black transparent overlay with title text -->
-        <div class="hero-overlay">
-            <div class="brand-pill">
-                <a href="index.html">NICOLE PEREZ</a>
-            </div>
-            <div class="hamburger" id="menu-toggle">
-                <span></span><span></span><span></span>
-            </div>
-            
-            <div class="center-aligned">
-                <div>DROP ME A LINE</div>
-            </div>
-        </div>
-    </div>
 
-    <!-- ▬▬▬▬▬▬▬▬▬  CONTACT BAND  ▬▬▬▬▬▬▬▬▬ -->
-  <section class="contact-band fade-in">
+  <header class="header">
 
-    <h2 class="contact-headline">& GET IN TOUCH</h2>
+    <div class="hamburger" id="menu-toggle">  
+        <span></span>
+        <span></span>
+        <span></span></div>
+    <span class="header__cta">GET IN TOUCH</span>
+  </header>
 
-    <div class="contact-inner">
-        <!-- copy block -->
-        <div class="contact-copy">
-          <p>Well, you heard it here first – I wanna work with you!</p>
+  <section class="contact-text">
+    Well, you heard it here first – I wanna work with you! <br><br>
+    If you have a date for your event/shoot, go ahead and include that in your email; otherwise shoot me whatever info you got! I try to respond to all emails within 24 hours.
+    <br>
+    <br>
+    So what’re you waiting for? Drop me an email already!
+    <br>
+    <br>
+    <a href="mailto:nicoleandperez@gmail.com"><u>nicoleandperez@gmail.com</u></a>
+    <br>
+    <br>
+    <span style="font-family: var(--script); font-size: clamp(45px,6vw,65px)">Nicole</span>
+    
 
-          <p>If you have dates/times for your event or shoot, go ahead and include those in your email – or if you’re still figuring that out, that’s ok too! I try to respond to all emails within&nbsp;24 hours.</p>
-
-          <p>So what’re you waiting for?<br>
-            Drop me an email already! (After that, I promise we can text :).</p>
-
-          <p class="contact-email">
-            <a href="mailto:nicoleandperez@gmail.com">nicoleandperez@gmail.com</a>
-          </p>
-
-          <img class="contact-wave" src="icons/border_tight_red.png" alt="" aria-hidden="true">
-
-          <p class="contact-signature">Nicole</p>
-        </div>
-
-        <!-- meme + caption -->
-        <figure class="contact-meme">
-          <img src="img/creed.jpg" alt="Creed Bratton asking 'What's a text?'" >
-          <figcaption>(I can’t help myself lol)</figcaption>
-        </figure>
-    </div>
   </section>
+
 
   <!-- === SITE FOOTER =================================================== -->
 
@@ -274,17 +105,19 @@
   
       <!-- LEFT block : logo + text ------------------------------------ -->
       <div class="footer-left">
-        <img class="footer-logo" src="icons/camera_in_hand.png" alt="Camera logo">
+        <!--<img class="footer-logo" src="icons/camera_in_hand.png" alt="Camera logo">-->
+        <div style="width: 2vw;"></div>
   
         <div class="footer-copy">
-          <h2 class="footer-name"><a href="index.html">NICOLE PEREZ</a></h2>
-  
+          <!--<h2 class="footer-name"><a href="index.html">NICOLE PEREZ</a></h2>-->
+          <img class="brand-logo" src="assets/logo_w_camera_cream.png" alt="brand logo">
+
           <p class="footer-email">
             <a href="mailto:nicoleandperez@gmail.com">nicoleandperez@gmail.com</a>
           </p>
   
           <p class="footer-tag">
-            Film photographer & videographer in the greater Twin Cities, MN.
+            Film-first photographer & videographer in the greater Twin Cities, MN.
           </p>
         </div>
       </div>
@@ -307,15 +140,17 @@
   
     <small class="copyright">© Nicole Perez Studio 2025</small>
   </footer>
-
+  
+  <!-- ================================================================== -->
   <!-- ───────── FULL-SCREEN NAV OVERLAY ───────── -->
-  <nav id="site-menu" aria-label="Site" class="menu">
+<nav id="site-menu" aria-label="Site" class="menu">
     <button class="menu-close" aria-label="Close menu">×</button>
   
-    <h1 class="menu-name">NICOLE<br>PEREZ</h1>
-    <p class="menu-tag">Film photographer in the<br>Twin Cities, MN</p>
+    <!--<h1 class="menu-name">NICOLE<br>PEREZ</h1>-->
+    <img class="menu-name" src="assets/logo_w_camera_cream.png" alt="brand logo">
+    <p class="menu-tag">Film-first photographer in the<br>Twin Cities, MN</p>
   
-    <img class="menu-wave" src="icons/border_tight_red.png" alt="" aria-hidden="true">
+    <img class="menu-wave" src="icons/border_tight_cream.png" alt="" aria-hidden="true">
   
     <ul class="menu-links">
       <li><a href="index.html">Home</a></li>
@@ -330,15 +165,6 @@
   
   <!-- =================================================================== -->
 
-    <script>
-document.addEventListener('DOMContentLoaded',()=>{
-  document.querySelectorAll('.fade-up').forEach(el=>{
-    new IntersectionObserver((e,o)=>{
-      if(e[0].isIntersecting){ el.classList.add('visible'); o.disconnect(); }
-    }).observe(el);
-  });
-});
-        </script>
-<script src="js/nav.js"></script>
+  <script src="js/nav.js"></script>
 </body>
 </html>
