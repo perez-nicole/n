@@ -23,6 +23,9 @@
 :root{
     --cream:#FFFAEA;
     --red:#BF3D38;
+    --green:#205C42;
+    --blue:#2C5597;
+    --yellow:#F3B234;
     --headline:'Unbounded',sans-serif;
     --body:'SpaceGrotesk-Regular',sans-serif;
     --bodybold: 'SpaceGrotesk-Bold',sans-serif;
