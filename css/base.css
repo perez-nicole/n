@@ -28,3 +28,8 @@
     --bodybold: 'SpaceGrotesk-Bold',sans-serif;
     --script:'Biro',cursive;
   }
+
+a {
+    color: inherit; /* Inherits the color from its parent element */
+    text-decoration: none; /* Removes the underline */
+}
