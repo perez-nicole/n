@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nicole Perez Photography</title>
+    <link rel="icon" href="icons/camera2_on_red.png" type="image/png">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- shared navbar styles -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <style>
+
+        /* Get rid of all padding and margin */
+        body {
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.5s ease; /* Smooth transition effect */
+            background: var(--cream);
+        }
+
+        a {
+            color: inherit; /* Inherits the color from its parent element */
+            text-decoration: none; /* Removes the underline */
+        }
+        
+        .hero-section {
+            z-index: 0;
+            width: 100%;
+            background-clip: url('vid/hawaii_hero.mov'); /* Hero image */
+            height: 100vh;
+            background-size: cover; /* Ensures the image covers the entire div */
+            background-position: center; /* Centers the image */
+            overflow: hidden;
+            position: relative; /* Ensure the overlay is positioned correctly */
+        }
+
+        /* Full-bleed background video */
+      .hero-video {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;   /* fills the viewport without distortion */
+          object-position: center;
+          z-index: 0;          /* sits under the overlay */
+      }
+
+        .hero-overlay {
+            z-index: 1;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.15); /* 25% transparent black */
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            color: white;
+        }
+
+        .brand-pill {
+        z-index:2;
+        /*font-family:var(--headline);
+        font-size:clamp(14px , 2.5vw , 20px);
+        letter-spacing:.5px;
+        text-transform:uppercase;
+        color:#616161;                 /* light-grey text
+        background:var(--red);         /* red pill        */
+        padding:12px 36px;
+        border-radius:4px;
+        margin:100px 5vw 0;        /* centred top     */
+        width:max-content;          /* shrink-wrap     */
+        
+    }
+
+        .brand-pill img {
+            height: 75px;
+
+        }
+
+        @media (max-width: 700px){
+            .brand-pill img {
+            height: 60px;
+
+        }
+
+        }
+
+    .center-aligned {
+            z-index: 2;
+            font-family: var(--headline);
+            color: var(--cream);
+            font-size:clamp(28px , 10vw , 65px);
+            max-width:90vw;          /* prevents words spilling outside the screen */
+            padding:0;           /* gives a little breathing room on small viewports */
+            position: absolute;
+            top: 55%; /* Adjust this value to control the height from the top */
+            left: 50%;
+            transform: translate(-50%, -50%); /* Centers the text horizontally and vertically */
+            text-align: center;
+        }
+
+                /* phones & small tablets get the breathing room */
+        @media (max-width: 768px){     /* tweak the breakpoint to taste */
+            .center-aligned{
+                padding:0 5vw;         /* 5 % of the viewport on each side */
+            }
+        }
+
+        .center-aligned div {
+            line-height: 0.9; /* Adjust line height as needed */
+        }
+
+    .videos{
+      margin: 125px 0 125px;
+    }
+
+        /* big headline */
+    .video-title{
+      font-family:var(--headline);
+      font-size:clamp(20px,5vw,35px);
+      line-height:.85;
+      color:var(--red);
+      margin:0 0 50px;
+      text-align:center;
+    }
+
+    /* Center the wrapper and preserve 16:9 */
+    .video-wrapper{
+      width:100%;
+      max-width:1000px;      /* optional upper bound */
+      aspect-ratio:16/9;     /* modern browsers */
+      margin:0 auto;         /* <-- centers the block */
+      position:relative;
+    }
+
+    /* Make the iframe fill the wrapper */
+    .video-wrapper iframe{
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      border:0;
+    }
+
+    /* Optional: centre-align heading + wrapper together */
+    .videos{
+      text-align:center;
+    }
+
+
+    </style>
+</head>
+<body>
+    <div class="hero-section">
+          <!-- Full-bleed, silent, looping hero video -->
+    <video class="hero-video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+    <source src="vid/hawaii_hero.mov" type="video/quicktime">
+    <!-- You can add an MP4 version too for wider support:
+    <source src="vid/hawaii_hero.mp4" type="video/mp4"> -->
+    Your browser does not support the video tag.
+    </video>
+
+        <!-- Black transparent overlay with title text -->
+        <div class="hero-overlay">
+            <div class="brand-pill">
+              <a href="index.html"><img src="assets/logo_cream.png" alt="logo"></a>
+            </div>
+            <div class="hamburger" id="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+            
+            <div class="center-aligned">
+                <div>FILMIC GRADES, ALL DAY, EVERY DAY</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ▬▬▬▬▬▬▬▬▬  CONTACT BAND  ▬▬▬▬▬▬▬▬▬ -->
+  <section class="videos">
+
+    <h2 class="video-title">THE HONEYMOONERS</h2>
+    <div class="video-wrapper">
+      <iframe src="https://archive.org/embed/honeymooners_202505" width="640" height="480" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen></iframe>
+  </div>
+  </section>
+
+  <!-- === SITE FOOTER =================================================== -->
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+  
+      <!-- LEFT block : logo + text ------------------------------------ -->
+      <div class="footer-left">
+        <!--<img class="footer-logo" src="icons/camera_in_hand.png" alt="Camera logo">-->
+        <div style="width: 2vw;"></div>
+  
+        <div class="footer-copy">
+          <!--<h2 class="footer-name"><a href="index.html">NICOLE PEREZ</a></h2>-->
+          <img class="brand-logo" src="assets/logo_w_camera_cream.png" alt="brand logo">
+
+          <p class="footer-email">
+            <a href="mailto:nicoleandperez@gmail.com">nicoleandperez@gmail.com</a>
+          </p>
+  
+          <p class="footer-tag">
+            Film-first photographer & videographer in the greater Twin Cities, MN.
+          </p>
+        </div>
+      </div>
+  
+      <!-- RIGHT block : socials --------------------------------------- -->
+      <div class="footer-social">
+        <p>
+          <a href="https://www.instagram.com/nperez.film/" target="_blank" rel="noopener">
+            <i class="fa-brands fa-instagram"></i> @nperez.film
+          </a>
+        </p>
+        <p>
+          <a href="https://www.instagram.com/nperez.digital/" target="_blank" rel="noopener">
+            <i class="fa-brands fa-instagram"></i> @nperez.digital
+          </a>
+        </p>
+      </div>
+  
+    </div> <!-- /.footer-inner -->
+  
+    <small class="copyright">© Nicole Perez Studio 2025</small>
+  </footer>
+  
+  <!-- ================================================================== -->
+  <!-- ───────── FULL-SCREEN NAV OVERLAY ───────── -->
+<nav id="site-menu" aria-label="Site" class="menu">
+    <button class="menu-close" aria-label="Close menu">×</button>
+  
+    <!--<h1 class="menu-name">NICOLE<br>PEREZ</h1>-->
+    <img class="menu-name" src="assets/logo_w_camera_cream.png" alt="brand logo">
+    <p class="menu-tag">Film-first photographer in the<br>Twin Cities, MN</p>
+  
+    <img class="menu-wave" src="icons/border_tight_cream.png" alt="" aria-hidden="true">
+  
+    <ul class="menu-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="film.html">Film&nbsp;Photos</a></li>
+      <li><a href="digital.html">Digital&nbsp;Photos</a></li>
+      <li><a href="video.html">Video</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+  
+  <!-- =================================================================== -->
+
+    <script>
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('.fade-up').forEach(el=>{
+    new IntersectionObserver((e,o)=>{
+      if(e[0].isIntersecting){ el.classList.add('visible'); o.disconnect(); }
+    }).observe(el);
+  });
+});
+        </script>
+<script src="js/nav.js"></script>
+</body>
+</html>
