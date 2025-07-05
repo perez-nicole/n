@@ -103,164 +103,143 @@
             .hamburger{ right:24px; }
         }
 
-      /* ===== overall layout (note + grid) ================================ */
-      .pricing{
-        display:flex;
-        align-items:flex-start;
-        gap:40px;                      /* space between note and table   */
-        padding:60px 3vw;
-        max-width:1300px;
-        margin-inline:auto;
-        font-family:'SpaceGrotesk-Regular',sans-serif;
-      }
-
-      /* === header wrapper (same gutters as the table) ---------------------- */
-      .pricing-header{
-        padding:120px 3vw 0;          /* wide top gap, same side gutters  */
-        max-width:1300px;
-        margin-inline:auto;           /* centre the whole block */        
-        font-family:'SpaceGrotesk-Regular',sans-serif;
-        text-align: center;
-      } 
-
-      .pricing-hd{
-          font-family: var(--headline);
-          font-size:clamp(45px , 7vw , 80px);
-          color:var(--red);
-          margin:0 0 20px;
-          line-height:0.9;
-      }
-
-      .pricing-wave{
-        width:500px;       /* ← 100 px exactly */
-        height:auto;
-        display:block;
-        margin:40px auto;  /* auto L/R → centred */
-      }
-
-      .pricing-intro{
-          font-size:clamp(16px , 1.25vw , 22px);
-          color:var(--red);
-          margin:50px 12vw 50px;
-          text-align: left;
-      }
-
-      .pick-note{
-        font-family:'SpaceGrotesk-Regular',sans-serif;
-        font-size:clamp(18px,2vw,30px);
-        color:var(--red);
-        text-align:left;
-        line-height:1.15;
-        margin:0;
-
-        /* NEW — centre the note vertically beside the table */
-        align-self:center;
-      }
-      .pick-note span{ display:inline-block; }
-
-      /* ===== grid ======================================================== */
-      .price-table{
-        display:grid;
-        grid-template-columns:minmax(180px,22%) repeat(3,1fr);
-        width:100%;
-      }
-
-      /* --- column headings ---------------------------------------------- */
-      .head{
-        font-family:var(--headline);
-        font-size:clamp(20px,2.5vw,36px);
-        color:var(--red);
-        text-align:center;
-        padding:28px 12px 24px;
-        border-bottom:4px solid var(--red);      /* thick red rule under heads */
-      }
-      .head:not(:first-child){               /* dotted vertical guides     */
-        border-left:4px dotted var(--red);
-      }
-
-      /* --- row labels ---------------------------------------------------- */
-      .row-label{
-        background:var(--red);
-        color:var(--cream);
-        font-family:var(--headline);
-        font-size:clamp(18px,2.3vw,28px);
-        line-height:1.1;
-        padding:40px 22px;
-        border-right:4px dotted var(--red);     /* dotted vertical guide      */
-      }
-
-      /* --- price cells --------------------------------------------------- */
-      .price{
-        font-size:clamp(24px,3vw,30px);
-        text-align:center;
-        padding:40px 12px;
-        border-left:4px dotted var(--red);      /* dotted vertical guides     */
-      }
-
-      /* --- horizontal dotted rule between rows -------------------------- */
-      .hr{ border-top:4px dotted var(--red); }
-
-      /* ─── remove the far-left dotted line ────────────────────────────── */
-
-      /* 1.  orange label cells (PHOTO – …, DIGITAL VIDEO)                */
-      .row-label{ border-right:none; }
-
-      /* 2.  the header on top of that column (“2-HOUR SHOOT”)             */
-      .head:nth-child(2){ border-left:none; }
-
-      /* 3.  the price cells that sit in that column ($200, $350, …)       */
-      .price:nth-child(4n + 2){ border-left:none; }   /* 2, 6, 10, 14 … */
-
-
-      /* ===== mobile (≤ 700 px) — keep the 4-column grid ================== */
-      @media(max-width:700px){
-
-          /* keep the note & table side-by-side (no column stack)  */
-          .pricing{
-          flex-direction:row;          /* default is already ‘row’, but we
-                                          set it explicitly in case you keep
-                                          other overrides                     */
-          gap:24px;
-          }
-
-    .pricing-wave{
-      width:250px;
-      height:auto;
-      display:block;
-      margin:40px auto;  /* auto L/R → centred */
-    }
-
-    /* optional: hide the note if you need the room */
-    .pick-note{ display:none; }
-
-    /* — table — */
-    .price-table{
-    /* four columns: 1 fixed-ish label column, 3 flexible price columns */
-    grid-template-columns:minmax(120px,28%) repeat(3,1fr);
-
-    /* allow a gentle sideways scroll if the phone is *really* narrow  */
-    overflow-x:auto;
-    -webkit-overflow-scrolling:touch;
-    }
-
-    /* headings */
-    .head{
-    font-size:clamp(10px,3vw,26px);
-    padding:20px 8px 16px;
-    }
-
-    /* row labels */
-    .row-label{
-    font-size:clamp(10px,3vw,24px);
-    padding:28px 16px;
-    }
-
-    /* prices */
-    .price{
-    font-size:clamp(13px,3.5vw,30px);
-    padding:28px 8px;
-    }
+      /* ===== overall layout (note + grid) ================================
+/* ---------- Generic Section Styles ---------- */
+.pricing-section{
+  margin-block:4rem;
+  display:grid;
+  gap:2rem;
 }
+
+.pricing-section h2{
+  font-family:var(--headline);
+  font-size:clamp(1.8rem,4vw,3rem);
+  font-weight:700;
+  letter-spacing:0.04em;
+  color:var(--red);
+  margin:0 0 0.75em 0;
+}
+
+.pricing-section p,
+.pricing-section li{
+  font-family:var(--body);
+  font-size:clamp(1rem,2.2vw,1.15rem);
+  line-height:1.6;
+}
+
+/* ---------- Reveal on Scroll ---------- */
+.reveal{
+  opacity:0;
+  transform:translateY(40px);
+  transition:opacity .6s ease-out, transform .6s ease-out;
+}
+.reveal.reveal--visible{
+  opacity:1;
+  transform:none;
+}
+@media(prefers-reduced-motion:reduce){
+  .reveal,
+  .reveal.reveal--visible{
+    opacity:1 !important;
+    transform:none !important;
+    transition:none !important;
+  }
+}
+
+/* ---------- APPROACH ---------- */
+.approach{
+  padding-top: 6vh;
+  /* match the side padding used by the other sections */
+  padding-inline:clamp(1.5rem,8vw,9rem);
+
+  /* let it stretch full-width instead of centering itself */
+  max-width:none;          /* override the old 1100 px limit */
+}
+.approach h2{ text-align:center; font-size: 45px; margin-bottom:0.35em;} /* ↓ smaller than the default 0.75em */
+/* let copy breathe across more of the page width */
+.approach p{ max-width:100ch; color: var(--red); margin-top:0;} /* remove the paragraph’s default 1em top margin */
+
+/* ---------- COUPLES / WEDDINGS  (MOBILE-FIRST) ---------- */
+.couples,
+.weddings{
+  grid-template-columns:1fr;                       /* stack */
+  padding-inline:clamp(2rem,4vw,3rem);             /* modest side padding on small screens */
+  align-items:center;
+}
+
+.couples img,
+.weddings img{
+  order:-1;
+  width:100%;
+  aspect-ratio:1/1;
+  height:auto;
+  object-fit:cover;
+  object-position:center;
+  border-radius:4px;
+  display:block;
+  margin-inline:auto;}
+
+/* Photos go first ­-- and stay L A R G E */
+.pricing-img{
+  order:-1;                                        /* appear before header/text */
+  width:100%;                                      /* fill available width */
+  aspect-ratio:1/1;                               /* forces a square box */
+  object-fit:cover;                               /* crops verticals to square */
+  border-radius:4px;
+  margin-inline:auto;
+} 
+
+.couples h2{text-align:center; font-size: 35px; margin-top: 30px;}
+.weddings h2{text-align:center; font-size: 35px; margin-top: 30px;}
+
+.couples p{color: var(--red); margin-bottom: 30px;}
+.weddings p{color: var(--red); margin-bottom: 30px;}
+
+/* ---------- DESKTOP OVERRIDE ---------- */
+@media (min-width:700px){
+  .couples,
+  .weddings{
+    grid-template-columns:calc(55% - 1rem) calc(45% - 1rem);
+    padding-inline:clamp(1.5rem,8vw,9rem);        /* restore roomy sides */
+    padding-bottom: 65px;
+    column-gap:6rem;
+  }
+  .couples img,.weddings img{order:0;aspect-ratio:auto;}
+  .pricing-img.is-portrait{
+    height:77vh;          /* fixed desktop height */
+    width:auto;
+    object-fit:cover;     /* crop sides if needed */
+  }
+  .pricing-img.is-landscape{
+    width:100%;            /* fixed desktop width (fills column) */
+    height:auto;
+  }
+  .approach h2{ text-align:left; }
+  .couples h2{ text-align:left;}
+  .weddings h2{ text-align:left;}
+}
+
+/* ---------- Lists & Buttons ---------- */
+ul.benefits{ list-style:none; margin:0; padding:0; color: var(--red)}
+ul.benefits li::before{ content:"+ "; }
+
+.btn{
+  display:block;
+  font-family: var(--body);
+  font-size: 22px;
+  width:max-content;        /* shrink to fit content */
+  border:3px solid var(--red);
+  padding:0.65em 2.5em;
+  /* border-radius:999px; */
+  border-radius:50%;
+  color:var(--red);
+  text-decoration:none;
+  text-align:center;        /* center label text */
+  transition:background 0.2s ease;
+  margin:1.2em auto 0;       /* center button itself */
+}
+.btn:hover{ background:var(--red); color:var(--cream); }
+
 
 
     /* ===== simple fade-up (optional) =================================== */
@@ -323,64 +302,55 @@
 <!-- === PRICING SECTION ============================================== -->
 
 <!-- === PRICING HEADER ================================================= -->
-<section class="pricing-header fade-up">
+<section id="approach" class="pricing-section approach reveal">
+  <h2>APPROACH</h2>
+  <p>
+    Jan Levinson might believe “it costs what it costs” (ifykyk) but I believe in simplicity, transparency and value. :) That's why below you'll find a straightforward pricing structure without any ticky-tacky fees.
+    On top of that, all wedding & session bookings come with both 35mm film and digital, as well as a set of mini polaroid‑style Instax exposures!
+  </p>
+</section>
 
-  <h2 class="pricing-hd">PRICING</h2>
+<section id="couples" class="pricing-section couples reveal">
+  <div class="text">
+    <h2>COUPLES / ENGAGEMENTS</h2>
+    <p style="font-size: 23px;">1 HOUR & 1 LOCATION: $250    <b>|</b>    2 HOURS & 2 LOCATIONS: $400</p>
+    <ul class="benefits">
+      <li>Photos on both 35 mm film <b>and</b> digital mediums</li>
+      <li>Set of mini polaroid‑style Instax exposures</li>
+      <li>Online gallery</li>
+      <li>Complimentary second shooter</li>
+    </ul>
+    <br>
+    <br>
+    <br>
+    <a href="contact.html" class="btn"><u>INQUIRE</u></a>
+  </div>
+  <img class="pricing-img" src="img/gallery/44270029.JPG" alt="Laughing couple in a garden" loading="lazy">
+</section>
 
-    <!-- <img class="pricing-wave" src="icons/border_red.png" alt="" aria-hidden="true"> -->
-  
-    <p class="pricing-intro">
-      Unlike Jan Levinson, I <em>don't</em> believe that "it costs what it costs." (ifykyk) You have a budget, so let's not blow it!
-      Need something you don't see listed, or prices still seem out of range for your shoot or event? Hit me up! I do my absolute best to meet
-      folks where they're at.
-    </p>
-  
-  </section>
+<section id="weddings" class="pricing-section weddings reveal">
+  <img class="pricing-img" src="img/gallery/Braden_Alex_bw.jpg" alt="Bride hugging guests during wedding" loading="lazy">
+  <div class="text">
+    <h2>WEDDINGS</h2>
+    <p style="font-size: 23px;">FULL-DAY COVERAGE: $1,500</p>
+    <ul class="benefits">
+      <li>Photos on both 35 mm film <b>and</b> digital mediums</li>
+      <li>Set of mini polaroid‑style Instax exposures</li>
+      <li>Online gallery</li>
+      <li>Complimentary engagement session ($250 value)</li>
+      <li>Complimentary second shooter</li>
+      <li>Custom quotes available for rehearsal dinner, weekend coverage &amp; more</li>
+    </ul>
+    <p style="color:var(--red); margin-top:1rem; font-family:var(--bodybold);"><b>No additional cost for domestic travel!</b></p>
+    <br>
+    <br>
+    <br>
+    <a href="contact.html" class="btn"><u>INQUIRE</u></a>
+  </div>
+</section>
+
   <!-- ==================================================================== -->
   
-
-
-<!-- === PRICING TABLE =============================================== -->
-
-<section class="pricing fade-up">
-
-    <!-- left-hand note (now a direct flex-child) -->
-    <p class="pick-note">
-        <br>
-        <br>
-      Pick<br><span><strong>one</strong> of:</span>
-    </p>
-  
-    <!-- grid table -->
-    <div class="price-table">
-  
-      <!-- ———  header row  ——— -->
-      <div class="head"></div>                         <!-- blank corner cell -->
-      <div class="head">2-HOUR<br>SHOOT</div>
-      <div class="head">UP&nbsp;TO&nbsp;4<br>HOURS</div>
-      <div class="head">UP&nbsp;TO&nbsp;8<br>HOURS</div>
-  
-      <!-- ———  row 1  ——— -->
-      <div class="row-label">PHOTO –<br>FILM&nbsp;&amp;<br>DIGITAL</div>
-      <div class="price">$200</div>
-      <div class="price">$500</div>
-      <div class="price">$900</div>
-  
-      <!-- ———  row 2  ——— -->
-      <div class="row-label hr">DIGITAL<br>VIDEO</div>
-      <div class="price hr">$350</div>
-      <div class="price hr">$700</div>
-      <div class="price hr">$1,300</div>
-  
-    </div>
-  
-  </section>
-  <!-- ================================================================== -->
-
-  <section class="book">
-    BOOK NICOLE: <span style="font-family: var(--body);"><u><a href="mailto:nicoleandperez@gmail.com">nicoleandperez@gmail.com</a></u></span>
-  </section>
-
   <section class="faqs">
     <h2 class="faqs-hd">FAQS</h2>
 
@@ -487,6 +457,31 @@ document.addEventListener('DOMContentLoaded',()=>{
       if(e[0].isIntersecting){ el.classList.add('visible'); o.disconnect(); }
     }).observe(el);
   });
+});
+
+// Fade‑up reveal when section scrolls into view
+(function(){
+  const sections = document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window) || sections.length === 0) return; // graceful degradation
+
+  const observer = new IntersectionObserver((entries, obs)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('reveal--visible');
+        obs.unobserve(entry.target); // reveal once
+      }
+    });
+  },{threshold:0.15});
+
+  sections.forEach(sec=>observer.observe(sec));
+})();
+
+/* Auto-detect orientation and tag images */
+document.querySelectorAll('.pricing-img').forEach(img=>{
+  const tag = ()=> img.classList.add(
+    img.naturalHeight > img.naturalWidth ? 'is-portrait' : 'is-landscape'
+  );
+  if(img.complete){ tag(); } else { img.addEventListener('load', tag); }
 });
         </script>
 <script src="js/nav.js"></script>
