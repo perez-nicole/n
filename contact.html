@@ -66,6 +66,21 @@ html, body{
 }
 }
 
+/* put this in the same <style> block or your contact-form stylesheet */
+.contact-typeform{
+  /* makes the section itself no wider than you want and centers it */
+  max-width: 1000px;      /* pick whatever width feels right */
+  margin: 0 auto;        /* left & right auto → centered */
+  padding: 0 1.5rem;       /* a little side breathing-room on phones */
+  padding-bottom: 5rem;
+}
+
+/* the embed script injects an <iframe>; block-level + auto margins = centered */
+.contact-typeform iframe{
+  display: block;
+  width: 100%;           /* keep it responsive */
+  margin: 0 auto;
+}
 
 </style>
 </head>
@@ -81,20 +96,13 @@ html, body{
   </header>
 
   <section class="contact-text">
-    Well, you heard it here first – I wanna work with you! <br><br>
-    If you have a date for your event/shoot, go ahead and include that in your email; otherwise shoot me whatever info you got! I try to respond to all emails within 24 hours.
-    <br>
-    <br>
-    So what’re you waiting for? Drop me an email already!
-    <br>
-    <br>
-    <a href="mailto:nicoleandperez@gmail.com"><u>nicoleandperez@gmail.com</u></a>
-    <br>
-    <br>
-    <span style="font-family: var(--script); font-size: clamp(45px,6vw,65px)">Nicole</span>
-    
-
+    I wanna hear from you! Fill out the form below or send a note directly to <a href="mailto:nicoleandperez@gmail.com"><u>nicoleandperez@gmail.com</u> & I'll get back to you within 24 hours.</a>
   </section>
+
+<section class="contact-typeform">
+
+  <div data-tf-live="01K1BC4M1KE3TT075S62MQPNCZ"></div><script src="//embed.typeform.com/next/embed.js"></script>
+</section>
 
 
   <!-- === SITE FOOTER =================================================== -->
