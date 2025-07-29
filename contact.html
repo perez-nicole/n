@@ -66,20 +66,24 @@ html, body{
 }
 }
 
-/* put this in the same <style> block or your contact-form stylesheet */
-.contact-typeform{
-  /* makes the section itself no wider than you want and centers it */
-  max-width: 1000px;      /* pick whatever width feels right */
-  margin: 0 auto;        /* left & right auto → centered */
-  padding: 0 1.5rem;       /* a little side breathing-room on phones */
-  padding-bottom: 5rem;
+/* 1 ▸ remove any margin / padding the section might have */
+.contact-form{
+  margin: 0;                 /* no outer gap */
+  padding: 0 !important;
+  line-height: 0;            /* zeroes the baseline *inside* the section   */
 }
 
-/* the embed script injects an <iframe>; block-level + auto margins = centered */
-.contact-typeform iframe{
-  display: block;
-  width: 100%;           /* keep it responsive */
-  margin: 0 auto;
+/* 2 ▸ make the injected iframe a block so there’s no baseline whitespace */
+.contact-form iframe{
+  display: block;            /* wipes out the 4 px baseline gap            */
+  width: 100%;
+  border: 0;                 /* YouForm already hides it, but belt & braces */
+  margin: 0;                 /* just in case the script adds one           */
+}
+
+/* 3 ▸ if your footer stylesheet adds a top margin, kill it here */
+.site-footer{
+  margin-top: 0;
 }
 
 </style>
@@ -99,10 +103,9 @@ html, body{
     I wanna hear from you! Fill out the form below or send a note directly to <a href="mailto:nicoleandperez@gmail.com"><u>nicoleandperez@gmail.com</u> & I'll get back to you within 24 hours.</a>
   </section>
 
-<section class="contact-typeform">
-
-  <div data-tf-live="01K1BC4M1KE3TT075S62MQPNCZ"></div><script src="//embed.typeform.com/next/embed.js"></script>
-</section>
+  <section class="contact-form">
+    <div data-youform-embed data-form='swxwhboq' data-width='100%' data-height='700'></div><script src="https://app.youform.com/embed.js"></script>
+    </section>
 
 
   <!-- === SITE FOOTER =================================================== -->
