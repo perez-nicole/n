@@ -186,6 +186,23 @@
                     color: var(--red);
         }
 
+.btn{
+  display:block;
+  font-family: var(--body);
+  font-size: 22px;
+  width:max-content;        /* shrink to fit content */
+  border:5px solid var(--red);
+  padding:0.65em 2.5em;
+  /* border-radius:999px; */
+  border-radius:50%;
+  color:var(--red);
+  text-decoration:none;
+  text-align:center;        /* center label text */
+  transition:background 0.2s ease;
+  margin:1.2em auto 0;       /* center button itself */
+}
+.btn:hover{ background:var(--red); color:var(--cream); }
+
         /* ───────── Carousel rules ───────── */
     /* Container for the whole carousel */
     .carousel {
@@ -401,7 +418,7 @@
         Now that I've shared a little bit about me, I wanna get to know YOU! Let's chat!
         <br>
         <br>
-        <a href="mailto:nicoleandperez@gmail.com"><u>nicoleandperez@gmail.com</u></a>
+        <a href="contact.html" class="btn"><u>INQUIRE</u></a>
         <br>
         <br>
         <br>
