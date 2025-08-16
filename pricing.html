@@ -23,7 +23,7 @@
         .hero-section {
             z-index: 0;
             width: 100%;
-            background-image: url('img/gallery/R1-08043-0025.jpeg'); /* Hero image */
+            background-image: url('img/flowers_cropped.jpg'); /* Hero image */
             height: 100vh;
             background-size: cover; /* Ensures the image covers the entire div */
             background-position: center; /* Centers the image */
@@ -38,7 +38,7 @@
             left: 0;
             width: 100%;
             height: 100vh;
-            background-color: rgba(0, 0, 0, 0.25); /* 25% transparent black */
+            background-color: rgba(0, 0, 0, 0.15); /* 25% transparent black */
             display: flex;
             flex-direction: column;
             text-align: center;
@@ -155,10 +155,58 @@
   /* let it stretch full-width instead of centering itself */
   max-width:none;          /* override the old 1100 px limit */
 }
+
+@media (max-width: 699px) {
+  #approach {
+    margin-top: 0rem;
+  }
+}
+        
 .approach h2{ text-align:center; margin-bottom:0.35em;} /* ↓ smaller than the default 0.75em */
+.wave{
+display:block;
+width:500px;
+max-width:60%;
+margin: 0 auto 0;
+}
 /* let copy breathe across more of the page width */
 .approach p{ max-width:100ch; color: var(--red); margin-top:0;} /* remove the paragraph’s default 1em top margin */
 
+.philosophy-wrapper {
+  display: flex;
+  flex-direction: column; /* Mobile: image above text */
+  gap: 2rem;
+  align-items: center;
+}
+
+.philosophy-text {
+  flex: 1;
+  width: 100%;
+}
+
+.philosophy-image {
+  flex: 0 0 auto;
+  text-align: center;
+}
+
+.philosophy-image img {
+  max-width: 150px; /* Mobile */
+  height: auto;
+  border-radius: 4px;
+}
+
+@keyframes tilt-choppy {
+  0%   { transform: rotate(-15deg); }
+  50%  { transform: rotate(15deg); }
+  100% { transform: rotate(-15deg); }
+}
+
+.tilting-img {
+  animation: tilt-choppy 1.5s steps(2, jump-none) infinite;
+  transform-origin: center center;
+  display: inline-block;
+}
+        
 /* ---------- COUPLES / WEDDINGS  (MOBILE-FIRST) ---------- */
 .couples,
 .weddings{
@@ -197,6 +245,25 @@
 
 /* ---------- DESKTOP OVERRIDE ---------- */
 @media (min-width:700px){
+  .wave{
+    margin-left: 0;
+    margin-right: auto;
+  }
+  .philosophy-wrapper {
+    flex-direction: row-reverse; /* Image on the right */
+    align-items: flex-start;
+    gap: 8rem;
+  }
+
+  .philosophy-image {
+    padding-left: 1rem;
+    padding-right: 8rem;
+    text-align: right;
+  }
+
+  .philosophy-image img {
+    max-width: 250px; /* Desktop */
+  }
   .couples,
   .weddings{
     grid-template-columns:calc(55% - 1rem) calc(45% - 1rem);
@@ -303,15 +370,21 @@ ul.benefits li::before{ content:"+ "; }
 
 <!-- === PRICING HEADER ================================================= -->
 <section id="approach" class="pricing-section approach reveal">
-  <h2>PHILOSOPHY</h2>
-  <p>
-I’m all about keeping things as simple as possible - pricing included! No surprises, upselling, or hidden fees here. 
-Just price transparency, and colorful, punchy candids on film & digital.
-<br>
-<br>
-Let’s have some fun together!
-
-  </p>
+  <div class="philosophy-wrapper">
+    <div class="philosophy-image">
+      <img src="icons/camera_flash_red.png" alt="Film gear" class="tilting-img">
+    </div>
+    <div class="philosophy-text">
+      <h2>PHILOSOPHY</h2>
+      <img class="wave" src="icons/border_long_red.png" alt="" aria-hidden="true">
+      <p>
+        <br>
+        <br>
+        Jan Levinson might believe “it costs what it costs” (ifykyk) but I believe in simplicity, transparency and value. :) That's why below you'll find a straightforward pricing structure without any ticky-tacky fees.
+        On top of that, all wedding & session bookings come with both 35mm film and digital, as well as a set of mini polaroid‑style Instax exposures!
+      </p>
+    </div>
+  </div>
 </section>
 
 <section id="couples" class="pricing-section couples reveal">
