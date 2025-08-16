@@ -19,11 +19,16 @@
             transition: background-color 0.5s ease; /* Smooth transition effect */
             background: var(--cream);
         }
+
+        a {
+            color: inherit; /* Inherits the color from its parent element */
+            text-decoration: none; /* Removes the underline */
+        }
         
         .hero-section {
             z-index: 0;
             width: 100%;
-            background-image: url('img/gallery_digital/IMG_0832.jpeg'); /* Hero image */
+            background-image: url('img/IMG_0832.jpeg'); /* Hero image */
             height: 100vh;
             background-size: cover; /* Ensures the image covers the entire div */
             background-position: center; /* Centers the image */
@@ -88,28 +93,45 @@
             text-align: center;
         }
 
-        /* phones & small tablets get the breathing room */
-        @media (max-width: 768px){     /* tweak the breakpoint to taste */
-            .center-aligned{
-                padding:0 5vw;         /* 5 % of the viewport on each side */
-            }
+        /* Make page margins larger */
+        .events-section {
+            display: flex;
+            flex-direction: column;
+            gap: 180px;
+            padding: 14vh 6vw !important; /* increased side gutters from 4vw → 12vw */
+        }
+
+        /* Align text block (right side content) */
+        .event-title {
+            flex: 1 1 350px;
+            color: var(--red);
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;  /* centers text horizontally */
+            justify-content: flex-start; /* start from the top, we’ll push down with margin */
+            /* margin-top: 5px !important; moves the text down */
+            text-align: center; /* centers text inside */
+        }
+
+        .event-title h3{
+            font-family:var(--headline);
+            font-size:clamp(36px , 4.2vw , 50px);
+            line-height:0.5;
+            letter-spacing:-0.015em;
+            text-transform:uppercase;
+            margin:0;
+        }
+        .event-title span{ display:block; }
+
+        /* Add styling for the optional image above the text */
+        .event-title img {
+            max-width: 200px; /* adjust as needed */
+            margin-bottom: 50px; /* space between image and text */
         }
 
         .center-aligned div {
             line-height: 0.9; /* Adjust line height as needed */
-        }
-
-
-        @media (max-width:480px){
-            .hamburger{ right:24px; }
-        }
-
-        /* === basic layout =================================================== */
-        .events-section{
-            display:flex;
-            flex-direction:column;
-            gap:180px;                 /* vertical space between rows        */
-            padding:80px 4vw;         /* 6 vw side gutters                  */
         }
 
         /* a single row */
@@ -131,22 +153,6 @@
             display:block;
         }
 
-        /* headline block */
-        .event-title{
-            flex:1 1 350px;
-            color:var(--red);             /* brand orange                       */
-            text-decoration:none;
-        }
-        .event-title h3{
-            font-family:var(--headline);
-            font-size:clamp(36px , 4.2vw , 60px);
-            line-height:0.5;
-            letter-spacing:-0.015em;
-            text-transform:uppercase;
-            margin:0;
-        }
-        .event-title span{ display:block; }
-
         /* === scroll-fade effect ============================================ */
         .fade{
             opacity:0;
@@ -162,8 +168,25 @@
             filter:brightness(1);
         }
 
+
+        /* phones & small tablets get the breathing room */
+
+        @media (max-width:480px){
+            .hamburger{ right:24px; }
+        }
+
+
+
         /* === mobile / small tablets (<700 px) ============================== */
         @media (max-width:700px){
+
+          .center-aligned{
+                padding:0 5vw;         /* 5 % of the viewport on each side */
+            }
+
+            .event-title img {
+              display: none;
+            }
             .events-section{
                 gap:15px;
             }
@@ -174,7 +197,7 @@
             .event-img{ width:100%; }
             .event-title{
                 position:absolute;             /* overlay text on photo          */
-                top:50%; left:50%;
+                top:50%; left:50% !important;
                 transform:translate(-50%,-50%);
                 text-align:center;
                 pointer-events:none;           /* headline still clickable via    */
@@ -185,11 +208,10 @@
                 color: var(--cream);
             }
         }
-
-
     </style>
 </head>
 <body>
+    
     <div class="hero-section">
         <!-- Black transparent overlay with title text -->
         <div class="hero-overlay">
@@ -211,28 +233,30 @@
 <!-- === FEATURED EVENTS ============================================== -->
 <section class="events-section">
 
-    <!-- —— Event 1 —— -->
-    <article class="event-row fade">
-      <a class="event-img"   href="digital3.html">
-        <img src="img/gallery_digital/Matt_Dom/IMG_9883.jpg"
-             alt="Digital gallery from Matt and Dom's wedding">
-      </a>
-  
-      <a class="event-title" href="digital3.html">
-        <h3>
+      <!-- —— Event 2 —— -->
+      <article class="event-row fade">
+        <a class="event-img"   href="digital3.html">
+          <img src="img/gallery_digital/Matt_Dom/IMG_9883.jpg"
+               alt="Candids from Matt & Dom's wedding">
+        </a>
+    
+        <a class="event-title" href="digital3.html">
+          <img src="icons/bouquet_red.png" alt="Event Logo"> <!-- or any image -->
+          <h3>
             <span>Matt&nbsp;&&nbsp;Dom's</span><br>
             <span>Wedding</span>
-        </h3>
-      </a>
-    </article>
+          </h3>
+        </a>
+      </article>
 
-    <!-- —— Event 2 (photo right, text left) —— -->
+    <!-- —— Event 1 (photo right, text left) —— -->
     <article class="event-row reverse fade">
         <a class="event-img"   href="digital1.html">
             <img src="img/gallery_digital/IMG_0618.jpeg">
         </a>
     
         <a class="event-title" href="digital1.html">
+          <img src="icons/disco_ball.png" alt="Event Logo"> <!-- or any image -->
             <h3>
             <span>Payten’s&nbsp;First</span><br>
             <span>Birthday</span>
@@ -240,7 +264,7 @@
         </a>
         </article>
 
-    <!-- —— Event 3 —— -->
+
     <article class="event-row reverse fade">
         <a class="event-img"   href="digital2.html">
             <img src="img/gallery_digital/IMG_3639.jpeg">
@@ -254,6 +278,9 @@
         </a>
         </article>
 
+  
+
+  
     <!-- add more <article> rows the same way… -->
   
   </section>
