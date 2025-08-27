@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nicole Perez Photography</title>
+    <link rel="icon" href="icons/camera2_on_red.png" type="image/png">
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Critical CSS inline -->
+    <style>
+        /* Critical above-the-fold CSS */
+        /* Get rid of all padding and margin */
+        body {
+          background:var(--cream);
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.5s ease; /* Smooth transition effect */
+        }
+        
+        .hero-section {
+            z-index: 0;
+            width: 100%;
+            background-image: url('img/MD_cropped2.jpeg'); /* Hero image */
+            height: 100vh;
+            background-size: cover; /* Ensures the image covers the entire div */
+            background-position: center; /* Centers the image */
+            overflow: hidden;
+            position: relative; /* Ensure the overlay is positioned correctly */
+        }
+
+        .hero-overlay {
+            z-index: 1;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.15); /* 25% transparent black */
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            color: white;
+        }
+
+        .brand-pill {
+        z-index:2;
+        padding:12px 36px;
+        border-radius:4px;
+        margin:100px 5vw 0;        /* centred top     */
+        width:max-content;          /* shrink-wrap     */
+        
+    }
+
+      .brand-pill img {
+          height: 75px;
+
+      }
+
+      @media (max-width: 700px){
+          .brand-pill img {
+          height: 60px;
+
+      }
+
+  }
+
+        .center-aligned {
+            z-index: 2;
+            font-family: var(--headline);
+            color: var(--cream);
+            font-size:clamp(15px , 10vw , 55px);
+            max-width:90vw;          /* prevents words spilling outside the screen */
+            padding:0;           /* gives a little breathing room on small viewports */
+            position: absolute;
+            top: 50%; /* Adjust this value to control the height from the top */
+            left: 50%;
+            transform: translate(-50%, -50%); /* Centers the text horizontally and vertically */
+            text-align: center;
+        }
+
+        /* phones & small tablets get the breathing room */
+        @media (max-width: 768px){     /* tweak the breakpoint to taste */
+            .center-aligned{
+                padding:0 5vw;         /* 5 % of the viewport on each side */
+            }
+        }
+
+        .center-aligned div {
+            line-height: 0.9; /* Adjust line height as needed */
+        }
+
+        /* Gallery skeleton loading */
+        .gallery-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 70px;
+            padding: 0 40px;
+            min-height: 100vh;
+        }
+
+        .gallery-section img {
+            height: 400px;
+            width: auto;
+            flex: 0 0 auto;
+            object-fit: cover;
+            display: block;
+            background: #e0e0e0;
+        }
+
+        /* Row-fade effect */
+        .gallery-section img.row-hidden {
+            opacity: 0;
+            transform: translateY(40px);
+            filter: brightness(1);
+        }
+
+        .gallery-section img.row-visible {
+            opacity: 1;
+            transform: translateY(0);
+            filter: brightness(1);
+            transition: opacity .8s ease-out,
+                        transform .8s ease-out,
+                        filter .8s ease-out;
+        }
+
+    </style>
+    
+    <!-- Defer non-critical CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/base.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/nav.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/footer.css" media="print" onload="this.media='all'">
+    
+    <!-- Preload hero image -->
+    <link rel="preload" href="img/MD_cropped2.jpeg" as="image" fetchpriority="high">
+    
+    <!-- Preload first few gallery images -->
+    <link rel="preload" href="img/gallery/01-000124100037.jpg" as="image">
+    <link rel="preload" href="img/gallery/02-000124100001.jpg" as="image">
+    <link rel="preload" href="img/gallery/03-000124120005.jpg" as="image">
+</head>
+<body>
+    <div class="hero-section">
+        <div class="hero-overlay">
+            <div class="brand-pill">
+                <a href="index.html"><img src="assets/logo_cream.png" alt="logo"></a>
+            </div>
+            <div class="hamburger" id="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+            
+            <div class="center-aligned">
+                <div>COLOR-SOAKED CANDIDS ON 35MM FILM.</div>
+            </div>
+        </div>
+    </div>
+
+    <div style="height: 60px;"></div>
+
+    <div id="bottom-div" class="bottom-div">
+        <div class="gallery-section" id="gallery">
+            <!-- Images will be lazy loaded via JavaScript -->
+        </div>
+    </div>
+
+    <div style="height:8vh;"></div>
+
+    <!-- Footer (simplified for example) -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-left">
+                <div style="width: 2vw;"></div>
+                <div class="footer-copy">
+                    <img class="brand-logo" src="assets/logo_w_camera_cream.png" alt="brand logo" loading="lazy">
+                    <p class="footer-email">
+                        <a href="mailto:nicoleandperez@gmail.com">nicoleandperez@gmail.com</a>
+                    </p>
+                    <p class="footer-tag">
+                        Film-first photographer based in Minneapolis, MN.
+                    </p>
+                </div>
+            </div>
+            <div class="footer-social">
+                <p>
+                    <a href="https://www.instagram.com/nicolesfilmshots/" target="_blank" rel="noopener">
+                        <i class="fa-brands fa-instagram"></i> @nicolesfilmshots
+                    </a>
+                </p>
+                <p>
+                    <a href="https://www.instagram.com/nicoleperezphoto/" target="_blank" rel="noopener">
+                        <i class="fa-brands fa-instagram"></i> @nicoleperezphoto
+                    </a>
+                </p>
+            </div>
+        </div>
+        <small class="copyright">© Nicole Perez Studio 2025</small>
+    </footer>
+
+    <!-- Navigation menu -->
+    <nav id="site-menu" aria-label="Site" class="menu">
+        <button class="menu-close" aria-label="Close menu">×</button>
+        <img class="menu-name" src="assets/logo_w_camera_cream.png" alt="brand logo" loading="lazy">
+        <p class="menu-tag">Film-first photographer in<br>Minneapolis, MN</p>
+        <img class="menu-wave" src="icons/border_tight_cream.png" alt="" aria-hidden="true" loading="lazy">
+        <ul class="menu-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="film.html">Film&nbsp;Photos</a></li>
+            <li><a href="digital.html">Digital&nbsp;Photos</a></li>
+            <li><a href="video.html">Video</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <script>
+        // Image list - store as data instead of HTML
+        const imageList = [
+            // Matt Dom series
+            {src: 'img/gallery/01-000124100037.jpg', alt: 'Matt Dom 1'},
+            {src: 'img/gallery/02-000124100001.jpg', alt: 'Matt Dom 2'},
+            {src: 'img/gallery/03-000124120005.jpg', alt: 'Matt Dom 3'},
+            {src: 'img/gallery/04-000124100016.jpg', alt: 'Matt Dom 4'},
+            {src: 'img/gallery/05-000124090004.jpg', alt: 'Matt Dom 5'},
+            {src: 'img/gallery/06-000124100022.jpg', alt: 'Matt Dom 6'},
+            {src: 'img/gallery/07-000124090014.jpg', alt: 'Matt Dom 7'},
+            {src: 'img/gallery/08-000124100021.jpg', alt: 'Matt Dom 8'},
+            {src: 'img/gallery/09-000124100030.jpg', alt: 'Matt Dom 9'},
+            {src: 'img/gallery/10-000124100031.jpg', alt: 'Matt Dom 10'},
+            {src: 'img/gallery/11-000124090032.jpg', alt: 'Matt Dom 11'},
+            {src: 'img/gallery/12-000124090026.jpg', alt: 'Matt Dom 12'},
+            {src: 'img/gallery/13-000124090027.jpg', alt: 'Matt Dom 13'},
+            {src: 'img/gallery/14-000124090028.jpg', alt: 'Matt Dom 14'},
+            {src: 'img/gallery/15-000124090005.jpg', alt: 'Matt Dom 15'},
+            {src: 'img/gallery/16-000124100035.jpg', alt: 'Matt Dom 16'},
+            {src: 'img/gallery/17-000124100010.jpg', alt: 'Matt Dom 17'},
+            {src: 'img/gallery/18-000124100019.jpg', alt: 'Matt Dom 18'},
+            {src: 'img/gallery/19-000124100009.jpg', alt: 'Matt Dom 19'},
+            {src: 'img/gallery/20-000124100018.jpg', alt: 'Matt Dom 20'},
+            {src: 'img/gallery/21-000124100029.jpg', alt: 'Matt Dom 21'},
+            {src: 'img/gallery/22-000124120016.jpg', alt: 'Matt Dom 22'},
+            {src: 'img/gallery/23-000124120017.jpg', alt: 'Matt Dom 23'},
+            {src: 'img/gallery/24-000124120007.jpg', alt: 'Matt Dom 24'},
+            {src: 'img/gallery/25-000124120008.jpg', alt: 'Matt Dom 25'},
+            {src: 'img/gallery/26-000124120010.jpg', alt: 'Matt Dom 26'},
+            {src: 'img/gallery/27-000124120009.jpg', alt: 'Matt Dom 27'},
+            {src: 'img/gallery/28-000124120028.jpg', alt: 'Matt Dom 28'},
+            {src: 'img/gallery/29-000124120027.jpg', alt: 'Matt Dom 29'},
+            {src: 'img/gallery/30-000124100038.jpg', alt: 'Matt Dom 30'},
+            {src: 'img/gallery/31-000124120029.jpg', alt: 'Matt Dom 31'},
+            {src: 'img/gallery/32-000124120031.jpg', alt: 'Matt Dom 32'},
+            {src: 'img/gallery/33-000124120033.jpg', alt: 'Matt Dom 33'},
+            {src: 'img/gallery/34-000124120025.jpg', alt: 'Matt Dom 34'},
+            {src: 'img/gallery/35-000124120026.jpg', alt: 'Matt Dom 35'},
+            {src: 'img/gallery/36-000124120022.jpg', alt: 'Matt Dom 36'},
+            {src: 'img/gallery/38-000124090015.jpg', alt: 'Matt Dom 38'},
+            {src: 'img/gallery/39-000124090016.jpg', alt: 'Matt Dom 39'},
+            {src: 'img/gallery/40-000124090023.jpg', alt: 'Matt Dom 40'},
+            {src: 'img/gallery/41-000124090013.jpg', alt: 'Matt Dom 41'},
+            // Grant Claire series
+            {src: 'img/gallery/Grant_Claire/01-000125740018.jpg', alt: 'Grant Claire 1'},
+            {src: 'img/gallery/Grant_Claire/02-000125740028.jpg', alt: 'Grant Claire 2'},
+
+            {src: 'img/gallery/Grant_Claire/03-000125750018.jpg', alt: 'Grant Claire 3'},
+            {src: 'img/gallery/Grant_Claire/04-000125750007.jpg', alt: 'Grant Claire 4'},
+            {src: 'img/gallery/Grant_Claire/05-000125760004.jpg', alt: 'Grant Claire 5'},
+            {src: 'img/gallery/Grant_Claire/06-000125760008.jpg', alt: 'Grant Claire 6'},
+            {src: 'img/gallery/Grant_Claire/07-000125760015.jpg', alt: 'Grant Claire 7'},
+            {src: 'img/gallery/Grant_Claire/08-000125740004.jpg', alt: 'Grant Claire 8'},
+            {src: 'img/gallery/Grant_Claire/09-000125740009.jpg', alt: 'Grant Claire 9'},
+            {src: 'img/gallery/Grant_Claire/10-000125740010.jpg', alt: 'Grant Claire 10'},
+            {src: 'img/gallery/Grant_Claire/11-000125740034.jpg', alt: 'Grant Claire 11'},
+            {src: 'img/gallery/Grant_Claire/12-000125740001.jpg', alt: 'Grant Claire 12'},
+            {src: 'img/gallery/Grant_Claire/13-000125740002.jpg', alt: 'Grant Claire 13'},
+            {src: 'img/gallery/Grant_Claire/14-000125740030.jpg', alt: 'Grant Claire 14'},
+            {src: 'img/gallery/Grant_Claire/15-000125740025.jpg', alt: 'Grant Claire 15'},
+            {src: 'img/gallery/Grant_Claire/16-000125740011.jpg', alt: 'Grant Claire 16'},
+            {src: 'img/gallery/Grant_Claire/17-000125740013.jpg', alt: 'Grant Claire 17'},
+            {src: 'img/gallery/Grant_Claire/18-000125740012.jpg', alt: 'Grant Claire 18'},
+            {src: 'img/gallery/Grant_Claire/19-000125740014.jpg', alt: 'Grant Claire 19'},
+            {src: 'img/gallery/Grant_Claire/20-000125740019.jpg', alt: 'Grant Claire 20'},
+            {src: 'img/gallery/Grant_Claire/21-000125740020.jpg', alt: 'Grant Claire 21'},
+            {src: 'img/gallery/Grant_Claire/22-000125740027.jpg', alt: 'Grant Claire 22'},
+            {src: 'img/gallery/Grant_Claire/23-000125760030.jpg', alt: 'Grant Claire 23'},
+            {src: 'img/gallery/Grant_Claire/24-000125760031.jpg', alt: 'Grant Claire 24'},
+            {src: 'img/gallery/Grant_Claire/25-000125760036.jpg', alt: 'Grant Claire 25'},
+            {src: 'img/gallery/Grant_Claire/26-000125760023.jpg', alt: 'Grant Claire 26'},
+            {src: 'img/gallery/Grant_Claire/27-000125740003.jpg', alt: 'Grant Claire 27'},
+            {src: 'img/gallery/Grant_Claire/28-000125740021.jpg', alt: 'Grant Claire 28'},
+            {src: 'img/gallery/Grant_Claire/29-000125750003.jpg', alt: 'Grant Claire 29'},
+            {src: 'img/gallery/Grant_Claire/30-000125750005.jpg', alt: 'Grant Claire 30'},
+            {src: 'img/gallery/Grant_Claire/31-000125750008.jpg', alt: 'Grant Claire 31'},
+            {src: 'img/gallery/Grant_Claire/32-000125750011.jpg', alt: 'Grant Claire 32'},
+            {src: 'img/gallery/Grant_Claire/33-000125750012.jpg', alt: 'Grant Claire 33'},
+            {src: 'img/gallery/Grant_Claire/34-000125750017.jpg', alt: 'Grant Claire 34'},
+            {src: 'img/gallery/Grant_Claire/35-000125750024.jpg', alt: 'Grant Claire 35'},
+            {src: 'img/gallery/Grant_Claire/36-000125750027.jpg', alt: 'Grant Claire 36'},
+            {src: 'img/gallery/Grant_Claire/37-000125750031.jpg', alt: 'Grant Claire 37'},
+            {src: 'img/gallery/Grant_Claire/38-000125750035.jpg', alt: 'Grant Claire 38'},
+            {src: 'img/gallery/Grant_Claire/39-000125750036.jpg', alt: 'Grant Claire 39'},
+            {src: 'img/gallery/Grant_Claire/40-000125760003.jpg', alt: 'Grant Claire 40'},
+            {src: 'img/gallery/Grant_Claire/41-000125760016.jpg', alt: 'Grant Claire 41'},
+        ];
+
+        // Progressive image loading with intersection observer
+        class ProgressiveGallery {
+            constructor() {
+                this.gallery = document.getElementById('gallery');
+                this.loadedImages = new Set();
+                this.imageElements = [];
+                this.BATCH_SIZE = 20; // Load 20 images at a time
+                this.currentBatch = 0;
+                
+                // Gallery layout constants
+                this.GAP = 70;
+                this.SIDE = 40;
+                this.ROW_H = 400;
+                
+                this.init();
+            }
+
+            init() {
+                // Load first batch immediately
+                this.loadBatch();
+                
+                // Set up scroll observer for loading more images
+                this.setupScrollObserver();
+                
+                // Set up resize handler
+                this.setupResizeHandler();
+            }
+
+            loadBatch() {
+                const start = this.currentBatch * this.BATCH_SIZE;
+                const end = Math.min(start + this.BATCH_SIZE, imageList.length);
+                
+                for (let i = start; i < end; i++) {
+                    if (!this.loadedImages.has(i)) {
+                        this.createImage(imageList[i], i);
+                        this.loadedImages.add(i);
+                    }
+                }
+                
+                this.currentBatch++;
+                
+                // After images are added, relayout
+                requestAnimationFrame(() => this.layout());
+            }
+
+            createImage(imageData, index) {
+                const img = new Image();
+                img.loading = index < 10 ? 'eager' : 'lazy'; // First 10 eager, rest lazy
+                img.decoding = 'async';
+                img.src = imageData.src;
+                img.alt = imageData.alt;
+                img.className = 'row-hidden';
+                
+                this.gallery.appendChild(img);
+                this.imageElements.push(img);
+                
+                // Preload next image dimensions for smooth layout
+                if (index < imageList.length - 1) {
+                    const nextImg = new Image();
+                    nextImg.src = imageList[index + 1].src;
+                }
+            }
+
+            layout() {
+                const pics = this.imageElements.filter(img => img.complete && img.naturalWidth > 0);
+                if (pics.length === 0) return;
+                
+                const usable = this.gallery.clientWidth - this.SIDE * 2;
+                let row = [], rowSumW = 0;
+
+                pics.forEach(pic => {
+                    const w = (pic.naturalWidth / pic.naturalHeight) * this.ROW_H;
+                    
+                    row.push({ pic, w });
+                    rowSumW += w;
+                    
+                    const totalWithGaps = rowSumW + this.GAP * (row.length - 1);
+                    
+                    if (totalWithGaps >= usable) {
+                        const scale = (usable - this.GAP * (row.length - 1)) / rowSumW;
+                        
+                        row.forEach(({ pic, w }) => {
+                            pic.style.width = (w * scale) + 'px';
+                            pic.style.height = (this.ROW_H * scale) + 'px';
+                        });
+                        
+                        row.length = 0;
+                        rowSumW = 0;
+                    }
+                });
+                
+                // Build row observer after layout
+                this.buildRowObserver();
+            }
+
+            buildRowObserver() {
+                if (this.rowObserver) this.rowObserver.disconnect();
+                
+                const rows = {};
+                this.imageElements.forEach(pic => {
+                    if (!pic.offsetTop) return;
+                    const top = pic.offsetTop;
+                    (rows[top] ??= []).push(pic);
+                });
+                
+                this.rowObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const rowTop = entry.target.offsetTop;
+                            if (rows[rowTop]) {
+                                rows[rowTop].forEach(p => {
+                                    p.classList.remove('row-hidden');
+                                    p.classList.add('row-visible');
+                                });
+                            }
+                            this.rowObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { 
+                    root: null, 
+                    threshold: 0.1,
+                    rootMargin: '100px' // Start loading 100px before visible
+                });
+                
+                Object.values(rows).forEach(rowPics => {
+                    if (rowPics[0]) this.rowObserver.observe(rowPics[0]);
+                });
+            }
+
+            setupScrollObserver() {
+                const sentinel = document.createElement('div');
+                sentinel.style.height = '1px';
+                this.gallery.parentElement.appendChild(sentinel);
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting && this.currentBatch * this.BATCH_SIZE < imageList.length) {
+                            this.loadBatch();
+                        }
+                    });
+                }, {
+                    rootMargin: '500px' // Load more when 500px from bottom
+                });
+                
+                observer.observe(sentinel);
+            }
+
+            setupResizeHandler() {
+                let resizeTimer;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTimer);
+                    resizeTimer = setTimeout(() => this.layout(), 250);
+                });
+                
+                // Also layout when images load
+                this.gallery.addEventListener('load', (e) => {
+                    if (e.target.tagName === 'IMG') {
+                        requestAnimationFrame(() => this.layout());
+                    }
+                }, true);
+            }
+        }
+
+        // Initialize gallery when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => new ProgressiveGallery());
+        } else {
+            new ProgressiveGallery();
+        }
+
+        // Defer loading nav.js
+        const navScript = document.createElement('script');
+        navScript.src = 'js/nav.js';
+        navScript.defer = true;
+        document.body.appendChild(navScript);
+    </script>
+  <script src="js/nav.js"></script>
+</body>
+</html>
