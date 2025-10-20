@@ -307,6 +307,21 @@ ul.benefits li::before{ content:"+ "; }
 }
 .btn:hover{ background:var(--red); color:var(--cream); }
 
+.btn-banner{
+  display:block;
+  font-family: var(--body);
+  font-size: 22px;
+  width:max-content;        /* shrink to fit content */
+  border:5px solid var(--cream);
+  padding:0.65em 2.5em;
+  border-radius:50%;
+  color:var(--cream);
+  text-decoration:none;
+  text-align:center;        /* center label text */
+  transition:background 0.2s ease;
+  margin:1.2em auto 0;       /* center button itself */
+}
+.btn-banner:hover{ background:var(--cream); color:var(--green); border:var(--cream); border-radius:50%;}
 
 
     /* ===== simple fade-up (optional) =================================== */
@@ -320,6 +335,20 @@ ul.benefits li::before{ content:"+ "; }
         text-align: center;
         color: var(--red);
         padding: 50px 0 150px;
+    }
+    .video-banner{
+      background: var(--green);
+      padding: 120px 6vw 0;
+
+    }
+
+    .video-banner-text{
+        font-family: var(--body);
+        font-size:clamp(20px, 1.25vw, 30px) !important;
+        color: var(--cream);
+        padding: 50px 4vw 150px;
+        margin-bottom:0;
+        text-align: center;
     }
 
     .faqs{
@@ -428,6 +457,12 @@ ul.benefits li::before{ content:"+ "; }
     <br>
     <br>
     <a href="contact.html" class="btn"><u>INQUIRE</u></a>
+  </div>
+</section>
+
+<section class="video-banner">
+  <div class="video-banner-text"><b>Video packages coming soon - inquire for quote!</b>
+    <a href="contact.html" class="btn-banner"><u>INQUIRE</u></a>
   </div>
 </section>
 
