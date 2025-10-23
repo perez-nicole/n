@@ -173,16 +173,33 @@
             text-align: center;
         }
 
-        .video {
-            background-image: url('img/hawaii_video1.jpeg'); /*url('img/36822036144-R1-015-6.jpg');*/
+        .video{
+                position:relative;
+                flex:0 0 calc(33.333% - 7px);
+                aspect-ratio:6/1;
+                min-height:180px;
+                display:flex;
+                justify-content:center;
+                align-items:center;
+                overflow:hidden;
+                }
+
+.video .bg-video{
+                position:absolute;
+                top:0;
+                left:0;
+                width:100%;
+                height:100%;
+                object-fit: cover; /* or 'contain' if you prefer keeping the full frame */
+                }
+
+.video-link{
+            position:relative;
             font-family: var(--headline);
-            color: var(--cream); /* Example text color */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column; /* Aligns text vertically */
-            text-align: center;
-        }
+            color:var(--cream);
+            z-index:2;
+            text-align:center;
+            }
 
         /* big red “GALLERIES” headline ------------------------------------ */
         .galleries-title{
@@ -514,8 +531,13 @@
             <div><a href="digital.html">DIGITAL <br> PHOTOS</a></div>
         </div>
         <div class="video">
-            <div><a href="video.html">VIDEO</a></div>
-        </div>
+
+            <video class="bg-video" autoplay muted loop playsinline>
+                <source src="vid/wedding_hero.mov">
+                <!-- optional mp4 fallback -->
+            </video>
+            <a href="video.html" class="video-link">VIDEO</a>
+          </div>
     </div>
     </section>
   
