@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nicole Perez Photography</title>
+    <link rel="icon" href="icons/camera2_on_red.png" type="image/png">
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Critical CSS inline -->
+    <style>
+        /* Critical above-the-fold CSS */
+        /* Get rid of all padding and margin */
+        body {
+          background:var(--cream);
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.5s ease; /* Smooth transition effect */
+        }
+        
+        .hero-section {
+            z-index: 0;
+            width: 100%;
+            background-image: url('img/gallery_digital/Ryan_Natalie/IMG_7200.jpg'); /* Hero image */
+            height: 100vh;
+            background-size: cover; /* Ensures the image covers the entire div */
+            background-position: center; /* Centers the image */
+            overflow: hidden;
+            position: relative; /* Ensure the overlay is positioned correctly */
+        }
+
+        .hero-overlay {
+            z-index: 1;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.15); /* 25% transparent black */
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            color: white;
+        }
+
+        .brand-pill {
+        z-index:2;
+        padding:12px 36px;
+        border-radius:4px;
+        margin:100px 5vw 0;        /* centred top     */
+        width:max-content;          /* shrink-wrap     */
+        
+    }
+
+      .brand-pill img {
+          height: 75px;
+
+      }
+
+      @media (max-width: 700px){
+          .brand-pill img {
+          height: 60px;
+
+      }
+
+  }
+
+        .center-aligned {
+            z-index: 2;
+            font-family: var(--headline);
+            color: var(--cream);
+            font-size:clamp(15px , 10vw , 55px);
+            max-width:90vw;          /* prevents words spilling outside the screen */
+            padding:0;           /* gives a little breathing room on small viewports */
+            position: absolute;
+            top: 50%; /* Adjust this value to control the height from the top */
+            left: 50%;
+            transform: translate(-50%, -50%); /* Centers the text horizontally and vertically */
+            text-align: center;
+        }
+
+        /* phones & small tablets get the breathing room */
+        @media (max-width: 768px){     /* tweak the breakpoint to taste */
+            .center-aligned{
+                padding:0 5vw;         /* 5 % of the viewport on each side */
+            }
+        }
+
+        .center-aligned div {
+            line-height: 0.9; /* Adjust line height as needed */
+        }
+
+        /* Gallery skeleton loading */
+        .gallery-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 70px;
+            padding: 0 40px;
+            min-height: 100vh;
+        }
+
+        .gallery-section img {
+            height: 400px;
+            width: auto;
+            flex: 0 0 auto;
+            object-fit: cover;
+            display: block;
+            background: var(--cream);
+            cursor: pointer; /* shows hand cursor */
+        }
+
+        /* Row-fade effect */
+        .gallery-section img.row-hidden {
+            opacity: 0;
+            transform: translateY(40px);
+            filter: brightness(1);
+        }
+
+        .gallery-section img.row-visible {
+            opacity: 1;
+            transform: translateY(0);
+            filter: brightness(1);
+            transition: opacity .8s ease-out,
+                        transform .8s ease-out,
+                        filter .8s ease-out;
+        }
+
+/* Lightbox overlay */
+.lightbox {
+  position: fixed;
+  z-index: 1000;
+  inset: 0; /* shorthand for top/left/right/bottom = 0 */
+  background-color: rgba(255,255,255,0.90); /* translucent white background */
+
+  display: none;             /* hidden by default */
+  align-items: center;       /* vertical centering (when shown) */
+  justify-content: center;   /* horizontal centering */
+  overflow: hidden;
+}
+
+.lightbox.show {             /* toggle this class in JS instead of inline display=block */
+  display: flex;
+}
+
+.lightbox img.lightbox-img {
+  max-width: 90%;
+  max-height: 90vh;   /* keeps image within viewport */
+  object-fit: contain;
+  background: white;  /* fade-through-white works */
+  transition: opacity 0.4s ease;
+  border-radius: 4px;
+  z-index: 10;
+}
+
+/* Arrows */
+.lightbox .prev,
+.lightbox .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 40px;
+  font-weight: bold;
+  color: #000;
+  padding: 16px;
+  cursor: pointer;
+  user-select: none;
+  z-index: 20;
+}
+.lightbox .prev { left: 20px; }
+.lightbox .next { right: 20px; }
+
+.lightbox .prev:hover,
+.lightbox .next:hover {
+  color: #555;
+}
+
+/* Close button */
+.lightbox .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #000;
+  cursor: pointer;
+  z-index: 30;
+}
+
+
+
+    </style>
+    
+    <!-- Defer non-critical CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/base.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/nav.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/footer.css" media="print" onload="this.media='all'">
+    
+    <!-- Preload hero image -->
+    <link rel="preload" href="img/gallery_digital/Ryan_Natalie/IMG_7200.jpg" as="image" fetchpriority="high">
+    
+    <!-- Preload first few gallery images -->
+    <link rel="preload" href="img/gallery_digital/Ryan_Natalie/IMG_6540.jpg" as="image">
+    <link rel="preload" href="img/gallery_digital/Ryan_Natalie/IMG_6562.jpg" as="image">
+    <link rel="preload" href="img/gallery_digital/Ryan_Natalie/IMG_6568.jpg" as="image">
+</head>
+<body>
+    <div class="hero-section">
+        <div class="hero-overlay">
+            <div class="brand-pill">
+                <a href="index.html"><img src="assets/logo_cream.png" alt="logo"></a>
+            </div>
+            <div class="hamburger" id="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+            
+            <div class="center-aligned">
+                <div>IT IS WELL WITH MY SOUL</div>
+            </div>
+        </div>
+    </div>
+
+    <div style="height: 60px;"></div>
+
+    <div id="bottom-div" class="bottom-div">
+        <div class="gallery-section" id="gallery">
+            <!-- Images will be lazy loaded via JavaScript -->
+        </div>
+    </div>
+
+    <div style="height:8vh;"></div>
+
+    <!-- Footer (simplified for example) -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-left">
+                <div style="width: 2vw;"></div>
+                <div class="footer-copy">
+                    <img class="brand-logo" src="assets/logo_w_camera_cream.png" alt="brand logo" loading="lazy">
+                    <p class="footer-email">
+                        <a href="mailto:nicoleandperez@gmail.com">nicoleandperez@gmail.com</a>
+                    </p>
+                    <p class="footer-tag">
+                        Film-first photographer based in Minneapolis, MN.
+                    </p>
+                </div>
+            </div>
+            <div class="footer-social">
+                <p>
+                    <a href="https://www.instagram.com/nicolesfilmshots/" target="_blank" rel="noopener">
+                        <i class="fa-brands fa-instagram"></i> @nicolesfilmshots
+                    </a>
+                </p>
+                <p>
+                    <a href="https://www.instagram.com/nicoleperezphoto/" target="_blank" rel="noopener">
+                        <i class="fa-brands fa-instagram"></i> @nicoleperezphoto
+                    </a>
+                </p>
+            </div>
+        </div>
+        <small class="copyright">© Nicole Perez Studio 2025</small>
+    </footer>
+
+    <!-- Navigation menu -->
+    <nav id="site-menu" aria-label="Site" class="menu">
+        <button class="menu-close" aria-label="Close menu">×</button>
+        <img class="menu-name" src="assets/logo_w_camera_cream.png" alt="brand logo" loading="lazy">
+        <p class="menu-tag">Film-first photographer in<br>Minneapolis, MN</p>
+        <img class="menu-wave" src="icons/border_tight_cream.png" alt="" aria-hidden="true" loading="lazy">
+        <ul class="menu-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="film.html">Film&nbsp;Photos</a></li>
+            <li><a href="digital.html">Digital&nbsp;Photos</a></li>
+            <li><a href="video.html">Video</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <script>
+        // Image list - store as data instead of HTML
+        const imageList = [
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_6540.jpg', alt: 'Ryan Natalie 1'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_6562.jpg', alt: 'Ryan Natalie 2'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_6568.jpg', alt: 'Ryan Natalie 3'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_6584.jpg', alt: 'Ryan Natalie 4'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_6587.jpg', alt: 'Ryan Natalie 5'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_6592.jpg', alt: 'Ryan Natalie 6'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_6598.jpg', alt: 'Ryan Natalie 7'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_6620.jpg', alt: 'Ryan Natalie 8'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_6642.jpg', alt: 'Ryan Natalie 9'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_6713.jpg', alt: 'Ryan Natalie 10'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_6716.jpg', alt: 'Ryan Natalie 11'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_6741.jpg', alt: 'Ryan Natalie 12'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_6742.jpg', alt: 'Ryan Natalie 13'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_6747.jpg', alt: 'Ryan Natalie 14'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_6750.jpg', alt: 'Ryan Natalie 15'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_6830.jpg', alt: 'Ryan Natalie 16'},
+
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_6836.jpg', alt: 'Ryan Natalie 17'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_6841.jpg', alt: 'Ryan Natalie 18'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_6868.jpg', alt: 'Ryan Natalie 19'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_6871.jpg', alt: 'Ryan Natalie 20'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_6880.jpg', alt: 'Ryan Natalie 21'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_6883.jpg', alt: 'Ryan Natalie 22'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_6904.jpg', alt: 'Ryan Natalie 23'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_6909.jpg', alt: 'Ryan Natalie 24'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_6915.jpg', alt: 'Ryan Natalie 25'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_6959.jpg', alt: 'Ryan Natalie 26'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_6960.jpg', alt: 'Ryan Natalie 27'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_6993.jpg', alt: 'Ryan Natalie 28'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_6996.jpg', alt: 'Ryan Natalie 29'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7143.jpg', alt: 'Ryan Natalie 30'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7145.jpg', alt: 'Ryan Natalie 31'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7157.jpg', alt: 'Ryan Natalie 32'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7164.jpg', alt: 'Ryan Natalie 33'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7171.jpg', alt: 'Ryan Natalie 34'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7179.jpg', alt: 'Ryan Natalie 35'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7193.jpg', alt: 'Ryan Natalie 36'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7195.jpg', alt: 'Ryan Natalie 37'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7196.jpg', alt: 'Ryan Natalie 38'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7200.jpg', alt: 'Ryan Natalie 39'},
+
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7221.jpg', alt: 'Ryan Natalie 40'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7319.jpg', alt: 'Ryan Natalie 41'},
+
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7340.jpg', alt: 'Ryan Natalie 42'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7364.jpg', alt: 'Ryan Natalie 43'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7365.jpg', alt: 'Ryan Natalie 44'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7366.jpg', alt: 'Ryan Natalie 45'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7368.jpg', alt: 'Ryan Natalie 46'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7372.jpg', alt: 'Ryan Natalie 47'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7373.jpg', alt: 'Ryan Natalie 48'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7374.jpg', alt: 'Ryan Natalie 49'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7443.jpg', alt: 'Ryan Natalie 50'},
+            
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7454.jpg', alt: 'Ryan Natalie 51'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7547.jpg', alt: 'Ryan Natalie 52'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7574.jpg', alt: 'Ryan Natalie 53'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7578.jpg', alt: 'Ryan Natalie 54'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7631.jpg', alt: 'Ryan Natalie 55'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7639.jpg', alt: 'Ryan Natalie 56'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7657.jpg', alt: 'Ryan Natalie 57'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7665.jpg', alt: 'Ryan Natalie 58'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7674.jpg', alt: 'Ryan Natalie 59'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7677.jpg', alt: 'Ryan Natalie 60'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7766.jpg', alt: 'Ryan Natalie 61'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7799.jpg', alt: 'Ryan Natalie 62'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7800.jpg', alt: 'Ryan Natalie 63'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_7991.jpg', alt: 'Ryan Natalie 64'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_8036.jpg', alt: 'Ryan Natalie 65'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_8111.jpg', alt: 'Ryan Natalie 66'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_8112.jpg', alt: 'Ryan Natalie 67'},
+
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_8152.jpg', alt: 'Ryan Natalie 68'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_8160.jpg', alt: 'Ryan Natalie 69'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_8189.jpg', alt: 'Ryan Natalie 70'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_8199.jpg', alt: 'Ryan Natalie 71'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_8209.jpg', alt: 'Ryan Natalie 72'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_8522.jpg', alt: 'Ryan Natalie 73'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_8537.jpg', alt: 'Ryan Natalie 74'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_8887.jpg', alt: 'Ryan Natalie 75'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_8918.jpg', alt: 'Ryan Natalie 76'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_8922.jpg', alt: 'Ryan Natalie 77'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_8924.jpg', alt: 'Ryan Natalie 78'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_8938.jpg', alt: 'Ryan Natalie 79'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_8939.jpg', alt: 'Ryan Natalie 80'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_8967.jpg', alt: 'Ryan Natalie 81'},
+            {src: 'img/gallery_digital/Ryan_Natalie/IMG_8972.jpg', alt: 'Ryan Natalie 82'},
+   
+        ];
+
+        // Progressive image loading with intersection observer
+        class ProgressiveGallery {
+            constructor() {
+                this.gallery = document.getElementById('gallery');
+                this.loadedImages = new Set();
+                this.imageElements = [];
+                this.BATCH_SIZE = 20; // Load 20 images at a time
+                this.currentBatch = 0;
+                
+                // Gallery layout constants
+                this.GAP = 70;
+                this.SIDE = 40;
+                this.ROW_H = 550;
+                
+                this.init();
+            }
+
+            init() {
+                // Load first batch immediately
+                this.loadBatch();
+                
+                // Set up scroll observer for loading more images
+                this.setupScrollObserver();
+                
+                // Set up resize handler
+                this.setupResizeHandler();
+            }
+
+            loadBatch() {
+                const start = this.currentBatch * this.BATCH_SIZE;
+                const end = Math.min(start + this.BATCH_SIZE, imageList.length);
+                
+                for (let i = start; i < end; i++) {
+                    if (!this.loadedImages.has(i)) {
+                        this.createImage(imageList[i], i);
+                        this.loadedImages.add(i);
+                    }
+                }
+                
+                this.currentBatch++;
+                
+                // After images are added, relayout
+                requestAnimationFrame(() => this.layout());
+            }
+
+            createImage(imageData, index) {
+                const img = new Image();
+                img.loading = index < 10 ? 'eager' : 'lazy'; // First 10 eager, rest lazy
+                img.decoding = 'async';
+                img.src = imageData.src;
+                img.alt = imageData.alt;
+                img.className = 'row-hidden';
+                
+                this.gallery.appendChild(img);
+                this.imageElements.push(img);
+                
+                // Preload next image dimensions for smooth layout
+                if (index < imageList.length - 1) {
+                    const nextImg = new Image();
+                    nextImg.src = imageList[index + 1].src;
+                }
+            }
+
+            layout() {
+                const pics = this.imageElements.filter(img => img.complete && img.naturalWidth > 0);
+                if (pics.length === 0) return;
+                
+                const usable = this.gallery.clientWidth - this.SIDE * 2;
+                let row = [], rowSumW = 0;
+
+                pics.forEach(pic => {
+                    const w = (pic.naturalWidth / pic.naturalHeight) * this.ROW_H;
+                    
+                    row.push({ pic, w });
+                    rowSumW += w;
+                    
+                    const totalWithGaps = rowSumW + this.GAP * (row.length - 1);
+                    
+                    if (totalWithGaps >= usable) {
+                        const scale = (usable - this.GAP * (row.length - 1)) / rowSumW;
+                        
+                        row.forEach(({ pic, w }) => {
+                            pic.style.width = (w * scale) + 'px';
+                            pic.style.height = (this.ROW_H * scale) + 'px';
+                        });
+                        
+                        row.length = 0;
+                        rowSumW = 0;
+                    }
+                });
+                
+                // Build row observer after layout
+                this.buildRowObserver();
+            }
+
+            buildRowObserver() {
+                if (this.rowObserver) this.rowObserver.disconnect();
+                
+                const rows = {};
+                this.imageElements.forEach(pic => {
+                    if (!pic.offsetTop) return;
+                    const top = pic.offsetTop;
+                    (rows[top] ??= []).push(pic);
+                });
+                
+                this.rowObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const rowTop = entry.target.offsetTop;
+                            if (rows[rowTop]) {
+                                rows[rowTop].forEach(p => {
+                                    p.classList.remove('row-hidden');
+                                    p.classList.add('row-visible');
+                                });
+                            }
+                            this.rowObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { 
+                    root: null, 
+                    threshold: 0.1,
+                    rootMargin: '300px' // Start loading 100px before visible
+                });
+                
+                Object.values(rows).forEach(rowPics => {
+                    if (rowPics[0]) this.rowObserver.observe(rowPics[0]);
+                });
+            }
+
+            setupScrollObserver() {
+                const sentinel = document.createElement('div');
+                sentinel.style.height = '1px';
+                this.gallery.parentElement.appendChild(sentinel);
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting && this.currentBatch * this.BATCH_SIZE < imageList.length) {
+                            this.loadBatch();
+                        }
+                    });
+                }, {
+                    rootMargin: '500px' // Load more when 500px from bottom
+                });
+                
+                observer.observe(sentinel);
+            }
+
+            setupResizeHandler() {
+                let resizeTimer;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTimer);
+                    resizeTimer = setTimeout(() => this.layout(), 250);
+                });
+                
+                // Also layout when images load
+                this.gallery.addEventListener('load', (e) => {
+                    if (e.target.tagName === 'IMG') {
+                        requestAnimationFrame(() => this.layout());
+                    }
+                }, true);
+            }
+        }
+
+        // Initialize gallery when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => new ProgressiveGallery());
+        } else {
+            new ProgressiveGallery();
+        }
+
+        // Defer loading nav.js
+        const navScript = document.createElement('script');
+        navScript.src = 'js/nav.js';
+        navScript.defer = true;
+        document.body.appendChild(navScript);
+    </script>
+
+  <!-- Lightbox javascript -->
+<script>
+  let currentIndex = 0;
+
+  function openLightbox(index) {
+  currentIndex = index;
+  const lightbox = document.getElementById("lightbox");
+  const img = lightbox.querySelector(".lightbox-img");
+  img.src = imageList[currentIndex].src;
+  img.alt = imageList[currentIndex].alt;
+  lightbox.classList.add("show");   // ✅ use class
+}
+
+function closeLightbox() {
+  document.getElementById("lightbox").classList.remove("show");  // ✅ use class
+}
+
+  function changeSlide(step) {
+  const img = document.querySelector(".lightbox-img");
+
+  // Fade out (to white)
+  img.style.opacity = "0";
+
+  setTimeout(() => {
+    currentIndex = (currentIndex + step + imageList.length) % imageList.length;
+    img.src = imageList[currentIndex].src;
+    img.alt = imageList[currentIndex].alt;
+
+    // Fade in
+    img.onload = () => {
+      img.style.opacity = "1";
+    };
+  }, 250); // delay matches fade-out duration
+}
+
+
+
+  // Attach listeners once gallery is loaded
+  document.addEventListener("DOMContentLoaded", () => {
+    const gallery = document.getElementById("gallery");
+    gallery.addEventListener("click", (e) => {
+      if (e.target.tagName === "IMG") {
+        const index = Array.from(gallery.querySelectorAll("img")).indexOf(e.target);
+        openLightbox(index);
+      }
+    });
+
+    document.querySelector(".lightbox .close").onclick = closeLightbox;
+    document.querySelector(".lightbox .prev").onclick = () => changeSlide(-1);
+    document.querySelector(".lightbox .next").onclick = () => changeSlide(1);
+
+    // Close on background click
+    document.getElementById("lightbox").addEventListener("click", (e) => {
+      if (e.target.id === "lightbox") closeLightbox();
+    });
+
+    // Keyboard controls
+    document.addEventListener("keydown", (e) => {
+      const lightbox = document.getElementById("lightbox");
+      if (lightbox.style.display === "block") {
+        if (e.key === "ArrowRight") changeSlide(1);
+        if (e.key === "ArrowLeft") changeSlide(-1);
+        if (e.key === "Escape") closeLightbox();
+      }
+    });
+  });
+</script>
+
+
+  <script src="js/nav.js"></script>
+
+  <!-- Lightbox overlay -->
+  <div id="lightbox" class="lightbox">
+    <span class="close">&times;</span>
+    <div class="lightbox-overlay"></div> <!-- NEW overlay -->
+    <img class="lightbox-img" src="" alt="">
+    <a class="prev">&#10094;</a>
+    <a class="next">&#10095;</a>
+  </div>
+  
+
+
+</body>
+</html>
