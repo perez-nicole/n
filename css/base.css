@@ -5,13 +5,13 @@
 }
 
 @font-face {
-    font-family: "SpaceGrotesk-Regular";
-    src: url("../fonts/SpaceGrotesk-Regular.ttf") format("truetype");
+    font-family: "Zalando-Regular";
+    src: url("../fonts/ZalandoSansExpanded-Regular.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: "SpaceGrotesk-Bold";
-    src: url("../fonts/SpaceGrotesk-Bold.ttf") format("truetype");
+    font-family: "Zalando-Bold";
+    src: url("../fonts/ZalandoSansExpanded-Bold.ttf") format("truetype");
 }
 
 @font-face {
@@ -27,8 +27,8 @@
     --blue:#2C5597;
     --yellow:#F3B234;
     --headline:'Unbounded',sans-serif;
-    --body:'SpaceGrotesk-Regular',sans-serif;
-    --bodybold: 'SpaceGrotesk-Bold',sans-serif;
+    --body:'Zalando-Regular',sans-serif;
+    --bodybold: 'Zalando-Bold',sans-serif;
     --script:'Biro',cursive;
   }
 
