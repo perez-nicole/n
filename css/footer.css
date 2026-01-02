@@ -3,8 +3,8 @@
     --cream:#FFFAEA;
     --red:#BF3D38;
     --headline:'Unbounded',sans-serif;
-    --body:'SpaceGrotesk-Regular',sans-serif;
-    --bodybold: 'SpaceGrotesk-Bold',sans-serif;
+    --body:'Zalando-Regular',sans-serif;
+    --bodybold: 'Zalando-Bold',sans-serif;
     --script:'Biro',cursive;
   }
 
@@ -13,7 +13,7 @@
     background:var(--red);              /* brand orange band               */
     color:var(--cream);
     padding:90px 6vw 40px;           /* roomy top & side gutters        */
-    font-family:'SpaceGrotesk-Regular', sans-serif;
+    font-family:var(--body), sans-serif;
 }
 
 /* left block now becomes a row:  [logo]  [text]  */
@@ -57,7 +57,7 @@
 
 /* left column */
 .footer-name{
-    font-family:'Unbounded', sans-serif;
+    font-family:var(--headline), sans-serif;
     font-size:clamp(32px , 5.5vw , 48px);
     line-height:0.9;
     margin:0 0 12px;
