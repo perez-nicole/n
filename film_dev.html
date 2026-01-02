@@ -11,20 +11,23 @@
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/footer.css">
-	<link rel="preload" href="img/MD_cropped2.jpeg" as="image">
     <style>
+
+        html{
+        background:#FFFAEA !important;
+        }
         /* Get rid of all padding and margin */
         body {
-          background:var(--cream);
             margin: 0;
             padding: 0;
             transition: background-color 0.5s ease; /* Smooth transition effect */
+            background: var(--cream);
         }
         
         .hero-section {
             z-index: 0;
             width: 100%;
-            background-image: url('img/MD_cropped2.jpeg'); /* Hero image */
+            background-image: url('img/TK_cropped.jpg'); /* Hero image */
             height: 100vh;
             background-size: cover; /* Ensures the image covers the entire div */
             background-position: center; /* Centers the image */
@@ -48,12 +51,6 @@
 
         .brand-pill {
         z-index:2;
-        /*font-family:var(--headline);
-        font-size:clamp(14px , 2.5vw , 20px);
-        letter-spacing:.5px;
-        text-transform:uppercase;
-        color:#616161;                 /* light-grey text
-        background:var(--red);         /* red pill        */
         padding:12px 36px;
         border-radius:4px;
         margin:100px 5vw 0;        /* centred top     */
@@ -74,14 +71,11 @@
 
 }
 
-
         .center-aligned {
             z-index: 2;
             font-family: var(--headline);
             color: var(--cream);
-            font-size:clamp(15px , 10vw , 55px);
-            max-width:90vw;          /* prevents words spilling outside the screen */
-            padding:0;           /* gives a little breathing room on small viewports */
+            font-size: clamp(20px, 10vw , 75px); /*clamp(28px , 12vw , 85px);*/
             position: absolute;
             top: 50%; /* Adjust this value to control the height from the top */
             left: 50%;
@@ -89,49 +83,97 @@
             text-align: center;
         }
 
-        /* phones & small tablets get the breathing room */
-        @media (max-width: 768px){     /* tweak the breakpoint to taste */
-            .center-aligned{
-                padding:0 5vw;         /* 5 % of the viewport on each side */
-            }
-        }
-
         .center-aligned div {
             line-height: 0.9; /* Adjust line height as needed */
         }
 
-        /* === Gallery === */
-
-        .gallery-section{
-            display:flex;
-            flex-wrap:wrap;
-            gap:70px;          /* ⇢ 70 px between every pair of pictures – both axes   */
-            padding:0 40px;    /* ⇢ 40 px to the left of the first and right of the last */
+        .galleries {
+            display: flex;
+            justify-content: center; /* Centers the divs horizontally */
+            align-items: center; /* Centers the divs vertically */
+            height: 590px; /* Set the desired height */
+            font-size: clamp(36px, 7vw, 55px);
+            padding: 50px 7vw 150px; /* Adds padding to all sides */
+            gap: 4vw; /* Adds space between the panels - if you change here change in the .film/digital/video block!! */
+            opacity: 0; /* Initially hidden */
+            transform: translateY(50px); /* Initially positioned lower */
+            transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth transition */
+            background:var(--cream);  
         }
 
-        .gallery-section img{
-            height:400px;      /* “target” height – it will be scaled row-by-row      */
-            width:auto;
-            flex:0 0 auto;
-            object-fit:cover;
-            display:block;
+        .galleries.visible {
+            opacity: 1; /* Fully visible */
+            transform: translateY(0); /* Moves to original position */
         }
 
-        /* === Row-fade effect ====================================== */
-        .gallery-section img.row-hidden{
-            opacity: 0;
-            transform: translateY(40px);
-            filter: brightness(1);      /* starts “washed-out” white */
+        .weddings, .couples {
+            width: calc(50% - 8px); /* Adjust width to account for gap */
+            height: 100%; /* Ensures the divs take up the full height of the galleries div */
+            background-size: cover; /* Ensures the background image covers the entire div */
+            background-position: center; /* Centers the background image */
+            flex:0 0 calc(50% - 7px);   /* your original width rule      */
+            aspect-ratio: 6 / 1;            /* ≈ 6 wide × 1 high banner      */
+            min-height:180px;               /* never shorter than 180 px     */
+            background-size:cover;
+            background-position:center;
+            
         }
 
-        .gallery-section img.row-visible{
-            opacity: 1;
-            transform: translateY(0);
-            filter: brightness(1);
-            transition: opacity .8s ease-out,
-                        transform .8s ease-out,
-                        filter .8s ease-out;
+        .weddings {
+            background-image: url('img/gallery/Grant_Claire/03-000125750018.jpg');
+            font-family: var(--headline);
+            color: var(--cream); /* Example text color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
+
+        .couples {
+            background-image: url('img/gallery/Brian_Meghan/000139490003.jpg');
+            font-family: var(--headline);
+            color: var(--cream); /* Example text color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column; /* Aligns text vertically */
+            text-align: center;
+        }
+
+
+        /* big red “GALLERIES” headline ------------------------------------ */
+
+        .galleries-band{
+            background:var(--cream);
+            padding-top:55px;   /* was margin-top on h2 */
+            }
+
+
+        /* === stack the 3 gallery panels on very small screens =============== */
+        @media (max-width: 800px){
+
+        .galleries{
+            flex-direction: column;
+            align-items: stretch;
+            height: auto;
+            padding: 0px 7vw 70px;
+        }
+
+        .galleries-band{
+            padding-top: 45px; /* or 0 if you want it tight */
+        }
+
+        .weddings,
+        .couples{
+            width: 100%;
+            height: auto;          /* 👈 override */
+            aspect-ratio: auto;   /* 👈 optional, but recommended */
+            min-height: 300px;    /* 👈 THIS controls the height */
+        }
+
+        }
+        /* ==================================================================== */
+
 
     </style>
 </head>
@@ -140,299 +182,26 @@
         <!-- Black transparent overlay with title text -->
         <div class="hero-overlay">
             <div class="brand-pill">
-              <a href="index.html"><img src="assets/logo_cream.png" alt="logo"></a>
+                <a href="index.html"><img src="assets/logo_cream.png" alt="logo"></a>
             </div>
             <div class="hamburger" id="menu-toggle">
                 <span></span><span></span><span></span>
             </div>
             
             <div class="center-aligned">
-                <div>COLOR-SOAKED CANDIDS ON 35MM FILM.</div>
+                <div>COLOR-SOAKED CAPTURES ON 35MM FILM.</div>
             </div>
         </div>
     </div>
 
-    <div style="height: 60px;"></div>
+<!-- GALLERIES SECTION  -->
+<section class="galleries-band">
 
-    <div id="bottom-div" class="bottom-div">
-        <!-- Gallery Section -->  
-        <div class="gallery-section">
-
-			<img loading="eager" fetchpriority="high" src="img/gallery/01-000124100037.jpg" alt="Matt Dom 1"> 
-            <img loading="eager" fetchpriority="high" src="img/gallery/02-000124100001.jpg" alt="Matt Dom 2"> 
-            <img loading="eager" fetchpriority="high" src="img/gallery/03-000124120005.jpg" alt="Matt Dom 3"> 
-            <img loading="eager" fetchpriority="high" src="img/gallery/04-000124100016.jpg" alt="Matt Dom 4">
-            <img loading="eager" fetchpriority="high" src="img/gallery/05-000124090004.jpg" alt="Matt Dom 5"> 
-            <img loading="eager" fetchpriority="high" src="img/gallery/06-000124100022.jpg" alt="Matt Dom 6"> 
-            <img loading="eager" fetchpriority="high" src="img/gallery/07-000124090014.jpg" alt="Matt Dom 7"> 
-            <img loading="eager" fetchpriority="high" src="img/gallery/08-000124100021.jpg" alt="Matt Dom 8">
-            <img loading="eager" fetchpriority="high" src="img/gallery/09-000124100030.jpg" alt="Matt Dom 9"> 
-            <img loading="eager" fetchpriority="high" src="img/gallery/10-000124100031.jpg" alt="Matt Dom 10"> 
-            <img loading="eager" fetchpriority="high" src="img/gallery/11-000124090032.jpg" alt="Matt Dom 11"> 
-            <img loading="eager" fetchpriority="high" src="img/gallery/12-000124090026.jpg" alt="Matt Dom 12">
-            <img loading="eager" fetchpriority="high" src="img/gallery/13-000124090027.jpg" alt="Matt Dom 13"> 
-            <img loading="eager" fetchpriority="high" src="img/gallery/14-000124090028.jpg" alt="Matt Dom 14"> 
-            <img loading="eager" fetchpriority="high" src="img/gallery/15-000124090005.jpg" alt="Matt Dom 15"> 
-            <img loading="eager" fetchpriority="high" src="img/gallery/16-000124100035.jpg" alt="Matt Dom 16">
-            <img loading="eager" fetchpriority="high" src="img/gallery/17-000124100010.jpg" alt="Matt Dom 17"> 
-            <img loading="eager" fetchpriority="high" src="img/gallery/18-000124100019.jpg" alt="Matt Dom 18"> 
-            <img loading="eager" fetchpriority="high" src="img/gallery/19-000124100009.jpg" alt="Matt Dom 19"> 
-            <img loading="eager" fetchpriority="high" src="img/gallery/20-000124100018.jpg" alt="Matt Dom 20">
-            <img loading="eager" fetchpriority="high" src="img/gallery/21-000124100029.jpg" alt="Matt Dom 21"> 
-            <img loading="eager" fetchpriority="high" src="img/gallery/22-000124120016.jpg" alt="Matt Dom 22"> 
-            <img loading="eager" fetchpriority="high" src="img/gallery/23-000124120017.jpg" alt="Matt Dom 23"> 
-            <img loading="eager" fetchpriority="high" src="img/gallery/24-000124120007.jpg" alt="Matt Dom 24">
-            <img loading="eager" fetchpriority="high" src="img/gallery/25-000124120008.jpg" alt="Matt Dom 25"> 
-            <img loading="eager" fetchpriority="high" src="img/gallery/26-000124120010.jpg" alt="Matt Dom 26"> 
-            <img loading="eager" fetchpriority="high" src="img/gallery/27-000124120009.jpg" alt="Matt Dom 27"> 
-            <img loading="eager" fetchpriority="high" src="img/gallery/28-000124120028.jpg" alt="Matt Dom 28">
-            <img loading="eager" fetchpriority="high" src="img/gallery/29-000124120027.jpg" alt="Matt Dom 29"> 
-            <img loading="eager" fetchpriority="high" src="img/gallery/30-000124100038.jpg" alt="Matt Dom 30"> 
-            <img loading="eager" fetchpriority="high" src="img/gallery/31-000124120029.jpg" alt="Matt Dom 31"> 
-            <img loading="eager" fetchpriority="high" src="img/gallery/32-000124120031.jpg" alt="Matt Dom 32">
-            <img loading="eager" fetchpriority="high" src="img/gallery/33-000124120033.jpg" alt="Matt Dom 33"> 
-            <img loading="eager" fetchpriority="high" src="img/gallery/34-000124120025.jpg" alt="Matt Dom 34"> 
-            <img loading="eager" fetchpriority="high" src="img/gallery/35-000124120026.jpg" alt="Matt Dom 35"> 
-            <img loading="eager" fetchpriority="high" src="img/gallery/36-000124120022.jpg" alt="Matt Dom 36">
-<!--             <img src="img/gallery/37-000124120021.jpg" alt="Matt Dom 37">  -->
-            <img fetchpriority="high" src="img/gallery/38-000124090015.jpg" alt="Matt Dom 38"> 
-            <img fetchpriority="high" src="img/gallery/39-000124090016.jpg" alt="Matt Dom 39"> 
-            <img fetchpriority="high" src="img/gallery/40-000124090023.jpg" alt="Matt Dom 40">
-            <img fetchpriority="high" src="img/gallery/41-000124090013.jpg" alt="Matt Dom 41"> 
-
-			<img fetchpriority="high" src="img/gallery/Grant_Claire/01-000125740018.jpg" alt="Grant Claire 1"> 
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/02-000125740028.jpg" alt="Grant Claire 2"> 
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/03-000125750018.jpg" alt="Grant Claire 3"> 
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/04-000125750007.jpg" alt="Grant Claire 4">
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/05-000125760004.jpg" alt="Grant Claire 5"> 
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/06-000125760008.jpg" alt="Grant Claire 6"> 
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/07-000125760015.jpg" alt="Grant Claire 7"> 
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/08-000125740004.jpg" alt="Grant Claire 8">
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/09-000125740009.jpg" alt="Grant Claire 9"> 
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/10-000125740010.jpg" alt="Grant Claire 10"> 
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/11-000125740034.jpg" alt="Grant Claire 11"> 
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/12-000125740001.jpg" alt="Grant Claire 12">
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/13-000125740002.jpg" alt="Grant Claire 13"> 
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/14-000125740030.jpg" alt="Grant Claire 14"> 
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/15-000125740025.jpg" alt="Grant Claire 15"> 
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/16-000125740011.jpg" alt="Grant Claire 16">
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/17-000125740013.jpg" alt="Grant Claire 17"> 
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/18-000125740012.jpg" alt="Grant Claire 18"> 
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/19-000125740014.jpg" alt="Grant Claire 19"> 
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/20-000125740019.jpg" alt="Grant Claire 20">
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/21-000125740020.jpg" alt="Grant Claire 21"> 
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/22-000125740027.jpg" alt="Grant Claire 22"> 
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/23-000125760030.jpg" alt="Grant Claire 23"> 
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/24-000125760031.jpg" alt="Grant Claire 24">
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/25-000125760036.jpg" alt="Grant Claire 25"> 
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/26-000125760023.jpg" alt="Grant Claire 26"> 
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/27-000125740003.jpg" alt="Grant Claire 27"> 
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/28-000125740021.jpg" alt="Grant Claire 28">
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/29-000125750003.jpg" alt="Grant Claire 29"> 
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/30-000125750005.jpg" alt="Grant Claire 30"> 
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/31-000125750008.jpg" alt="Grant Claire 31"> 
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/32-000125750011.jpg" alt="Grant Claire 32">
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/33-000125750012.jpg" alt="Grant Claire 33"> 
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/34-000125750017.jpg" alt="Grant Claire 34"> 
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/35-000125750024.jpg" alt="Grant Claire 35"> 
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/36-000125750027.jpg" alt="Grant Claire 36">
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/37-000125750031.jpg" alt="Grant Claire 37"> 
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/38-000125750035.jpg" alt="Grant Claire 38"> 
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/39-000125750036.jpg" alt="Grant Claire 39"> 
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/40-000125760003.jpg" alt="Grant Claire 40">
-            <img fetchpriority="high" src="img/gallery/Grant_Claire/41-000125760016.jpg" alt="Grant Claire 41"> 
-			
-            <img fetchpriority="high" src="img/gallery/1-r001-003.jpg" alt="Brock Bailey 1"> 
-            <img fetchpriority="high" src="img/gallery/2-r001-001.jpg" alt="Brock Bailey 2"> 
-<!--             <img src="img/gallery/2-r001-020.jpg" alt="Brock Bailey 3">  -->
-            <img fetchpriority="high" src="img/gallery/11-r001-012.jpg" alt="Brock Bailey 4">
-            <img fetchpriority="high" src="img/gallery/35-r004-023.jpg" alt="Brock Bailey 17">
-<!--             <img src="img/gallery/4-r001-004.jpg" alt="Brock Bailey 6">  -->
-<!--             <img src="img/gallery/4-r001-019.jpg" alt="Brock Bailey 7">  -->
-            <img fetchpriority="high" src="img/gallery/5-r001-031.jpg" alt="Brock Bailey 8">
-<!--             <img src="img/gallery/6-r001-035.jpg" alt="Brock Bailey 9">  -->
-            <img fetchpriority="high" src="img/gallery/7-r001-007.jpg" alt="Brock Bailey 10"> 
-<!--             <img src="img/gallery/7-r001-036.jpg" alt="Brock Bailey 11">  -->
-            <img fetchpriority="high" src="img/gallery/8-r002-035.jpg" alt="Brock Bailey 12">
-<!--             <img src="img/gallery/9-r004-024.jpg" alt="Brock Bailey 13">  -->
-<!--             <img src="img/gallery/10-r004-027.jpg" alt="Brock Bailey 14">  -->
-            <img fetchpriority="high" src="img/gallery/3-r001-002.jpg" alt="Brock Bailey 15"> 
-<!--             <img src="img/gallery/20-r001-037.jpg" alt="Brock Bailey 16"> -->
-            <img fetchpriority="high" src="img/gallery/3-r001-014.jpg" alt="Brock Bailey 5"> 
-<!--             <img src="img/gallery/37-r004-030.jpg" alt="Brock Bailey 18"> -->
-            <img fetchpriority="high" src="img/gallery/38-r004-031.jpg" alt="Brock Bailey 19">
-            <img fetchpriority="high" src="img/gallery/13-r001-021.jpg" alt="Brock Bailey 20">
-
-            <img fetchpriority="high" src="img/gallery/01_44270026.jpeg" alt="Thomas Abbie 1"> 
-            <img fetchpriority="high" src="img/gallery/02_44270001.jpeg" alt="Thomas Abbie 2"> 
-            <img fetchpriority="high" src="img/gallery/03_44270020.jpeg" alt="Thomas Abbie 3"> 
-            <img fetchpriority="high" src="img/gallery/04_44270029.jpeg" alt="Thomas Abbie 4">
-            <img fetchpriority="high" src="img/gallery/05_44290024.jpeg" alt="Thomas Abbie 5"> 
-            <img fetchpriority="high" src="img/gallery/06_44290028.jpeg" alt="Thomas Abbie 6"> 
-            <img fetchpriority="high" src="img/gallery/07_44270012.jpeg" alt="Thomas Abbie 7"> 
-<!--             <img src="img/gallery/08_44270013.jpeg" alt="Thomas Abbie 8">
-            <img src="img/gallery/09_44280001.jpeg" alt="Thomas Abbie 9">  -->
-            <img fetchpriority="high" src="img/gallery/10_44290019.jpeg" alt="Thomas Abbie 10"> 
-<!--             <img src="img/gallery/11_44270036.jpeg" alt="Thomas Abbie 11"> 
-            <img src="img/gallery/12_44290033.jpeg" alt="Thomas Abbie 12"> -->
-            <img fetchpriority="high" src="img/gallery/13_44280020.jpeg" alt="Thomas Abbie 13"> 
-            <img fetchpriority="high" src="img/gallery/14_44280007.jpeg" alt="Thomas Abbie 14"> 
-            <img fetchpriority="high" src="img/gallery/15_44280003.jpeg" alt="Thomas Abbie 15"> 
-            <img fetchpriority="high" src="img/gallery/16_44290016.jpeg" alt="Thomas Abbie 16">
-            <img fetchpriority="high" src="img/gallery/17_44290010.jpeg" alt="Thomas Abbie 17">
-            <img fetchpriority="high" src="img/gallery/18_44290017.jpeg" alt="Thomas Abbie 18">
-		
-            <img src="img/gallery/000077740004.jpg" alt="Seamus Rose 1"> 
-            <img src="img/gallery/000077740005.jpg" alt="Seamus Rose 2"> 
-            <img src="img/gallery/000077740008.jpg" alt="Seamus Rose 3"> 
-            <img src="img/gallery/000077740014.jpg" alt="Seamus Rose 4">
-            <img src="img/gallery/000077740016.jpg" alt="Seamus Rose 5"> 
-            <img src="img/gallery/000077740028.jpg" alt="Seamus Rose 6"> 
-            <img src="img/gallery/000077750012.jpg" alt="Seamus Rose 7"> 
-            <img src="img/gallery/000077750013.jpg" alt="Seamus Rose 8">
-            <img src="img/gallery/000077750028.jpg" alt="Seamus Rose 9"> 
-            <img src="img/gallery/000077750031.jpg" alt="Seamus Rose 10"> 
-
-            <img src="img/gallery/000124070010.jpg" alt="Fo Fam 1"> 
-            <img src="img/gallery/000124070011.jpg" alt="Fo Fam 2"> 
-            <img src="img/gallery/000124070017.jpg" alt="Fo Fam 3"> 
-            <img src="img/gallery/000124070020.jpg" alt="Fo Fam 4">
-            <img src="img/gallery/000124070022.jpg" alt="Fo Fam 5"> 
-            <img src="img/gallery/000124070026.jpg" alt="Fo Fam 6"> 
-            <img src="img/gallery/000124070035.jpg" alt="Fo Fam 7"> 
-            <img src="img/gallery/000124070036.jpg" alt="Fo Fam 8">
-            <img src="img/gallery/000124070037.jpg" alt="Fo Fam 9"> 
-            <img src="img/gallery/000124080003.jpg" alt="Fo Fam 10"> 
-            <img src="img/gallery/000124130003.jpg" alt="Fo Fam 11"> 
-            <img src="img/gallery/000124130010.jpg" alt="Fo Fam 12">
-            <img src="img/gallery/000124130011.jpg" alt="Fo Fam 13"> 
-            <img src="img/gallery/000124130014.jpg" alt="Fo Fam 14"> 
-            <img src="img/gallery/000124130018.jpg" alt="Fo Fam 15"> 
-            <img src="img/gallery/000124130023.jpg" alt="Fo Fam 16">
-
-            <img src="img/gallery/01-000124110018.jpg" alt="Noah Sofia 1"> 
-            <img src="img/gallery/02-000124080022.jpg" alt="Noah Sofia 2"> 
-            <img src="img/gallery/03-000124110001.jpg" alt="Noah Sofia 3"> 
-            <img src="img/gallery/04-000124110014.jpg" alt="Noah Sofia 4">
-            <img src="img/gallery/05-000124080029.jpg" alt="Noah Sofia 5"> 
-            <img src="img/gallery/06-000124110022.jpg" alt="Noah Sofia 6"> 
-            <img src="img/gallery/07-000124110027.jpg" alt="Noah Sofia 7"> 
-            <img src="img/gallery/08-000124110004.jpg" alt="Noah Sofia 8">
-            <img src="img/gallery/09-000124110036.jpg" alt="Noah Sofia 9"> 
-            <img src="img/gallery/10-000124080019.jpg" alt="Noah Sofia 10"> 
-            <img src="img/gallery/11-000124110028.jpg" alt="Noah Sofia 11"> 
-			
-            <img src="img/gallery/45830020.jpeg" alt="Hector Ashanti 1">
-            <img src="img/gallery/45830004.jpg" alt="Hector Ashanti 2"> 
-            <img src="img/gallery/45830005.jpeg" alt="Hector Ashanti 3"> 
-            <img src="img/gallery/45830012.jpeg" alt="Hector Ashanti 4">
-            <img src="img/gallery/45830008.jpeg" alt="Hector Ashanti 5"> 
-            <img src="img/gallery/45830011.jpeg" alt="Hector Ashanti 6">
-            <img src="img/gallery/45830016.jpeg" alt="Hector Ashanti 7">
-		
-            <img src="img/gallery/r003-015.jpg" alt="Justin Gwen 1"> 
-            <img src="img/gallery/r003-026.jpg" alt="Justin Gwen 2"> 
-            <img src="img/gallery/r002-012.jpg" alt="Justin Gwen 3"> 
-<!--             <img src="img/gallery/r002-018.jpg" alt="Justin Gwen 4"> -->
-            <img src="img/gallery/r002-019.jpg" alt="Justin Gwen 5"> 
-            <img src="img/gallery/r002-021.jpg" alt="Justin Gwen 6"> 
-            <img src="img/gallery/r002-022.jpg" alt="Justin Gwen 7"> 
-            <img src="img/gallery/r002-024.jpg" alt="Justin Gwen 8">
-            <img src="img/gallery/r003-013.jpg" alt="Justin Gwen 9"> 
-            <img src="img/gallery/r003-024.jpg" alt="Justin Gwen 10"> 
-<!--             <img src="img/gallery/r003-020.jpg" alt="Justin Gwen 11">  -->
-		
-            <img src="img/gallery/19_44300012.jpeg" alt="Grad party 1"> 
-            <img src="img/gallery/20_44300013.jpeg" alt="Grad party 2"> 
-            <img src="img/gallery/21_44300006.jpeg" alt="Grad party 3">
-            <img src="img/gallery/22_44300008.jpeg" alt="Grad party 4">
-		
-            <img src="img/gallery/02160021.jpeg" alt="Image 1"> 
-<!--             <img src="img/gallery/02160013.jpeg" alt="Image 2">  -->
-<!--             <img src="img/gallery/R1-09517-0029.jpeg" alt="Image 3">  -->
-<!--             <img src="img/gallery/R1-09517-0022.jpeg" alt="Image 4"> -->
-    
-<!--             <img src="img/gallery/92030005.jpeg" alt="Image 5"> 
-            <img src="img/gallery/R1-09517-0021.jpeg" alt="Image 6"> 
-            <img src="img/gallery/R1-08043-0024.jpeg" alt="Image 7"> -->
-<!--             <img src="img/gallery/R1-08043-0027.jpeg" alt="Image 8"> -->
-    
-<!--             <img src="img/gallery/R1-08043-0025.jpeg" alt="Image 9"> 
-            <img src="img/gallery/67300013.jpeg" alt="Image 10">
-            <img src="img/gallery/67300017.jpeg" alt="Image 11"> -->
-    
-        
-<!--             <img src="img/gallery/R1-09517-0014.jpeg" alt="Image 12"> -->
-<!--             <img src="img/gallery/R1-09517-0004.jpeg" alt="Image 13"> -->
-<!--             <img src="img/gallery/12331001762-R1-034-15A.jpg" alt="Image 14"> -->
-<!--             <img src="img/gallery/12331001762-R1-064-30A.jpg" alt="Image 15"> -->
-    
-<!--             <img src="img/gallery/02170003.jpeg" alt="Image 16"> 
-            <img src="img/gallery/02170004.jpeg" alt="Image 17">
-            <img src="img/gallery/R1-09516-0022.jpeg" alt="Image 18">
-    
-            <img src="img/gallery/12331001762-R1-068-32A.jpeg" alt="Image 19">
-            <img src="img/gallery/R1-09516-0025.jpeg" alt="Image 20">
-            <img src="img/gallery/R1-08043-0010.jpeg" alt="Image 21">
-            <img src="img/gallery/02170017.jpeg" alt="Image 22">
-     -->
-<!--             <img src="img/gallery/Kids.jpeg" alt="Image 23"> -->
-<!--             <img src="img/gallery/34139044935-R1-015-6.jpeg" alt="Image 24"> -->
-            <img src="img/gallery/frank and austin.jpeg" alt="Image 25">
-<!--             <img src="img/gallery/36822036144-R1-015-6.jpeg" alt="Image 26"> -->
-    
-<!--             <img src="img/gallery/36822036142-R1-077-37_1.jpg" alt="Image 27">
-            <img src="img/gallery/36822036142-R1-027-12.jpeg" alt="Image 28">
-            <img src="img/gallery/R1-09516-0015.jpeg" alt="Image 29"> -->
-    
-<!--             <img src="img/gallery/95700002.jpeg" alt="Image 31"> -->
-<!--             <img src="img/gallery/95710014.jpeg" alt="Image 32">
-            <img src="img/gallery/95700003.jpeg" alt="Image 33">
-    
-            <img src="img/gallery/000161740024.jpeg" alt="Image 34"> -->
-<!--             <img src="img/gallery/R1-09517-0025.jpeg" alt="Image 35"> -->
-<!--             <img src="img/gallery/000161740027.jpeg" alt="Image 36"> -->
-<!--             <img src="img/gallery/000161740034.jpeg" alt="Image 37"> -->
-    
-    
-<!--             <img src="img/gallery/12331001762-R1-066-31A.jpeg" alt="Image 38"> -->
-<!--             <img src="img/gallery/12331001762-R1-060-28A.jpeg" alt="Image 39"> -->
-<!--             <img src="img/gallery/R1-09516-0012.jpeg" alt="Image 40"> -->
-<!--             <img src="img/gallery/88290017.jpeg" alt="Image 41"> -->
-    
-<!--             <img src="img/gallery/12331001762-R1-020-8A.jpeg" alt="Image 42"> -->
-<!--             <img src="img/gallery/Ro the tube.jpeg" alt="Image 43">
-            <img src="img/gallery/12331001762-R1-028-12A.jpeg" alt="Image 44"> -->
-<!--             <img src="img/gallery/Driving the bus.jpeg" alt="Image 45"> -->
-    
-<!--             <img src="img/gallery/92030006.jpeg" alt="Image 46"> -->
-<!--             <img src="img/gallery/12331001762-R1-040-18A.jpeg" alt="Image 47">
-            <img src="img/gallery/000161740026.jpeg" alt="Image 48"> -->
-<!--             <img src="img/gallery/67300023.jpeg" alt="Image 49"> -->
-
-<!--             <img src="img/gallery/12331001762-R1-038-17A.jpeg">
-            <img src="img/gallery/12331001762-R1-036-16A.jpeg">
-            <img src="img/gallery/000161740023.jpeg"> -->
-<!--             <img src="img/gallery/R1-09515-005A.jpeg"> -->
-
-<!--             <img src="img/gallery/000161760011.jpeg">
-            <img src="img/gallery/26440029.jpeg"> -->
-<!--             <img src="img/gallery/000161760004.jpeg">
-            <img src="img/gallery/34139044935-R1-005-1.jpeg"> -->
-
-<!--             <img src="img/gallery/67300004.jpeg">
-            <img src="img/gallery/12331001762-R1-022-9A.jpeg"> -->
-<!--             <img src="img/gallery/12331001762-R1-070-33A.jpeg"> -->
-<!--             <img src="img/gallery/000161760037.jpeg"> -->
-
-<!--             <img src="img/gallery/12331001762-R1-030-13A.jpeg"> -->
-<!--             <img src="img/gallery/000161740014.jpeg"> -->
-<!--             <img src="img/gallery/88640014.jpeg"> -->
-<!--             <img src="img/gallery/92030022.jpeg"> -->
-        </div>
+    <div id="galleries" class="galleries">
+        <div class="weddings"><a href="weddings.html">WEDDINGS</a></div>
+        <div class="couples"><div><a href="couples.html">COUPLES</a></div></div>
     </div>
-
-    <div style="height:8vh;"></div>
+    </section>
 
   <!-- === SITE FOOTER =================================================== -->
 
@@ -446,7 +215,7 @@
   
         <div class="footer-copy">
           <!--<h2 class="footer-name"><a href="index.html">NICOLE PEREZ</a></h2>-->
-          <img class="brand-logo" src="assets/logo_w_camera_cream.png" alt="brand logo">
+          <img class="brand-logo" src="assets/logo_w_camera_cream.png" loading="lazy" decoding="async" alt="brand logo">
 
           <p class="footer-email">
             <a href="mailto:nicoleandperez@gmail.com">nicoleandperez@gmail.com</a>
@@ -494,132 +263,75 @@
       <li><a href="film.html">Film&nbsp;Photos</a></li>
       <li><a href="digital.html">Digital&nbsp;Photos</a></li>
       <li><a href="video.html">Video</a></li>
-	<li><a href="pricing.html">Pricing</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
   
   <!-- =================================================================== -->
 
-	<script>
-        // Fade in images in gallery
-            document.addEventListener("DOMContentLoaded", function() {
-            const images = document.querySelectorAll('.gallery-section img');
-        
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const bottomDiv = document.querySelector('.galleries');
+
             const observerOptions = {
                 root: null, // Use the viewport as the container
                 rootMargin: '0px',
-                threshold: 0.1 // Trigger when 10% of the image is visible
-        
+                threshold: 0.1 // Trigger when 10% of the div is visible
             };
-        
+            
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target); // Stop observing once the image is visible
-                }
-        
-            });
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        document.body.style.backgroundColor = '#fff'; // Change to white
+                        observer.unobserve(entry.target); // Stop observing once the div is visible
+                    }
+                });
             }, observerOptions);
-        
-            images.forEach(image => {
-            observer.observe(image);
-            });
-            });
-        
-        
-            // Gallery code
-/* === gallery-layout.js =============================================== */
-document.addEventListener('DOMContentLoaded', () => {
-  /* --- constants that must stay in sync with your CSS --- */
-  const GAP   = 70;   // = gap between pictures
-  const SIDE  = 40;   // = left / right gutter
-  const ROW_H = 400;  // = target row height
-  /* ------------------------------------------------------- */
-
-  const box  = document.querySelector('.gallery-section');
-  const pics = Array.from(box.children);
-
-  /* 1.  Lay out the gallery exactly as before
-   * ----------------------------------------- */
-  function layout () {
-    const usable = box.clientWidth - SIDE * 2;   // width pictures + gaps must fill
-    let row = [], rowSumW = 0;
-
-    pics.forEach(pic => {
-      const w = (pic.naturalWidth / pic.naturalHeight) * ROW_H;
-
-      row.push({ pic, w });
-      rowSumW += w;
-
-      const totalWithGaps = rowSumW + GAP * (row.length - 1);
-
-      if (totalWithGaps >= usable) {             // row is “full”
-        const scale = (usable - GAP * (row.length - 1)) / rowSumW;
-
-        row.forEach(({ pic, w }) => {
-          pic.style.width  = (w       * scale) + 'px';
-          pic.style.height = (ROW_H   * scale) + 'px';
+            
+            observer.observe(bottomDiv);
         });
 
-        row.length = 0;
-        rowSumW    = 0;
-      }
-    });
+        document.addEventListener('DOMContentLoaded',()=>{
 
-    /* once the layout is done we (re-)build the row observer */
-    buildRowObserver();
-  }
+        const track = document.querySelector('.carousel-track');
+        const slides = Array.from(track.children);
+        const prevBtn = document.getElementById('prev');
+        const nextBtn = document.getElementById('next');
 
-  /* 2.  Fade each row in when it scrolls into view
-   * ---------------------------------------------- */
-  let rowObserver;                                    // keeps the latest observer
+        const slideGap = parseFloat(getComputedStyle(track).gap);
+        let index = 0;
 
-  function buildRowObserver () {
-    /* clear any previous observer */
-    if (rowObserver) rowObserver.disconnect();
-
-    /* group pictures by their Y-position (rows) */
-    const rows = {};
-    pics.forEach(pic => {
-      const top = pic.offsetTop;                      // row identifier
-      (rows[top] ??= []).push(pic);
-
-      /* reset state */
-      pic.classList.add   ('row-hidden');
-      pic.classList.remove('row-visible');
-    });
-
-    /* one IntersectionObserver that watches the first picture of each row */
-    rowObserver = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          /* reveal the whole row */
-          const rowTop = entry.target.offsetTop;
-          rows[rowTop].forEach(p =>
-            p.classList.replace('row-hidden', 'row-visible')
-          );
-          obs.unobserve(entry.target);                // row done → stop watching
+        function updateButtons(){
+        prevBtn.disabled = index === 0;
+        nextBtn.disabled = index === slides.length - 1;
         }
-      });
-    }, { root: null, threshold: 0.1 });
 
-    /* attach the observer */
-    Object.values(rows).forEach(rowPics =>
-      rowObserver.observe(rowPics[0])                 // first img = anchor
-    );
-  }
+        function slideTo(idx){
+        const slideWidth = slides[0].getBoundingClientRect().width + slideGap;
+        track.style.transform = `translateX(${ -idx * slideWidth }px)`;
+        index = idx;
+        updateButtons();
+        }
 
-  /* 3.  Run once everything is ready, and again on resize */
-  if (pics.every(p => p.complete)) layout();
-  window.addEventListener('load',  layout);
-  window.addEventListener('resize',layout);
-});
-/* ===================================================================== */
+        prevBtn.addEventListener('click', ()=> slideTo(index - 1));
+        nextBtn.addEventListener('click', ()=> slideTo(index + 1));
 
-    
-        </script>
+        /* enable keyboard left/right when buttons have focus */
+        [prevBtn,nextBtn].forEach(btn=>{
+        btn.addEventListener('keydown',e=>{
+            if(e.key==='ArrowLeft') prevBtn.click();
+            if(e.key==='ArrowRight') nextBtn.click();
+        });
+        });
+
+        updateButtons();   // initialise
+        });
+
+
+    </script>
+
 <script src="js/nav.js"></script>
 </body>
 </html>
