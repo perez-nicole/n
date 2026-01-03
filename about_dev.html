@@ -36,10 +36,10 @@
       .hero-section {
           z-index: 0;
           width: 100%;
-          background-image: url('img/flowers_cropped.jpg');
+          background-image: url('img/family_on_film.png'); /*flowers_cropped*/
           height: 100vh;
           background-size: cover;
-          background-position: center;
+          background-position: 57% center;
           overflow: hidden;
           position: relative;
           max-width: 100%;
@@ -88,6 +88,32 @@
       .center-aligned div {
           line-height: 0.9;
       }
+
+/* --- Updated Hero Headline Styles --- */
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 33% 67%; /* The 33/66 split */
+    align-items: center;            /* Vertically centers icon with text */
+    justify-content: center;
+    width: 90vw;                    /* Give it enough room to breathe */
+    max-width: 1200px;
+}
+
+.hero-icon-wrap {
+    display: flex;
+    justify-content: flex-end;      /* Pushes icon toward the center gap */
+    padding-right: 40px;            /* Gap between icon and text */
+}
+
+.hero-icon {
+    height: clamp(150px, 18vw, 240px); /* Responsive sizing */
+    width: auto;
+}
+
+.hero-text-wrap {
+    text-align: left;               /* Text aligns left against the icon */
+}
 
       @media (max-width:480px){
           .hamburger{ right:24px; }
@@ -371,6 +397,26 @@
 
     /* === MOBILE === */
     @media (max-width: 800px) {
+        .hero-grid {
+        display: flex;
+        flex-direction: column;     /* Stack icon on top of text */
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .hero-icon-wrap {
+        justify-content: center;    /* Center icon on mobile */
+        padding-right: 0;
+    }
+
+    .hero-text-wrap {
+        text-align: center;         /* Center text on mobile */
+    }
+    
+    .hero-icon {
+        height: 130px;               /* Fixed size for mobile */
+    }
+
         .about-band { 
         /* Reduced from 100px to 25px to give the text more room */
         padding: 60px 65px; 
@@ -389,6 +435,24 @@
         max-width: 100%; /* Removes any restrictions on width */
         font-size: 18px; /* Optional: slight tweak for better mobile readability */
     }
+
+        /* .about-band { padding: 70px 100px; }
+        .band-inner { 
+            grid-template-columns: 1fr !important; 
+            text-align: center;
+            gap: 30px;
+        } */
+
+            /* Left align only the text - delete p if you want t left-align the titles too */
+    /* .band-text p{
+        text-align: left;
+        width: 100%;
+    }
+
+    .band-text p {
+        max-width: 100%; /* Allow text to use full width on mobile 
+    } */
+
 
         /* Keep icons and images centered */
     .band-visual { 
@@ -419,6 +483,7 @@
         width: 80%;       /* Or use a percentage of the screen width */
         margin: 0 auto;
     }
+
 
     .polaroid {
     box-shadow: none; /* This removes the shadow */
@@ -533,8 +598,13 @@
                 <span></span><span></span><span></span>
             </div>
             
-            <div class="center-aligned">
-                <div>ALOHA & WELCOME</div>
+            <div class="center-aligned hero-grid">
+                <div class="hero-icon-wrap">
+                    <img src="icons/frame_hands.png" alt="Icon" class="hero-icon">
+                </div>
+                <div class="hero-text-wrap">
+                    <div>A LITTLE BIT<br>ABOUT ME.</div>
+                </div>
             </div>
         </div>
     </div>
@@ -543,13 +613,26 @@
 <section class="about-band about-red">
   <div class="band-inner ratio-1">
       <div class="band-visual">
-          <img src="icons/frame_hands.png" style="width: 220px; justify-self: center;">
+          <img src="icons/film_roll.png" style="width: 150px; justify-self: center;">
       </div>
       <div class="band-text">
-          <h2 class="band-title">A LITTLE BIT<br>ABOUT ME.</h2>
+          <h2 class="band-title">I LIKE FILM<br>A LOT.</h2>
       </div>
   </div>
 </section>
+
+<!-- <section class="about-band about-red" style="padding-top: 0;">
+  <div class="band-inner ratio-2">
+      <div class="band-visual">
+          <img src="img/gallery_polaroids/Wedding_016.jpg" class="polaroid" style="width: 280px;">
+      </div>
+      <div class="band-text vertical-divider" style="align-self: center;">
+        <img src="icons/border_vertical_cream.png" alt="" class="vertical-border-img">
+          <p>I’m a film-first photographer based in the Minneapolis area. I got my start in photography as a 2000s kid with a point-and-shoot Pikachu film camera (LOL). 
+            I’ve since shed the Pokemon border on film photos, but still am all about capturing the moments you didn’t know you wanted to remember.</p>
+      </div>
+  </div>
+</section> -->
 
 <section class="about-band about-red" style="padding-top: 0;">
   <div class="band-inner ratio-2">
