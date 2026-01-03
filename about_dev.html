@@ -371,13 +371,24 @@
 
     /* === MOBILE === */
     @media (max-width: 800px) {
-        .about-band { padding: 70px 100px; }
-        .band-inner { 
-            grid-template-columns: 1fr !important; 
-            text-align: center;
-            gap: 30px;
-        }
-        /* .band-visual { order: -1; justify-self: center; } */
+        .about-band { 
+        /* Reduced from 100px to 25px to give the text more room */
+        padding: 60px 65px; 
+    }
+
+    .band-inner { 
+        grid-template-columns: 1fr !important; 
+        text-align: center;
+        gap: 30px;
+        width: 100%; /* Ensure it fills the band */
+    }
+
+    .band-text p {
+        text-align: left;
+        width: 100%;
+        max-width: 100%; /* Removes any restrictions on width */
+        font-size: 18px; /* Optional: slight tweak for better mobile readability */
+    }
 
         /* Keep icons and images centered */
     .band-visual { 
@@ -409,15 +420,6 @@
         margin: 0 auto;
     }
 
-    /* Left align only the text - delete p if you want t left-align the titles too */
-    .band-text p{
-        text-align: left;
-        width: 100%;
-    }
-
-    .band-text p {
-        max-width: 100%; /* Allow text to use full width on mobile */
-    }
     .polaroid {
     box-shadow: none; /* This removes the shadow */
 }
