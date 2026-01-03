@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nicole Perez Photography</title>
+    <link rel="icon" href="icons/camera2_on_red.png" type="image/png">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- shared navbar styles -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <style>
+      /* === CRITICAL FIXES === */
+      *, *::before, *::after {
+          box-sizing: border-box;
+      }
+
+      /* Prevent horizontal scroll globally */
+      html, body {
+          overflow-x: hidden; 
+          width: 100%;
+          max-width: 100%;
+      }
+      
+      /* Get rid of all padding and margin */
+      body {
+          margin: 0;
+          padding: 0;
+          transition: background-color 0.5s ease;
+          background: var(--cream);
+          font-family: var(--body) !important;
+      }
+      
+      .hero-section {
+          z-index: 0;
+          width: 100%;
+          background-image: url('img/flowers_cropped.jpg');
+          height: 100vh;
+          background-size: cover;
+          background-position: center;
+          overflow: hidden;
+          position: relative;
+          max-width: 100%;
+      }
+
+      .hero-overlay {
+          z-index: 1;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100vh;
+          background-color: rgba(0, 0, 0, 0.15);
+          display: flex;
+          flex-direction: column;
+          text-align: center;
+          color: white;
+      }
+
+      .brand-pill {
+          z-index:2;
+          padding:12px 36px;
+          border-radius:4px;
+          margin:100px 5vw 0;
+          width:max-content;
+      }
+
+      .brand-pill img {
+          height: 75px;
+      }
+
+      .center-aligned {
+          z-index: 2;
+          font-family: var(--headline);
+          color: var(--cream);
+          font-size:clamp(15px, 7vw, 85px);
+          max-width:95vw;
+          padding:0;
+          position: absolute;
+          top: 55%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          text-align: center;
+      }
+
+      .center-aligned div {
+          line-height: 0.9;
+      }
+
+      @media (max-width:480px){
+          .hamburger{ right:24px; }
+      }
+
+/* === REUSABLE BAND STYLES === */
+.about-band {
+        width: 100%;
+        padding: 150px 20vw; /* Gutters: 10vw on each side */
+        display: flex;
+        justify-content: center;
+        position: relative;
+    }
+
+    .band-inner {
+        width: 100%;
+        max-width: 1100px;
+        display: grid;
+        align-items: center;
+        column-gap: 50px;
+    }
+
+    /* Specific Ratios per your request */
+    .ratio-1 { grid-template-columns: 40% 1fr; }  /* Band 1 */
+    .ratio-2 { grid-template-columns: 45% 1fr; }  /* Band 2 */
+    .ratio-3 { grid-template-columns: 1fr 33%; }  /* Band 3 (Reverse) */
+    .ratio-4 { grid-template-columns: 1fr 45%; }  /* Band 4 (Reverse) */
+    .ratio-5 { grid-template-columns: 30% 1fr; }
+    .ratio-6 { grid-template-columns: 45% 1fr; } 
+
+    .about-red { background: var(--red); color: var(--cream); }
+    .about-green { 
+        background: var(--green); 
+        color: var(--cream); 
+        /* The Curve from your mockup */
+        /* border-top-left-radius: 50% 50px;
+        border-top-right-radius: 50% 50px;
+        margin-top: -50px; /* Pulls it up to overlap the red 
+        z-index: 2; */
+    }
+
+    /* === ELEMENTS === */
+    .band-visual img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .polaroid {
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .band-title {
+        font-family: var(--headline);
+        font-size: clamp(32px, 5vw, 60px);
+        line-height: 0.9;
+        margin: 0;
+        /* Solid Black Shadow: 
+       4px to the right, 4px down, 0px blur, black color */
+    /* text-shadow: 7px 7px 0px #000000; */
+    }
+
+    .band-text p {
+        font-size: clamp(16px, 2vw, 22px);
+        line-height: 1.5;
+        color: var(--yellow);
+        margin: 0;
+    }
+
+    /* Vertical divider from mockup */
+    /* .vertical-divider {
+        border-left: 2px solid var(--cream);
+        padding-left: 40px;
+        height: 100%;
+    } */
+
+/* Define 3 specific columns for the second band */
+
+/* Update your existing ratio-2 class */
+.ratio-2 {
+    display: grid !important;
+    grid-template-columns: 1fr auto 1fr !important;
+    column-gap: 0 !important;
+    
+    /* This centers the polaroid, the line, and the text vertically */
+    align-items: center !important; 
+}
+
+/* Ensure the image container doesn't have extra bottom margin/padding */
+.ratio-2 .band-visual {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Keeps it hugging the center line */
+    padding-right: 140px; /* This is the gap on the LEFT of the line */
+    height: 100%; /* Allows it to occupy the full height for centering logic */
+}
+
+/* Ensure the text container hugs the left side of its column (next to the line) */
+.ratio-2 .image-divider-container {
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding-left: 100px; /* This is the gap on the RIGHT of the line */
+}
+
+.vertical-border-img {
+    height: auto;
+    min-height: 100%;
+    width: 12px;
+    object-fit: fill;
+    flex-shrink: 0;
+}
+
+.text-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Container styling */
+.nutshell-section {
+    padding: 100px 0 0 0; /* No bottom padding so the line sits at the edge */
+    flex-direction: column;
+    text-align: center;
+}
+/* 
+.nutshell-inner {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px;
+} */
+
+
+
+/* 1. Desktop: Allow the inner container to fill the space so text can align left */
+.nutshell-inner {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* 2. Desktop: Explicitly set the title to left */
+.nutshell-section .band-title {
+    text-align: left; /* Aligns to the left of the 1100px container */
+    width: 100%;
+    display: block;
+    margin-bottom: 60px;
+}
+
+/* 3-column layout for icons */
+.nutshell-grid {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    margin-top: 100px;
+    margin-bottom: 80px;
+    gap: 40px;
+}
+
+/* .nutshell-section .band-title {
+        text-align: left; /* Center the "In a nutshell" title 
+    } */
+
+/* 1. Set a fixed height for the icon area to allow upward growth */
+.nutshell-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    /* This is the key: it aligns everything to the bottom of the container */
+    justify-content: flex-end; 
+    align-items: center;
+    /* Give the columns enough height to house the tallest icon */
+    min-height: 220px; 
+}
+
+/* 2. Style the standard icons */
+.nutshell-icon {
+    height: 100px;
+    width: auto;
+    margin-bottom: 25px; /* Consistent spacing above the text */
+}
+
+/* 3. Style the taller icon (it grows UP because of flex-end) */
+.nutshell-icon.icon-tall {
+    height: 150px; /* Make it as tall as you like */
+    width: auto;
+    margin-bottom: 25px; /* Keep this the same as the others */
+}
+
+/* Labels: All caps, bold, tight line height */
+/* We target the label specifically to align the text left */
+.nutshell-label {
+    font-family: var(--headline);
+    font-size: 24px;
+    line-height: 1.1;
+    margin: 0;
+    
+    /* Force text alignment */
+    text-align: left; 
+    width: 100%; /* Ensures the text alignment is relative to the column width */
+    max-width: max-content; /* Keeps the text block from stretching too far */
+}
+
+/* Ensure the section is the anchor for absolute elements */
+.inquire-section {
+    position: relative !important;
+    margin: 0 !important;
+    /* We reset vertical padding to 0 so the lines sit on the background edge */
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    overflow: visible !important;
+}
+
+/* Base style for both divider lines */
+.divider-line {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: auto;
+    z-index: 10; /* Keeps lines above all background colors */
+    display: block;
+}
+
+/* Anchor one to the top edge */
+.line-top {
+    top: -12px; /* Adjust slightly based on your image thickness */
+}
+
+/* Anchor one to the bottom edge */
+.line-bottom {
+    bottom: -12px;
+}
+
+/* Refined line positioning */
+.divider-line.line-top {
+    top: -1px; /* Snaps exactly to the top pixel */
+    transform: translateY(-50%); /* Centers the image thickness on the seam */
+}
+
+.divider-line.line-bottom {
+    bottom: -1px; /* Snaps exactly to the bottom pixel */
+    transform: translateY(50%); /* Centers the image thickness on the seam */
+}
+
+/* Container styling */
+.inquire-section {
+    padding: 50px 0;
+    flex-direction: column;
+    text-align: center;
+    background-color: #232021;
+}
+
+/* 1. Desktop: Allow the inner container to fill the space so text can align left */
+.inquire-inner {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    /* padding: 0 24px; */
+    padding-top: 80px !important;
+    padding-bottom: 80px !important;
+}
+
+.btn{
+  display:block;
+  font-family: var(--body);
+  font-size: 22px;
+  width:max-content;        /* shrink to fit content */
+  border:4px solid var(--cream);
+  padding:0.65em 2.5em;
+  /* border-radius:999px; */
+  border-radius:50%;
+  color:var(--cream);
+  text-decoration:none;
+  text-align:center;        /* center label text */
+  transition:background 0.2s ease;
+  margin:1.2em auto 0;       /* center button itself */
+}
+.btn:hover{ background:var(--cream); color:var(--red); }
+
+    /* === MOBILE === */
+    @media (max-width: 800px) {
+        .about-band { padding: 70px 100px; }
+        .band-inner { 
+            grid-template-columns: 1fr !important; 
+            text-align: center;
+            gap: 30px;
+        }
+        /* .band-visual { order: -1; justify-self: center; } */
+
+        /* Keep icons and images centered */
+    .band-visual { 
+        order: -1; 
+        display: flex;
+        justify-content: center; 
+        width: 100%;
+    }
+
+    /* Resize images/icons on mobile */
+    .band-visual img {
+        /* Adjust these values to your liking */
+        /* max-height: 180px; 
+        width: auto; */
+        object-fit: contain;
+    }
+
+    /* 1. Target ONLY the icons (images without the .polaroid class) */
+    .band-visual img:not(.polaroid) {
+        max-height: 130px; /* Adjust this to make icons smaller/larger */
+        width: auto;
+        margin: 0 auto;
+    }
+
+    /* 2. Target ONLY the Polaroids */
+    .band-visual img.polaroid {
+        max-height: 280px; /* Polaroids can stay larger */
+        width: 80%;       /* Or use a percentage of the screen width */
+        margin: 0 auto;
+    }
+
+    /* Left align only the text - delete p if you want t left-align the titles too */
+    .band-text p{
+        text-align: left;
+        width: 100%;
+    }
+
+    .band-text p {
+        max-width: 100%; /* Allow text to use full width on mobile */
+    }
+    .polaroid {
+    box-shadow: none; /* This removes the shadow */
+}
+
+/* This hides the border image entirely on mobile */
+.vertical-border-img {
+        display: none !important;
+    }
+
+    /* Adjust the text container to remove the extra padding 
+       that was used to center the line */
+    .ratio-2 .image-divider-container {
+        padding-left: 0 !important;
+        margin-top: 20px; /* Adds a little breathing room since the line is gone */
+    }
+
+    /* Ensure the grid stacks correctly without the middle column */
+    .ratio-2 {
+        grid-template-columns: 1fr !important;
+    }
+
+    .ratio-2 .band-visual {
+    justify-content: center !important; 
+    padding-right: 0 !important; /* CRITICAL: This removes the desktop offset */
+    height: auto !important; /* Resets the height for stacking */
+}
+
+/* 1. Ensure the band itself doesn't have restrictive padding */
+.nutshell-section {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    /* 2. Make the inner container take up the FULL width */
+    .nutshell-inner {
+        width: 100% !important;
+        max-width: 100vw !important;
+        padding: 0 40px; /* Small side gap so text doesn't touch screen edges */
+    }
+
+    /* 3. The "Magic" centering for the title */
+    .nutshell-section .band-title {
+        text-align: center !important;
+        display: block !important;
+        width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        
+        /* This prevents any inherited flex/grid alignment from shifting it */
+        position: relative;
+        left: 0;
+        right: 0;
+    }
+
+    /* .nutshell-section .band-title {
+        text-align: center !important; /* Forces centering on small screens 
+        margin-bottom: 25px;
+    } */
+    
+    /* Ensure the grid and columns are also centered */
+    .nutshell-grid {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .nutshell-col {
+        width: 100%;
+        align-items: center; /* Centers icon and text container */
+    }
+
+    .nutshell-label {
+        text-align: center; /* Centers the actual text lines */
+        align-self: center; /* Ensures the block itself is centered */
+        max-width: 100%;
+    }
+    
+    .nutshell-icon {
+        margin-bottom: 15px;
+    }
+
+    .inquire-section {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+      /* 2. Make the inner container take up the FULL width */
+      .inquire-inner {
+      width: 100% !important;
+      max-width: 100vw !important;
+      padding: 0 40px; /* Small side gap so text doesn't touch screen edges */
+    }
+
+    .divider-line {
+        height: 15px; /* Force a specific height if they get too chunky */
+        object-fit: cover;
+    }
+    
+    }
+  </style>
+
+</head>
+<body>
+    <div class="hero-section">
+        <!-- Black transparent overlay with title text -->
+        <div class="hero-overlay">
+            <div class="brand-pill">
+              <a href="index.html"><img src="assets/logo_cream.png" alt="logo"></a>
+            </div>
+            <div class="hamburger" id="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+            
+            <div class="center-aligned">
+                <div>ALOHA & WELCOME</div>
+            </div>
+        </div>
+    </div>
+  
+<!-- === ABOUT SECTION ============================================== -->
+<section class="about-band about-red">
+  <div class="band-inner ratio-1">
+      <div class="band-visual">
+          <img src="icons/frame_hands.png" style="width: 220px; justify-self: center;">
+      </div>
+      <div class="band-text">
+          <h2 class="band-title">A LITTLE BIT<br>ABOUT ME.</h2>
+      </div>
+  </div>
+</section>
+
+<!-- <section class="about-band about-red" style="padding-top: 0;">
+  <div class="band-inner ratio-2">
+      <div class="band-visual">
+          <img src="img/gallery_polaroids/Wedding_016.jpg" class="polaroid" style="width: 280px;">
+      </div>
+      <div class="band-text vertical-divider" style="align-self: center;">
+        <img src="icons/border_vertical_cream.png" alt="" class="vertical-border-img">
+          <p>I’m a film-first photographer based in the Minneapolis area. I got my start in photography as a 2000s kid with a point-and-shoot Pikachu film camera (LOL). 
+            I’ve since shed the Pokemon border on film photos, but still am all about capturing the moments you didn’t know you wanted to remember.</p>
+      </div>
+  </div>
+</section> -->
+
+<section class="about-band about-red" style="padding-top: 0;">
+  <div class="band-inner ratio-2">
+      
+      <div class="band-visual">
+          <img src="img/gallery_polaroids/Wedding_016.jpg" class="polaroid" style="width: 280px;">
+      </div>
+
+      <img src="icons/border_vertical_cream.png" alt="" class="vertical-border-img">
+
+      <div class="band-text image-divider-container">
+          
+          
+          <div class="text-content">
+              <p>
+                  I'm a film-first photographer based in the Minneapolis area. 
+                  I got my start in photography as a kid with a plastic point-and-shoot 
+                  Pikachu film camera in the 2000s. If you're thinking, "a camera that prints Pokemon
+                  borders on all your exposures doesn't really count" - well, you'd be 100% right. In high school,
+                  though, I finally moved up to a chunky solid-metal Pentax & I haven't looked back since.
+              </p>
+          </div>
+      </div>
+
+  </div>
+</section>
+
+<section class="about-band about-green">
+  <div class="band-inner ratio-3">
+      <div class="band-text">
+        <h2 class="band-title">I MARRIED MY BEST FRIEND.</h2>
+          <!-- <h2 class="band-title">I LIKE TO SHOOT<br>FILM A LOT.</h2> -->
+      </div>
+      <div class="band-visual">
+          <img src="icons/magic.png" style="width: 120px; justify-self: end;">
+      </div>
+  </div>
+</section>
+
+<section class="about-band about-green" style="padding-top: 0;">
+  <div class="band-inner ratio-4">
+      <div class="band-text">
+          <p>Other things to know about me? For starters, I probably wouldn’t even be doing this today if it weren’t for my husband Cristian. 
+            He’s my better half 100% (& my personal comedian). And a fun tidbit? He’s also a freelance photographer & often helps me out on gigs these days!</p>
+      </div>
+      <div class="band-visual">
+          <img src="img/gallery_polaroids/005.jpg" class="polaroid" style="width: 280px; justify-self: end;">
+      </div>
+  </div>
+</section>
+
+<section class="about-band about-green" style="padding-top: 20px;">
+  <div class="band-inner ratio-5">
+    <div class="band-visual" style="width: 100px; justify-self: center;">
+      <img src="icons/hand_pointed_up.png">
+  </div>
+      <div class="band-text">
+        <h2 class="band-title">JESUS IS IT.</h2>
+      </div>
+
+  </div>
+</section>
+
+<section class="about-band about-green" style="padding-top: 0;">
+  <div class="band-inner ratio-6">
+    <div class="band-visual">
+      <img src="img/gallery_polaroids/006.jpg" class="polaroid" style="width: 280px;">
+  </div>
+      <div class="band-text">
+          <p>Jesus is it & He’s blessed us way too much not to give it all back. 
+            When we’re not out shooting, you can find us hanging out with our church fam @ Miracle City Church & 
+            helping out our local community.</p>
+      </div>
+
+  </div>
+</section>
+
+<section class="about-band about-red nutshell-section">
+  <div class="nutshell-inner">
+      
+      <h2 class="band-title">SO, ME IN A NUTSHELL.</h2>
+
+      <div class="nutshell-grid">
+          <div class="nutshell-col">
+              <img src="icons/hand_pointed_up.png" alt="Jesus Follower" class="nutshell-icon icon-tall">
+              <h3 class="nutshell-label">JESUS<br>FOLLOWER</h3>
+          </div>
+
+          <div class="nutshell-col">
+              <img src="icons/film_roll.png" alt="Always Film First" class="nutshell-icon">
+              <h3 class="nutshell-label">ALWAYS<br>FILM-<br>FIRST</h3>
+          </div>
+
+          <div class="nutshell-col">
+              <img src="icons/magic.png" alt="Still In Love" class="nutshell-icon">
+              <h3 class="nutshell-label">STILL<br>IN LOVE</h3>
+          </div>
+      </div>
+
+  </div>
+  <!-- <img src="icons/border_horizontal_cream.png" class="bottom-divider-line" alt=""> -->
+</section>
+
+<section class="about-band inquire-section">
+  
+  <!-- <img src="icons/border_horizontal_cream.png" class="divider-line line-top" alt=""> -->
+
+  <div class="inquire-inner">
+      <div style="color: var(--cream); font-family: var(--body); font-size: 20px;">
+          Alright, enough about me. Now I wanna hear from YOU!
+      </div>
+      <a href="contact.html" class="btn">INQUIRE</a>
+  </div>
+
+  <img src="icons/border_horizontal_cream.png" class="divider-line line-bottom" alt="">
+
+</section>
+
+  <!-- === SITE FOOTER =================================================== -->
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+  
+      <!-- LEFT block : logo + text ------------------------------------ -->
+      <div class="footer-left">
+        <!--<img class="footer-logo" src="icons/camera_in_hand.png" alt="Camera logo">-->
+        <div style="width: 2vw;"></div>
+  
+        <div class="footer-copy">
+          <!--<h2 class="footer-name"><a href="index.html">NICOLE PEREZ</a></h2>-->
+          <img class="brand-logo" src="assets/logo_w_camera_cream.png" alt="brand logo">
+
+          <p class="footer-email">
+            <a href="mailto:nicoleandperez@gmail.com">nicoleandperez@gmail.com</a>
+          </p>
+  
+          <p class="footer-tag">
+            Film-first photographer based in Minneapolis, MN.
+          </p>
+        </div>
+      </div>
+  
+      <!-- RIGHT block : socials --------------------------------------- -->
+      <div class="footer-social">
+        <p>
+          <a href="https://www.instagram.com/nicolesfilmshots/" target="_blank" rel="noopener">
+            <i class="fa-brands fa-instagram"></i> @nicolesfilmshots
+          </a>
+        </p>
+        <p>
+          <a href="https://www.instagram.com/nicoleperezphoto/" target="_blank" rel="noopener">
+            <i class="fa-brands fa-instagram"></i> @nicoleperezphoto
+          </a>
+        </p>
+      </div>
+  
+    </div> <!-- /.footer-inner -->
+  
+    <small class="copyright">© Nicole Perez Studio 2025</small>
+  </footer>
+  
+  <!-- ================================================================== -->
+  <!-- ───────── FULL-SCREEN NAV OVERLAY ───────── -->
+<nav id="site-menu" aria-label="Site" class="menu">
+    <button class="menu-close" aria-label="Close menu">×</button>
+  
+    <!--<h1 class="menu-name">NICOLE<br>PEREZ</h1>-->
+    <img class="menu-name" src="assets/logo_w_camera_cream.png" alt="brand logo">
+    <p class="menu-tag">Film-first photographer in<br>Minneapolis, MN</p>
+  
+    <img class="menu-wave" src="icons/border_tight_cream.png" alt="" aria-hidden="true">
+  
+    <ul class="menu-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="film.html">Film&nbsp;Photos</a></li>
+      <li><a href="digital.html">Digital&nbsp;Photos</a></li>
+      <li><a href="video.html">Video</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+  
+  <!-- =================================================================== -->
+
+    <script>
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('.fade-up').forEach(el=>{
+    new IntersectionObserver((e,o)=>{
+      if(e[0].isIntersecting){ el.classList.add('visible'); o.disconnect(); }
+    }).observe(el);
+  });
+});
+
+// Fade‑up reveal when section scrolls into view
+(function(){
+  const sections = document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window) || sections.length === 0) return; // graceful degradation
+
+  const observer = new IntersectionObserver((entries, obs)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('reveal--visible');
+        obs.unobserve(entry.target); // reveal once
+      }
+    });
+  },{threshold:0.15});
+
+  sections.forEach(sec=>observer.observe(sec));
+})();
+
+/* Auto-detect orientation and tag images */
+document.querySelectorAll('.pricing-img').forEach(img=>{
+  const tag = ()=> img.classList.add(
+    img.naturalHeight > img.naturalWidth ? 'is-portrait' : 'is-landscape'
+  );
+  if(img.complete){ tag(); } else { img.addEventListener('load', tag); }
+});
+        </script>
+<script src="js/nav.js"></script>
+</body>
+</html>
