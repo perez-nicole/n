@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nicole Perez Photography</title>
+    <link rel="icon" href="icons/camera2_on_red.png" type="image/png">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- shared navbar styles -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <style>
+        /* Get rid of all padding and margin */
+        body {
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.5s ease; /* Smooth transition effect */
+            background: var(--cream);
+        }
+        
+        .hero-section {
+            z-index: 0;
+            width: 100%;
+            background-image: url('img/000142470009.jpg'); /* Hero image  gallery/Matt_Dominique/07-000124090014.jpg*/
+            height: 100vh;
+            background-size: cover; /* Ensures the image covers the entire div */
+            background-position: 40% center; /* Centers the image */
+            overflow: hidden;
+            position: relative; /* Ensure the overlay is positioned correctly */
+        }
+
+        .hero-overlay {
+            z-index: 1;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.08); /* 25% transparent black */
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            color: white;
+        }
+
+        .brand-pill {
+        z-index:2;
+        padding:12px 36px;
+        border-radius:4px;
+        margin:100px 5vw 0;        /* centred top     */
+        width:max-content;          /* shrink-wrap     */
+        
+    }
+
+        .brand-pill img {
+            height: 75px;
+
+        }
+
+        .center-aligned {
+            z-index: 2;
+            font-family: var(--headline);
+            color: var(--red);
+            font-size:clamp(28px, 13vw, 150px);
+            max-width:95vw;          /* prevents words spilling outside the screen */
+            padding:0;           /* gives a little breathing room on small viewports */
+            position: absolute;
+            top: 55%; /* Adjust this value to control the height from the top */
+            left: 50%;
+            transform: translate(-50%, -50%); /* Centers the text horizontally and vertically */
+            text-align: center;
+            line-height:0.8;
+        }
+
+
+    .book{
+        font-family:var(--headline);
+        font-size:clamp(18px , 5vw , 30px);
+        text-align: center;
+        color: var(--red);
+        padding: 50px 0 150px;
+    }
+
+    .philosophy-section {
+    position: relative;
+    background-image: url('img/000142510029.jpg'); /*000142510029*/
+    background-size: cover;
+    background-position: 45% center;
+    background-repeat: no-repeat;
+    padding: 130px 10vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* White text to match the overlay style in your reference photo */
+    color: var(--cream);
+
+    /* Parallax Magic */
+    background-attachment: fixed; 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Optional: Adds a dark tint so white text pops more */
+.philosophy-section::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.1); /* 20% dark overlay */
+    z-index: 1;
+}
+
+.philosophy-header, .philosophy-content {
+    position: relative;
+    z-index: 2; /* Ensures content sits above the background/tint */
+}
+
+.philosophy-header {
+    border: clamp(2px, 2vw, 13px) solid var(--cream); /* Matches the light tan border in image */
+    padding: 10px clamp(15px, 2vw, 40px);
+    margin-bottom: 60px;
+}
+
+.philosophy-header h2 {
+    font-family: var(--subheader);
+    font-size: clamp(10px, 4.8vw, 40px);
+    margin: 0;
+    letter-spacing: 4px;
+    color: var(--cream);
+}
+
+.philosophy-content {
+    display: flex;
+    position: relative;
+    gap: 80px; /* Space between the two columns */
+    max-width: 1000px;
+    width: 100%;
+}
+
+/* The vertical divider line */
+.philosophy-content::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 12px; /* Adjust width to fit your specific border image */
+    transform: translateX(-50%);
+    
+    /* Image properties */
+    background-image: url('icons/border_vertical_cream.png'); /* Replace with your desired border image path */
+    background-repeat: no-repeat;
+    background-size: 100% 100%; /* This forces the image to stretch to full height */
+    background-position: center;
+}
+
+.philosophy-column {
+    flex: 1; /* Forces 50/50 split */
+    padding: 0 20px;
+}
+
+.philosophy-column p {
+    font-family: var(--body);
+    font-size: clamp(16px, 1.5vw, 18px);
+    line-height: 1.2;
+    margin: 0;
+    position: relative;
+}
+
+.asterisk {
+    font-family: var(--headline);
+    margin-right: 5px;
+    font-size: 1.2em;
+}
+
+.offering-band {
+    display: flex;
+    align-items: center;
+    padding: clamp(20px, 9vw, 70px) clamp(5px, 15vw, 300px);
+    background-color: var(--cream);
+    gap: clamp(15px, 6vw, 70px);
+}
+
+/* Band 1: Image Left (Default) */
+.offering-band:not(.reverse) .offering-image-container {
+    display: flex;
+    justify-content: flex-start; /* Aligns image to the left */
+}
+
+/* Logic for the 60/40 swap */
+.offering-band.reverse {
+    flex-direction: row-reverse;
+}
+
+.offering-band.reverse .offering-image-container {
+    display: flex;
+    justify-content: flex-end; /* Aligns image to the right */
+}
+
+.split-40 { flex: 0 0 40%; }
+.split-60 { flex: 0 0 60%; }
+
+/* The "Framed" Look from the image */
+/* .photo-frame { 
+    /* border: 15px solid #D9C5B2; /* Tan border 
+    padding: 20px;
+    background-color: white;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.05); 
+} */
+
+.photo-frame img {
+    width: 100%;
+    display: block;
+    height: auto;
+}
+
+/* Typography Styles */
+.offering-title {
+    font-family: var(--subheader);
+    color: var(--red);
+    font-size: clamp(20px, 4vw, 45px);
+    line-height: 0.9;
+    margin-bottom: 30px;
+    /* border: 3px solid var(--red); */
+    display: inline-block;
+    padding: 10px 0;
+}
+
+.offering-price {
+    font-family: var(--subheader);
+    color: var(--red);
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.offering-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 40px;
+}
+
+.offering-list li {
+    font-family: var(--body);
+    color: var(--red);
+    font-size: clamp(14px, 3vw, 18px);
+    margin-bottom: 8px;
+    display: flex;
+    gap: 10px;
+}
+
+.offering-list span {
+    font-weight: bold;
+}
+
+/* ---------- Reveal on Scroll ---------- */
+.reveal{
+  opacity:0;
+  transform:translateY(40px);
+  transition:opacity .6s ease-out, transform .6s ease-out;
+}
+.reveal.reveal--visible{
+  opacity:1;
+  transform:none;
+}
+@media(prefers-reduced-motion:reduce){
+  .reveal,
+  .reveal.reveal--visible{
+    opacity:1 !important;
+    transform:none !important;
+    transition:none !important;
+  }
+}
+
+/* The Pill-Shaped Button */
+.inquire-button {
+    display: inline-block;
+    font-family: var(--body);
+    color: var(--red);
+    text-decoration: none;
+    border: 2px solid var(--red);
+    padding: 12px 60px;
+    border-radius: 50%; /* Makes it an oval/pill */
+    transition: all 0.3s ease;
+}
+
+.inquire-button:hover {
+    background-color: var(--red);
+    color: var(--cream);
+}
+
+    .faqs{
+      background: var(--blue);
+      padding: 120px 6vw 0;
+
+    }
+
+    .faqs-hd{
+        font-family:var(--subheader);
+        font-size:clamp(35px, 7vw, 50px);
+        color: var(--cream);
+        margin:0 0 20px;
+        line-height:0.9;
+        text-align: center;
+    }
+
+    .faqs-text{
+        font-family: var(--body);
+        font-size:clamp(16px , 1.25vw , 22px);
+        color: var(--cream);
+        padding: 50px 4vw 100px;
+        margin-bottom:0; 
+    }
+
+    .faq-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding-bottom: 100px;
+}
+
+.faq-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Subtle divider */
+    padding: 20px 0;
+    cursor: pointer;
+}
+
+.faq-item summary {
+    font-family: var(--headline); /* Using your headline font */
+    font-size: clamp(18px, 2vw, 24px);
+    color: var(--cream);
+    list-style: none; /* Hides the default arrow in most browsers */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    outline: none;
+}
+
+/* Add a custom "+" icon that rotates to an "x" */
+.faq-item summary::after {
+    content: '+';
+    font-size: 30px;
+    transition: transform 0.3s ease;
+}
+
+.faq-item[open] summary::after {
+    transform: rotate(45deg); /* Turns + into x */
+}
+
+.faq-answer {
+    font-family: var(--body);
+    font-size: 18px;
+    color: var(--cream);
+    padding: 20px 0 10px;
+    line-height: 1.6;
+    /* Animation for smooth opening */
+    animation: slideDown 0.4s ease-out;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Remove default triangle in Safari */
+.faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+
+    @media (max-width: 800px){
+    .brand-pill img {
+                height: 60px;
+
+            }
+
+    .philosophy-section {
+        background-attachment: scroll; /* Disables parallax on tablets/phones */
+    }
+
+    .philosophy-content {
+        flex-direction: column;
+        gap: 40px;
+    }
+    .philosophy-content::after {
+        display: none; /* Hide vertical line on mobile */
+    }
+    /* .philosophy-column {
+        text-align: center;
+    } */
+
+    .offering-band, .offering-band.reverse {
+        flex-direction: column;
+        padding: 60px 8vw; /* Matches the philosophy padding */
+        align-items: flex-start; /* Aligns children to the left */
+        text-align: left; /* Ensures text is left-aligned */
+    }
+
+    .split-40, .split-60 {
+        flex: 0 0 100%;
+        width: 100%;
+    }
+
+    .offering-title {
+        display: inline-block; /* Keeps the border wrapped tight to text */
+        margin: 0 auto 30px 0; /* Keeps it left-aligned */
+    }
+
+    /* The "Center the Button" trick */
+    .inquire-button {
+        display: block;      /* Allows margins to work */
+        width: max-content;  /* Shrinks to fit text */
+        margin: 20px auto 0; /* 'auto' on left/right centers it */
+        text-align: center;
+    }
+
+    .offering-image-container {
+        margin-bottom: 40px;
+    }
+
+        }
+
+    </style>
+</head>
+<body>
+    <div class="hero-section">
+        <!-- Black transparent overlay with title text -->
+        <div class="hero-overlay">
+            <div class="brand-pill">
+              <a href="index.html"><img src="assets/logo_cream.png" alt="logo"></a>
+            </div>
+            <div class="hamburger" id="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+            
+            <div class="center-aligned">
+                <div>¿CUÁNTO CUESTA?</div>
+                <div style="font-family:'Zalando-Regular'; font-size:clamp(16px , 3vw , 30px);"><br>("What's it gonna cost?")</div>
+            </div>
+        </div>
+    </div>
+
+      <!-- ==================================================================== -->
+    <section class="offering-band reveal">
+        <div class="offering-image-container split-40">
+            <div class="photo-frame">
+                <img src="img/gallery/Nate_Ava/01-000142530030.jpg" alt="Engagements">
+            </div>
+        </div>
+        <div class="offering-details split-60">
+            <h2 class="offering-title">ENGAGEMENTS/<br>ENGAGEMENT PARTIES</h2>
+            <h3 class="offering-price">1-HOUR: $250</h3>
+            <ul class="offering-list">
+                <li><span>*</span> 100+ total photos</li>
+                <li><span>*</span> Online gallery of photos on both 35mm film & digital mediums</li>
+                <li><span>*</span> All film included @ no extra charge</li>
+                <li><span>*</span> Complimentary second shooter</li>
+            </ul>
+            <a href="contact.html" class="inquire-button">INQUIRE</a>
+        </div>
+    </section>
+    
+    <section class="offering-band reverse reveal">
+        <div class="offering-image-container split-40">
+            <div class="photo-frame">
+                <img src="img/gallery/Matt_Dominique/01-000124100037.jpg" alt="Elopements">
+            </div>
+        </div>
+        <div class="offering-details split-60">
+            <h2 class="offering-title">ELOPEMENTS/<br>MICRO-WEDDINGS</h2>
+            <h3 class="offering-price">UP TO 3 HRS: $1,200</h3>
+            <ul class="offering-list">
+                <li><span>*</span> 250+ total photos</li>
+                <li><span>*</span> Complimentary second shooter</li>
+                <li><span>*</span> Online gallery of photos on both 35mm film & digital mediums</li>
+                <li><span>*</span> All film included at no extra charge</li>
+                <li><span>*</span> Set of instant-film exposures</li>
+                <li><span>*</span> Custom quotes available for video and/or anything else you might need (simply include the request in your inquiry)</li>
+            </ul>
+            <p style="color:var(--red); margin-top:1rem; font-family:var(--bodybold);"><b>No additional cost for domestic travel!</b></p>
+            <br>
+            <a href="contact.html" class="inquire-button">INQUIRE</a>
+        </div>
+    </section>
+
+    <section class="offering-band reveal">
+        <div class="offering-image-container split-40">
+            <div class="photo-frame">
+                <img src="img/gallery/Tyler_Kate/000128900005.jpg" alt="Weddings"> <!--Grant_Claire/21-000125740020.jpg*/-->
+            </div>
+        </div>
+        <div class="offering-details split-60">
+            <h2 class="offering-title">WEDDINGS</h2>
+            <h3 class="offering-price">UP TO 8 HRS: $2,000</h3>
+            <ul class="offering-list">
+                <li><span>*</span> 500+ total photos</li>
+                <li><span>*</span> Complimentary second shooter</li>
+                <li><span>*</span> Online gallery of photos on both 35mm and digital mediums</li>
+                <li><span>*</span> All film included at no extra charge</li>
+                <li><span>*</span> Set of instant-film exposures</li>
+                <li><span>*</span> Complimentary engagement session within the Twin Cities area</li>
+                <li><span>*</span> Digital sneak peek within 48 hours</li>
+                <li><span>*</span> Custom quotes available for rehearsal dinner coverage, additional hours, and video (simply include the request in your inquiry!)</li>
+            </ul>
+            <p style="color:var(--red); margin-top:1rem; font-family:var(--bodybold);"><b>No additional cost for domestic travel!</b></p>
+            <br>
+            <a href="contact.html" class="inquire-button">INQUIRE</a>
+        </div>
+    </section>
+
+    <section class="philosophy-section">
+        <div class="philosophy-header">
+            <h2>PHILOSOPHY</h2>
+        </div>
+        <div class="philosophy-content">
+            <div class="philosophy-column">
+                <p>
+                    <span class="asterisk">*</span>I’m a film-first photographer, so that means film is included in every session, not an upcharge or afterthought.
+                </p>
+            </div>
+            <div class="philosophy-column">
+                <p>
+                    <span class="asterisk">*</span>I’m all about keeping things simple & straightforward, and pricing’s no exception. No hidden fees or surcharges here – the price you see is the price you pay, plain & simple.
+                </p>
+            </div>
+        </div>
+    </section>
+
+  <!-- ==================================================================== -->
+
+  <section class="faqs">
+    <h2 class="faqs-hd">FAQS</h2>
+    
+    <div class="faq-container">
+        <details class="faq-item">
+            <summary>What does it mean to be a "film-first" photographer? Why film?</summary>
+            <div class="faq-answer">
+                "Film-first" means exactly that: film is my primary medium during every session, wedding, and weekend - not an upcharge or afterthought. 
+                Each exposure on film requires un-hurrying, which in turn leads to catching beautiful, unplanned moments.
+            </div>
+        </details>
+
+        <details class="faq-item">
+            <summary>Do you take on weddings on short notice?</summary>
+            <div class="faq-answer">
+                Absolutely! My husband and I planned our entire wedding in less than 7 months, so we don’t believe one-size-fits-all. 
+                Whether it’s a big bash or an elopement, <a style="font-family:var(--bodybold); color: var(--yellow);" href="contact.html">drop me a line</a>!
+            </div>
+        </details>
+
+        <details class="faq-item">
+            <summary>What’s the turnaround time for a wedding gallery? </summary>
+            <div class="faq-answer">
+                Generally, 4-6 weeks, although lab waits can occasionally delay that.
+            </div>
+        </details>
+
+        <details class="faq-item">
+            <summary>Do you charge extra for travel outside of MN?</summary>
+            <div class="faq-answer">
+                I don’t charge any additional fees for travel anywhere within the U.S.! The price listed is the price you pay, plain and simple.
+            </div>
+        </details>
+
+        <details class="faq-item">
+            <summary>Is there a deposit with booking?</summary>
+            <div class="faq-answer">
+                Yes! A signed contract and a 50% non-refundable deposit (applied towards the total payment) is needed to lock in your date. 
+                The final 50% will be due 30 days before the day of your wedding. You can also choose to pay in full at the time of contract signing. 
+            </div>
+        </details>
+
+        <details class="faq-item">
+            <summary>What does the booking process look like?</summary>
+            <div class="faq-answer">
+                Step 1: the inquiry. You inquire <a style="font-family:var(--bodybold); color: var(--yellow);" href="contact.html">here</a>! Within 24 hours, I’ll reach out with additional info and some timeslots to schedule a consult call.<br><br>
+                Step 2: the consult call. We (me, you and your significant other) jump on a call together! I’ll walk through my approach, and you’ll fill me in on y’all’s story (personally, my favorite part!). 
+                        This is a great way for us to get to know one another and for you to decide if I’m a good fit for YOU both! <br><br>
+                Step 3: the deposit & contract. Once you've confirmed you want to move forward with booking,
+                        I’ll send over the contract and details for your deposit (or full payment if you opt to go that route). 
+                        Once your deposit is paid, you’ll receive a confirmation email letting you know your date is booked. Time to let the good times roll!
+            </div>
+        </details>
+
+        <details class="faq-item">
+            <summary>What’s your approach to the wedding day?</summary>
+            <div class="faq-answer">
+                Bespoke portraits alongside evocative captures of unplanned moments - all on 35mm & Instax - is my wheelhouse. 
+                My goal, whether the moment is prompted or completely unscripted, is to give you a gallery full of shots that make you say 
+                “I didn’t even know I wanted to remember that!”
+            </div>
+        </details>
+
+        </div>
+</section>
+
+  <!-- === SITE FOOTER =================================================== -->
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+  
+      <!-- LEFT block : logo + text ------------------------------------ -->
+      <div class="footer-left">
+        <!--<img class="footer-logo" src="icons/camera_in_hand.png" alt="Camera logo">-->
+        <div style="width: 2vw;"></div>
+  
+        <div class="footer-copy">
+          <!--<h2 class="footer-name"><a href="index.html">NICOLE PEREZ</a></h2>-->
+          <img class="brand-logo" src="assets/logo_w_camera_cream.png" alt="brand logo">
+
+          <p class="footer-email">
+            <a href="mailto:nicoleandperez@gmail.com">nicoleandperez@gmail.com</a>
+          </p>
+  
+          <p class="footer-tag">
+            Film-first photographer based in Minneapolis, MN.
+          </p>
+        </div>
+      </div>
+  
+      <!-- RIGHT block : socials --------------------------------------- -->
+      <div class="footer-social">
+        <p>
+          <a href="https://www.instagram.com/nicolesfilmshots/" target="_blank" rel="noopener">
+            <i class="fa-brands fa-instagram"></i> @nicolesfilmshots
+          </a>
+        </p>
+        <p>
+          <a href="https://www.instagram.com/nicoleperezphoto/" target="_blank" rel="noopener">
+            <i class="fa-brands fa-instagram"></i> @nicoleperezphoto
+          </a>
+        </p>
+      </div>
+  
+    </div> <!-- /.footer-inner -->
+  
+    <small class="copyright">© Nicole Perez Studio 2025</small>
+  </footer>
+  
+  <!-- ================================================================== -->
+  <!-- ───────── FULL-SCREEN NAV OVERLAY ───────── -->
+<nav id="site-menu" aria-label="Site" class="menu">
+    <button class="menu-close" aria-label="Close menu">×</button>
+  
+    <!--<h1 class="menu-name">NICOLE<br>PEREZ</h1>-->
+    <img class="menu-name" src="assets/logo_w_camera_cream.png" alt="brand logo">
+    <p class="menu-tag">Film-first photographer in<br>Minneapolis, MN</p>
+  
+    <img class="menu-wave" src="icons/border_tight_cream.png" alt="" aria-hidden="true">
+  
+    <ul class="menu-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="film.html">Film&nbsp;Photos</a></li>
+      <li><a href="digital.html">Digital&nbsp;Photos</a></li>
+      <li><a href="video.html">Video</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+  
+  <!-- =================================================================== -->
+
+    <script>
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('.fade-up').forEach(el=>{
+    new IntersectionObserver((e,o)=>{
+      if(e[0].isIntersecting){ el.classList.add('visible'); o.disconnect(); }
+    }).observe(el);
+  });
+});
+
+// Fade‑up reveal when section scrolls into view
+(function(){
+  const sections = document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window) || sections.length === 0) return; // graceful degradation
+
+  const observer = new IntersectionObserver((entries, obs)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('reveal--visible');
+        obs.unobserve(entry.target); // reveal once
+      }
+    });
+  },{threshold:0.15});
+
+  sections.forEach(sec=>observer.observe(sec));
+})();
+
+/* Auto-detect orientation and tag images */
+document.querySelectorAll('.pricing-img').forEach(img=>{
+  const tag = ()=> img.classList.add(
+    img.naturalHeight > img.naturalWidth ? 'is-portrait' : 'is-landscape'
+  );
+  if(img.complete){ tag(); } else { img.addEventListener('load', tag); }
+});
+        </script>
+<script src="js/nav.js"></script>
+</body>
+</html>
