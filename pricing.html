@@ -118,7 +118,7 @@
 }
 
 .philosophy-header {
-    border: clamp(2px, 2vw, 13px) solid var(--cream); /* Matches the light tan border in image */
+    border: clamp(2px, 1.5vw, 8px) solid var(--cream); /* Matches the light tan border in image */ /* Bartle clamp(2px, 2vw, 13px) */
     padding: 10px clamp(15px, 2vw, 40px);
     margin-bottom: 60px;
 }
@@ -220,19 +220,19 @@
 .offering-title {
     font-family: var(--subheader);
     color: var(--red);
-    font-size: clamp(20px, 4vw, 45px);
+    font-size: clamp(25px, 6vw, 55px); /* Bartle clamp(20px, 4vw, 45px);*/
     line-height: 0.9;
-    margin-bottom: 30px;
+    margin-bottom: clamp(3px, 1vw, 30px);
     /* border: 3px solid var(--red); */
     display: inline-block;
-    padding: 10px 0;
+    padding: clamp(2px, 1.5vw, 10px) 0;
 }
 
 .offering-price {
     font-family: var(--subheader);
     color: var(--red);
-    font-size: 20px;
-    margin-bottom: 20px;
+    font-size: clamp(20px, 4vw, 30px);
+    margin-bottom: clamp(20px, 3vw, 25px);
 }
 
 .offering-list {
