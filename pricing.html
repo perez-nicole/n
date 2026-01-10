@@ -401,6 +401,13 @@
         width: 100%;
     }
 
+    .photo-frame img {
+        width: 100%;
+        height: 46vh;            /* Sets the viewing height (Adjust this to make it taller/shorter) */
+        object-fit: cover;       /* Ensures the image covers the area without stretching */
+        object-position: center; /* Keeps the middle 60% visible, cropping top/bottom */
+    }
+
     .offering-title {
         display: inline-block; /* Keeps the border wrapped tight to text */
         margin: 0 auto 30px 0; /* Keeps it left-aligned */
