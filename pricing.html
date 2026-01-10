@@ -181,7 +181,7 @@
 
 /* Replace the text '*' with the 8-pointed star using a pseudo-element */
 .asterisk::before {
-    content: "\2733";
+    content: "\2733\FE0E";
 }
 
 /* 1. Ensure the band stretches both columns to equal height */
@@ -298,7 +298,7 @@
 
 /* 3. Inject the Eight Spoked Asterisk (✳) */
 .offering-list li::before {
-    content: "\2733"; /* Unicode for the 8-pointed asterisk */
+    content: "\2733\FE0E"; /* Unicode for the 8-pointed asterisk */
     position: absolute;
     left: 0;
     top: 0;
@@ -436,7 +436,7 @@
 
 .overlay-list li::before {
     /* The Unicode for the Eight Spoked Asterisk */
-    content: "\2733"; 
+    content: "\2733\FE0E"; 
     position: absolute;
     left: 0;
     top: 0;
