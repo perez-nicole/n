@@ -26,7 +26,7 @@
             background-image: url('img/flowers_cropped.jpg'); /* Hero image  gallery/Matt_Dominique/07-000124090014.jpg*/
             height: 100vh;
             background-size: cover; /* Ensures the image covers the entire div */
-            background-position: 40% center; /* Centers the image */
+            background-position: center; /* Centers the image */
             overflow: hidden;
             position: relative; /* Ensure the overlay is positioned correctly */
         }
@@ -85,7 +85,7 @@
 
     .philosophy-section {
     position: relative;
-    background-image: url('img/000142510029.jpg'); /*000142510029*/
+    background-image: url('img/000161760014.jpg'); /*000161760014*/
     background-size: cover;
     background-position: 45% center;
     background-repeat: no-repeat;
@@ -108,7 +108,7 @@
     content: "";
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0, 0, 0, 0.1); /* 20% dark overlay */
+    background: rgba(0, 0, 0, 0.35); /* 20% dark overlay */
     z-index: 1;
 }
 
@@ -170,17 +170,52 @@
 }
 
 .asterisk {
-    font-family: var(--headline);
-    margin-right: 5px;
+    /* Use the same Unicode star */
+    font-family: Arial, sans-serif;
+    color: inherit; /* Keeps it Cream to match the section text */
     font-size: 1.2em;
+    margin-right: 8px; /* Adds space before the text starts */
+    vertical-align: middle;
+    line-height: 0;
 }
 
+/* Replace the text '*' with the 8-pointed star using a pseudo-element */
+.asterisk::before {
+    content: "\2733";
+}
+
+/* 1. Ensure the band stretches both columns to equal height */
 .offering-band {
     display: flex;
-    align-items: center;
-    padding: clamp(20px, 9vw, 70px) clamp(5px, 15vw, 300px);
+    align-items: center; /* Critical: This makes the image side as tall as the text side */
+    padding: clamp(10px, 9vw, 70px) clamp(5px, 15vw, 300px);
     background-color: var(--cream);
-    gap: clamp(15px, 6vw, 70px);
+    gap: clamp(10px, 6vw, 70px);
+}
+
+/* 2. Configure the columns */
+.split-40 { flex: 0 0 40%; position: relative; }
+.split-60 { flex: 0 0 60%; position: relative;}
+
+/* Apply styling to the image container regardless of whether it is 40% or 60% */
+.offering-image-container {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Standard Frame Styling */
+.photo-frame {
+    width: 100%;
+    display: block;
+    position: relative;
+}
+
+/* Ensure images and video just take up the full width naturally */
+.photo-frame img,
+.photo-frame video {
+    width: 100%;
+    height: auto; /* Allow height to adjust automatically based on width */
+    display: block;
 }
 
 /* Band 1: Image Left (Default) */
@@ -202,19 +237,6 @@
 .split-40 { flex: 0 0 40%; }
 .split-60 { flex: 0 0 60%; }
 
-/* The "Framed" Look from the image */
-/* .photo-frame { 
-    /* border: 15px solid #D9C5B2; /* Tan border 
-    padding: 20px;
-    background-color: white;
-    box-shadow: 5px 5px 15px rgba(0,0,0,0.05); 
-} */
-
-.photo-frame img {
-    width: 100%;
-    display: block;
-    height: auto;
-}
 
 /* Typography Styles */
 .offering-title {
@@ -235,7 +257,7 @@
     margin-bottom: clamp(20px, 3vw, 25px);
 }
 
-.offering-list {
+/* .offering-list {
     list-style: none;
     padding: 0;
     margin-bottom: 40px;
@@ -252,6 +274,37 @@
 
 .offering-list span {
     font-weight: bold;
+} */
+
+/* 1. Reset the original lists */
+.offering-list {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 40px;
+}
+
+/* 2. Style the list items for the star */
+.offering-list li {
+    font-family: var(--body);
+    color: var(--red);
+    font-size: clamp(14px, 3vw, 18px);
+    margin-bottom: 8px;
+    position: relative;
+    /* This padding creates the space for the star on the left */
+    padding-left: 1.8em; 
+    display: block;
+    line-height: 1.4;
+}
+
+/* 3. Inject the Eight Spoked Asterisk (✳) */
+.offering-list li::before {
+    content: "\2733"; /* Unicode for the 8-pointed asterisk */
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 1.1em;
+    color: inherit; /* Matches the text color (Red or Cream depending on band) */
+    line-height: 1.2;
 }
 
 /* ---------- Reveal on Scroll ---------- */
@@ -271,6 +324,126 @@
     transform:none !important;
     transition:none !important;
   }
+}
+
+/* --- New Video Overlay Section Styles --- */
+.video-overlay-section {
+    position: relative;
+    width: 100%;
+    /* Set a fixed height for the section, adjust as desired */
+    height: 80vh; 
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* The Background Video */
+.overlay-bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures video fills the area without stretching */
+    z-index: 0;
+}
+
+/* Optional: Dark Tint for better text readability */
+.video-overlay-tint {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.3); /* Adjust opacity (0.1 to 0.5) as needed */
+    z-index: 1;
+}
+
+/* The Flex Container for Content */
+.overlay-content {
+    position: relative;
+    z-index: 2; /* Sits above video and tint */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%; /* Contains width on large screens */
+    max-width: 1200px;
+    color: var(--cream); /* Sets all text to cream */
+}
+
+/* Left Column: Title & Price */
+.overlay-left {
+    flex: 1; /* Takes 50% */
+    text-align: left;
+    padding-right: clamp(20px, 4vw, 50px);
+}
+
+.overlay-title {
+    font-family: var(--subheader);
+    font-size: clamp(35px, 6vw, 70px);
+    line-height: 0.9;
+    margin: 0;
+    color: var(--cream);
+}
+
+.overlay-price {
+    font-family: var(--body);
+    font-size: clamp(15px, 2.5vw, 25px); /*clamp(30px, 5vw, 50px);*/
+    margin: 10px 0 0;
+    color: var(--cream);
+}
+
+/* The Image Border Divider */
+.overlay-divider {
+    /* Adjust height to control how tall the divider is */
+    height: clamp(150px, 30vw, 300px);
+    width: auto; /* Maintains aspect ratio */
+    /* Add some spacing around the divider */
+    margin: 0 clamp(10px, 2vw, 30px);
+}
+
+/* Right Column: Bullets */
+.overlay-right {
+    flex: 1; /* Takes 50% */
+    text-align: left;
+    padding-left: clamp(20px, 4vw, 50px);
+}
+
+.overlay-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.overlay-list li {
+    font-family: var(--body);
+    font-size: clamp(16px, 2vw, 24px);
+    line-height: 1.4;
+    margin-bottom: 15px;
+    display: flex;
+    color: var(--cream);
+}
+
+.overlay-list li span {
+    margin-right: 10px; /* Space between dash and text */
+}
+
+/* 2. Create the custom star bullet */
+.overlay-list li {
+    position: relative;
+    padding-left: 1.5em; /* Space for the star */
+    margin-bottom: 12px;
+    display: block; /* Important for positioning */
+}
+
+.overlay-list li::before {
+    /* The Unicode for the Eight Spoked Asterisk */
+    content: "\2733"; 
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: Arial, sans-serif; /* Standard fonts support this well */
+    color: var(--cream);
+    font-size: 1.2em;
+    line-height: 1;
 }
 
 /* The Pill-Shaped Button */
@@ -326,7 +499,7 @@
 }
 
 .faq-item summary {
-    font-family: var(--headline); /* Using your headline font */
+    font-family: var(--bodybold); /* Using your headline font */
     font-size: clamp(18px, 2vw, 24px);
     color: var(--cream);
     list-style: none; /* Hides the default arrow in most browsers */
@@ -385,15 +558,13 @@
     .philosophy-content::after {
         display: none; /* Hide vertical line on mobile */
     }
-    /* .philosophy-column {
-        text-align: center;
-    } */
 
     .offering-band, .offering-band.reverse {
         flex-direction: column;
-        padding: 60px 8vw; /* Matches the philosophy padding */
+        padding: 30px 8vw; /* Matches the philosophy padding */
         align-items: flex-start; /* Aligns children to the left */
         text-align: left; /* Ensures text is left-aligned */
+        height: auto;
     }
 
     .split-40, .split-60 {
@@ -401,6 +572,7 @@
         width: 100%;
     }
 
+    /* ADD THIS NEW RULE: */
     .photo-frame img {
         width: 100%;
         height: 46vh;            /* Sets the viewing height (Adjust this to make it taller/shorter) */
@@ -410,7 +582,7 @@
 
     .offering-title {
         display: inline-block; /* Keeps the border wrapped tight to text */
-        margin: 0 auto 30px 0; /* Keeps it left-aligned */
+        margin: 0 auto 15px 0; /* Keeps it left-aligned */
     }
 
     /* The "Center the Button" trick */
@@ -422,7 +594,62 @@
     }
 
     .offering-image-container {
-        margin-bottom: 40px;
+        margin-bottom: 30px;
+    }
+
+    .offering-band, .offering-band.reverse {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .split-40, .split-60 {
+        flex: 0 0 100%;
+        width: 100%;
+    }
+
+    .video-overlay-section {
+        height: auto; 
+        padding: 80px 0;
+    }
+    
+    .overlay-content {
+        flex-direction: column;
+        /* Ensure the container itself doesn't have extra centering */
+        align-items: flex-start; 
+        text-align: left;
+        gap: 40px;
+        /* Match your other sections' padding if necessary */
+        padding: 0 8vw; 
+    }
+
+    .overlay-left {
+        text-align: left;
+        /* REMOVE the desktop right padding and set left to 0 */
+        padding-right: 0; 
+        padding-left: 0;
+        flex: 0 0 auto;
+        width: 100%;
+    }
+
+    .overlay-right {
+        text-align: left;
+        padding-left: 0; /* Reset left padding */
+        flex: 0 0 auto;
+        width: 100%;
+    }
+
+    /* Clear default UL padding that browsers often add */
+    .overlay-list {
+        padding-left: 0;
+        margin-left: 0;
+        font-size: clamp(14px, 3vw, 18px);
+    }
+
+    .overlay-title { font-size: clamp(25px, 6vw, 55px); }
+    .overlay-price { font-size: clamp(20px, 4vw, 30px); }
+
+    .overlay-divider {
+        display: none;
     }
 
         }
@@ -448,20 +675,39 @@
     </div>
 
       <!-- ==================================================================== -->
+      <section class="philosophy-section">
+        <div class="philosophy-header">
+            <h2>PHILOSOPHY</h2>
+        </div>
+        <div class="philosophy-content">
+            <div class="philosophy-column">
+                <p>
+                    <span class="asterisk"></span>I’m a film-first photographer, so that means film is included in every session, not an upcharge or afterthought.
+                </p>
+            </div>
+            <div class="philosophy-column">
+                <p>
+                    <span class="asterisk"></span>I’m all about keeping things simple & straightforward, and pricing’s no exception. No hidden fees or surcharges here – the price you see is the price you pay, plain & simple.
+                </p>
+            </div>
+        </div>
+    </section>
+
     <section class="offering-band reveal">
         <div class="offering-image-container split-40">
             <div class="photo-frame">
-                <img src="img/gallery/Brian_Meghan/000139490029.jpg" alt="Engagements"> <!--"img/gallery/Nate_Ava/01-000142530030.jpg" -->
+                <img src="img/gallery/Brian_Meghan/000139490029.jpg" alt="Engagements"> <!--Nate_Ava/01-000142530030.jpg-->
             </div>
         </div>
         <div class="offering-details split-60">
             <h2 class="offering-title">ENGAGEMENTS/<br>ENGAGEMENT PARTIES</h2>
             <h3 class="offering-price">1-HOUR: $250</h3>
             <ul class="offering-list">
-                <li><span>*</span> 100+ total photos</li>
-                <li><span>*</span> Online gallery of photos on both 35mm film & digital mediums</li>
-                <li><span>*</span> All film included @ no extra charge</li>
-                <li><span>*</span> Complimentary second shooter</li>
+                <li>100+ total photos</li>
+                <li>Online gallery of photos on both 35mm film & digital mediums</li>
+                <li>All film included @ no extra charge</li>
+                <li>Complimentary second shooter</li>
+                <li>Custom quotes available for additional locations and anything else you might need (simply include the request in your inquiry)</li>
             </ul>
             <a href="contact.html" class="inquire-button">INQUIRE</a>
         </div>
@@ -470,19 +716,19 @@
     <section class="offering-band reverse reveal">
         <div class="offering-image-container split-40">
             <div class="photo-frame">
-                <img src="img/gallery/01-000124100037.jpg" alt="Elopements">
+                <img src="img/gallery/Matt_Dominique/01-000124100037.jpg" alt="Elopements">
             </div>
         </div>
         <div class="offering-details split-60">
             <h2 class="offering-title">ELOPEMENTS/<br>MICRO-WEDDINGS</h2>
             <h3 class="offering-price">UP TO 3 HRS: $1,200</h3>
             <ul class="offering-list">
-                <li><span>*</span> 250+ total photos</li>
-                <li><span>*</span> Complimentary second shooter</li>
-                <li><span>*</span> Online gallery of photos on both 35mm film & digital mediums</li>
-                <li><span>*</span> All film included at no extra charge</li>
-                <li><span>*</span> Set of instant-film exposures</li>
-                <li><span>*</span> Custom quotes available for video and/or anything else you might need (simply include the request in your inquiry)</li>
+                <li>250+ total photos</li>
+                <li>Complimentary second shooter</li>
+                <li>Online gallery of photos on both 35mm film & digital mediums</li>
+                <li>All film included at no extra charge</li>
+                <li>Set of instant-film exposures</li>
+                <li>Add-ons available for engagement sessions, video, and anything else you might need (simply include the request in your inquiry)</li>
             </ul>
             <p style="color:var(--red); margin-top:1rem; font-family:var(--bodybold);"><b>No additional cost for domestic travel!</b></p>
             <br>
@@ -500,14 +746,14 @@
             <h2 class="offering-title">WEDDINGS</h2>
             <h3 class="offering-price">UP TO 8 HRS: $2,000</h3>
             <ul class="offering-list">
-                <li><span>*</span> 500+ total photos</li>
-                <li><span>*</span> Complimentary second shooter</li>
-                <li><span>*</span> Online gallery of photos on both 35mm and digital mediums</li>
-                <li><span>*</span> All film included at no extra charge</li>
-                <li><span>*</span> Set of instant-film exposures</li>
-                <li><span>*</span> Complimentary engagement session within the Twin Cities area</li>
-                <li><span>*</span> Digital sneak peek within 48 hours</li>
-                <li><span>*</span> Custom quotes available for rehearsal dinner coverage, additional hours, and video (simply include the request in your inquiry!)</li>
+                <li>500+ total photos</li>
+                <li>Complimentary second shooter</li>
+                <li>Online gallery of photos on both 35mm and digital mediums</li>
+                <li>All film included at no extra charge</li>
+                <li>Set of instant-film exposures</li>
+                <li>Complimentary engagement session within the Twin Cities area</li>
+                <li>Digital sneak peek within 48 hours</li>
+                <li>Custom quotes available for rehearsal dinner coverage, additional hours, and anything else you might need (simply include the request in your inquiry)</li>
             </ul>
             <p style="color:var(--red); margin-top:1rem; font-family:var(--bodybold);"><b>No additional cost for domestic travel!</b></p>
             <br>
@@ -515,23 +761,56 @@
         </div>
     </section>
 
-    <section class="philosophy-section">
-        <div class="philosophy-header">
-            <h2>PHILOSOPHY</h2>
-        </div>
-        <div class="philosophy-content">
-            <div class="philosophy-column">
-                <p>
-                    <span class="asterisk">*</span>I’m a film-first photographer, so that means film is included in every session, not an upcharge or afterthought.
-                </p>
+    <section class="video-overlay-section reveal">
+        <video class="overlay-bg-video" autoplay muted loop playsinline>
+            <source src="vid/wedding_hero.mov">
+        </video>
+    
+        <div class="video-overlay-tint"></div>
+    
+        <div class="overlay-content">
+            <div class="overlay-left">
+                <h2 class="overlay-title">VIDEO SHORT<br>ADD-ON</h2>
+
+                <h3 class="overlay-price"><br>Weddings: <span style="font-family: var(--bodybold)">+$750</span></h3>
+                <h3 class="overlay-price">Elopements/micro-weddings: <span style="font-family: var(--bodybold)">+$350</span></h3>
             </div>
-            <div class="philosophy-column">
-                <p>
-                    <span class="asterisk">*</span>I’m all about keeping things simple & straightforward, and pricing’s no exception. No hidden fees or surcharges here – the price you see is the price you pay, plain & simple.
-                </p>
+            
+            <img class="overlay-divider" src="icons/border_vertical_cream.png" alt="divider">
+            
+            <div class="overlay-right">
+                <ul class="overlay-list">
+                    <li>2-3 minute highlight video shot in 4K</li>
+                    <li>Choice of background soundtrack</li>
+                    <li>Custom quotes available for anything else you might need</li>
+                </ul>
             </div>
         </div>
     </section>
+
+    <!-- <section class="offering-band reverse reveal" style="background-color: var(--green);">
+        <div class="offering-image-container split-60">
+            <div class="photo-frame">
+                <video class="bg-video" autoplay muted loop playsinline>
+                    <source src="vid/wedding_hero.mov">
+                </video>
+            </div>
+        </div>
+        
+        <div class="offering-details split-40">
+            <h2 class="offering-title" style="font-size: clamp(20px, 5vw, 40px); color: var(--cream) !important;">VIDEO SHORT ADD-ON</h2>
+            <h3 class="offering-price" style="color: var(--cream) !important;">+$750</h3>
+            <ul class="offering-list">
+                <li style="color: var(--cream) !important;"><span>*</span> 2-3 minute highlight video shot in 4K</li>
+                <li style="color: var(--cream) !important;"><span>*</span> High-fidelity 4ch audio recording</li>
+                <li style="color: var(--cream) !important;"><span>*</span> Choice of background soundtrack</li>
+            </ul>
+            <p style="color:var(--cream); margin-top:1rem; font-family:var(--bodybold);"><b>Add to any elopement or wedding!</b></p>
+            <br>
+        </div>
+    </section> -->
+
+
 
   <!-- ==================================================================== -->
 
