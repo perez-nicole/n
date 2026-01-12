@@ -19,17 +19,18 @@
             padding: 0;
             transition: background-color 0.5s ease; /* Smooth transition effect */
         }
-        
+
         .hero-section {
             z-index: 0;
             width: 100%;
-            background-image: url('img/gallery/Ian_Emma/03-000131470011.jpg'); /* Hero image
+            background-image: url('img/gallery/Ian_Emma/03-000131470011.jpg'); /* Hero image  'img/gallery/Tucker_Mariah/06-000134960002.jpg' */
             height: 100vh;
             background-size: cover; /* Ensures the image covers the entire div */
             background-position: center 90%; /* Centers the image */
             overflow: hidden;
             position: relative; /* Ensure the overlay is positioned correctly */
         }
+    
 
         .hero-overlay {
             z-index: 1;
@@ -59,21 +60,6 @@
 
       }
 
-  .center-aligned {
-            z-index: 2;
-            font-family: var(--headline);
-            color: var(--cream);
-            font-size:clamp(40px, 7vw, 100px);   /*clamp(50px ,10vw , 150px);*/
-            max-width:90vw;          /* prevents words spilling outside the screen */
-            padding:0;           /* gives a little breathing room on small viewports */
-            position: absolute;
-            top: 60%; /* Adjust this value to control the height from the top */
-            left: 50%;
-            transform: translate(-50%, -50%); /* Centers the text horizontally and vertically */
-            text-align: center;
-        }
-
-        /* phones & small tablets get the breathing room */
       @media (max-width: 700px){
           .brand-pill img {
           height: 60px;
@@ -88,6 +74,20 @@
             .hero-section {background-position: 49% center;}
 
   }
+
+  .center-aligned {
+            z-index: 2;
+            font-family: var(--headline);
+            color: var(--cream);
+            font-size:clamp(40px, 7vw, 100px);   /*clamp(50px ,10vw , 150px);*/
+            max-width:90vw;          /* prevents words spilling outside the screen */
+            padding:0;           /* gives a little breathing room on small viewports */
+            position: absolute;
+            top: 60%; /* Adjust this value to control the height from the top */
+            left: 50%;
+            transform: translate(-50%, -50%); /* Centers the text horizontally and vertically */
+            text-align: center;
+        }
 
         .center-aligned div {
             line-height: 0.9; /* Adjust line height as needed */
