@@ -23,10 +23,10 @@
         .hero-section {
             z-index: 0;
             width: 100%;
-            background-image: url('img/gallery/Brian_Meghan/000139490003.jpg'); /* Hero image */
+            background-image: url('img/gallery/Nate_Ava/07-000142530020.jpg'); /* Hero image */
             height: 100vh;
             background-size: cover; /* Ensures the image covers the entire div */
-            background-position: center; /* Centers the image */
+            background-position: center 85%; /* Centers the image */
             overflow: hidden;
             position: relative; /* Ensure the overlay is positioned correctly */
         }
@@ -71,11 +71,11 @@
             z-index: 2;
             font-family: var(--headline);
             color: var(--cream);
-            font-size:clamp(15px , 11vw , 100px);
+            font-size: clamp(50px ,8vw , 100px); /*clamp(15px , 11vw , 100px);*/
             max-width:90vw;          /* prevents words spilling outside the screen */
             padding:0;           /* gives a little breathing room on small viewports */
             position: absolute;
-            top: 50%; /* Adjust this value to control the height from the top */
+            top: 55%; /* Adjust this value to control the height from the top */
             left: 50%;
             transform: translate(-50%, -50%); /* Centers the text horizontally and vertically */
             text-align: center;
@@ -85,6 +85,7 @@
         @media (max-width: 768px){     /* tweak the breakpoint to taste */
             .center-aligned{
                 padding:0 5vw;         /* 5 % of the viewport on each side */
+                top: 60%;
             }
 
             .hero-section {background-position: 40% center;}
@@ -223,7 +224,7 @@
             </div>
             
             <div class="center-aligned">
-                <div>35MM PORTRAITS THAT POP.</div>
+                <div>DAY: SEIZED.</div>
             </div>
         </div>
     </div>
