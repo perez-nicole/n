@@ -5,180 +5,213 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nicole Perez Photography</title>
     <link rel="icon" href="icons/camera2_on_red.png" type="image/png">
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <!-- shared navbar styles -->
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/nav.css">
-    <link rel="stylesheet" href="css/footer.css">
-<style>
-:root{
-  --tile-w:411px; /* 548 */
-  --tile-h:388px; /* 517 */
-}
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Critical CSS inline -->
+    <style>
+        /* Critical above-the-fold CSS */
+        /* Get rid of all padding and margin */
+        body {
+          background:var(--cream);
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.5s ease; /* Smooth transition effect */
+        }
+        
+        .hero-section {
+            z-index: 0;
+            width: 100%;
+            background-image: url('img/gallery/Nate_Ava/07-000142530020.jpg'); /* Hero image */ 
+            height: 100vh;
+            background-size: cover; /* Ensures the image covers the entire div */
+            background-position: center 85%; /* Centers the image */
+            overflow: hidden;
+            position: relative; /* Ensure the overlay is positioned correctly */
+        }
 
-html, body{
-  margin: 0;
-  padding: 0;
-  background: var(--cream);
-}
+        .hero-overlay {
+            z-index: 1;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.1); /* 25% transparent black */
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            color: white;
+        }
 
-/* =====  HEADER  ===== */
-.header{
-  background-color:var(--cream);
-  background-image:url("assets/perez_tile.png");
-  background-size:var(--tile-w) var(--tile-h);       /* keep SVG’s own 210×176 px size */
-  background-repeat:repeat;
-  background-position: 0 center;     /* <-- this is all you need to add */
-
-
-  /* presentation */
-  padding:15rem 0;
-  text-align:center;
-}
-
-/* =====  CALL-TO-ACTION  ===== */
-.header__cta{
-  display:inline-block;
-  background:var(--green);
-  color:var(--cream);
-  font-family:var(--headline);
-  letter-spacing:.03em;
-  font-size:clamp(30px,6vw,200px);
-  padding:2vw 7vw;
-}
-
-.contact-text{
-    font-family:var(--body);
-    color: var(--green);
-    font-size:clamp(15px,6vw,20px);
-    padding: 100px 20vw 100px;
-}
-
-@media(max-width: 800px){
-    .header{
-    background-size:calc(var(--tile-w)*0.5) calc(var(--tile-h)*0.5);       /* keep SVG’s own 210×176 px size */
-    padding: 10rem 0;
+        .brand-pill {
+        z-index:2;
+        padding:12px 36px;
+        border-radius:4px;
+        margin:100px 5vw 0;        /* centred top     */
+        width:max-content;          /* shrink-wrap     */
+        
     }
 
-    .header__cta{
-    padding:2vw 2vw;
-}
-}
+      .brand-pill img {
+          height: 75px;
 
-/* 1 ▸ remove any margin / padding the section might have */
-.contact-form{
-  margin: 0;                 /* no outer gap */
-  padding: 0 !important;
-  line-height: 0;            /* zeroes the baseline *inside* the section   */
-}
+      }
 
-/* 2 ▸ make the injected iframe a block so there’s no baseline whitespace */
-.contact-form iframe{
-  display: block;            /* wipes out the 4 px baseline gap            */
-  width: 100%;
-  border: 0;                 /* YouForm already hides it, but belt & braces */
-  margin: 0;                 /* just in case the script adds one           */
-}
+      @media (max-width: 700px){
+          .brand-pill img {
+          height: 60px;
 
-/* 3 ▸ if your footer stylesheet adds a top margin, kill it here */
-.site-footer{
-  margin-top: 0;
-}
+      }
 
-</style>
+  }
+
+
+
+        .center-aligned {
+            z-index: 2;
+            font-family: var(--headline);
+            color: var(--cream);
+            font-size:clamp(50px ,8vw , 100px);
+            max-width:90vw;          /* prevents words spilling outside the screen */
+            padding:0;           /* gives a little breathing room on small viewports */
+            position: absolute;
+            top: 55%; /* Adjust this value to control the height from the top */
+            left: 50%;
+            transform: translate(-50%, -50%); /* Centers the text horizontally and vertically */
+            text-align: center;
+        }
+
+        /* phones & small tablets get the breathing room */
+        @media (max-width: 768px){     /* tweak the breakpoint to taste */
+            .center-aligned{
+                padding:0 5vw;         /* 5 % of the viewport on each side */
+                top: 62%;
+            }
+
+            .hero-section {background-position: 47% center;}
+        }
+
+        .center-aligned div {
+            line-height: 0.9; /* Adjust line height as needed */
+        }
+
+    .contact-text{
+    font-family:var(--body);
+    color: var(--green);
+    font-size:clamp(12px,5.5vw,20px);
+    padding: 100px 20vw 100px;
+}
+        /* 1 ▸ remove any margin / padding the section might have */
+        .contact-form{
+        margin: 0;                 /* no outer gap */
+        padding: 0 !important;
+        line-height: 0;            /* zeroes the baseline *inside* the section   */
+        }
+
+        /* 2 ▸ make the injected iframe a block so there’s no baseline whitespace */
+        .contact-form iframe{
+        display: block;            /* wipes out the 4 px baseline gap            */
+        width: 100%;
+        border: 0;                 /* YouForm already hides it, but belt & braces */
+        margin: 0;                 /* just in case the script adds one           */
+        }
+
+        /* 3 ▸ if your footer stylesheet adds a top margin, kill it here */
+        .site-footer{
+        margin-top: 0;
+        }
+
+    </style>
+    
+    <!-- Defer non-critical CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/base.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/nav.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/footer.css" media="print" onload="this.media='all'">
+    
+    <!-- Preload hero image -->
+    <link rel="preload" href="img/gallery/30-000124100038.jpg" as="image" fetchpriority="high">
+
 </head>
 <body>
-
-  <header class="header">
-
-    <div class="hamburger" id="menu-toggle">  
-        <span></span>
-        <span></span>
-        <span></span></div>
-    <span class="header__cta">GET IN TOUCH</span>
-  </header>
-
-  <section class="contact-text">
-    I wanna hear from you! Fill out the form below & I'll get back to you within 24 hours.</a>
-    <br>
-    <br>
-    Date coming up quick (6-, 3- or even 1-month(s) out)? No problem!
-    Just include your date in your inquiry below & we can get the ball rolling.
-  </section>
-
-  <section class="contact-form">
-    <div data-youform-embed data-form='ec36dzkw' data-width='100%' data-height='700'></div><script src="https://app.youform.com/embed.js"></script>
-    </section>
-
-
-  <!-- === SITE FOOTER =================================================== -->
-
-  <footer class="site-footer">
-    <div class="footer-inner">
-  
-      <!-- LEFT block : logo + text ------------------------------------ -->
-      <div class="footer-left">
-        <!--<img class="footer-logo" src="icons/camera_in_hand.png" alt="Camera logo">-->
-        <div style="width: 2vw;"></div>
-  
-        <div class="footer-copy">
-          <!--<h2 class="footer-name"><a href="index.html">NICOLE PEREZ</a></h2>-->
-          <img class="brand-logo" src="assets/logo_w_camera_cream.png" alt="brand logo">
-
-          <p class="footer-email">
-            <a href="mailto:nicoleandperez@gmail.com">nicoleandperez@gmail.com</a>
-          </p>
-  
-          <p class="footer-tag">
-            Film-first photographer based in Minneapolis, MN.
-          </p>
+    <div class="hero-section">
+        <div class="hero-overlay">
+            <div class="brand-pill">
+                <a href="index.html"><img src="assets/logo_cream.png" alt="logo"></a>
+            </div>
+            <div class="hamburger" id="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+            
+            <div class="center-aligned">
+                <div>GET IN TOUCH.</div>
+            </div>
         </div>
-      </div>
-  
-      <!-- RIGHT block : socials --------------------------------------- -->
-      <div class="footer-social">
-        <p>
-          <a href="https://www.instagram.com/nicolesfilmshots/" target="_blank" rel="noopener">
-            <i class="fa-brands fa-instagram"></i> @nicolesfilmshots
-          </a>
-        </p>
-        <p>
-          <a href="https://www.instagram.com/nicoleperezphoto/" target="_blank" rel="noopener">
-            <i class="fa-brands fa-instagram"></i> @nicoleperezphoto
-          </a>
-        </p>
-      </div>
-  
-    </div> <!-- /.footer-inner -->
-  
-    <small class="copyright">© Nicole Perez Studio 2025</small>
-  </footer>
-  
-  <!-- ================================================================== -->
-  <!-- ───────── FULL-SCREEN NAV OVERLAY ───────── -->
-<nav id="site-menu" aria-label="Site" class="menu">
-    <button class="menu-close" aria-label="Close menu">×</button>
-  
-    <!--<h1 class="menu-name">NICOLE<br>PEREZ</h1>-->
-    <img class="menu-name" src="assets/logo_w_camera_cream.png" alt="brand logo">
-    <p class="menu-tag">Film-first photographer in <br>Minneapolis, MN</p>
-  
-    <img class="menu-wave" src="icons/border_tight_cream.png" alt="" aria-hidden="true">
-  
-    <ul class="menu-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="film.html">Film&nbsp;Photos</a></li>
-      <li><a href="digital.html">Digital&nbsp;Photos</a></li>
-      <li><a href="video.html">Video</a></li>
-    <li><a href="pricing.html">Pricing</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-  </nav>
-  
-  <!-- =================================================================== -->
+    </div>
 
+    <section class="contact-text">
+        I wanna hear from you! Fill out the form below & I'll get back to you within 24 hours.</a>
+        <br>
+        <br>
+        Date coming up quick (6-, 3- or even 1-month(s) out)? No problem!
+        Just include your date in your inquiry below & we can get the ball rolling.
+      </section>
+    
+      <section class="contact-form">
+        <div data-youform-embed data-form='ec36dzkw' data-width='100%' data-height='700'></div><script src="https://app.youform.com/embed.js"></script>
+        </section>
+
+    <!-- Footer (simplified for example) -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-left">
+                <div style="width: 2vw;"></div>
+                <div class="footer-copy">
+                    <img class="brand-logo" src="assets/logo_w_camera_cream.png" alt="brand logo" loading="lazy">
+                    <p class="footer-email">
+                        <a href="mailto:nicoleandperez@gmail.com">nicoleandperez@gmail.com</a>
+                    </p>
+                    <p class="footer-tag">
+                        Film-first photographer based in Minneapolis, MN.
+                    </p>
+                </div>
+            </div>
+            <div class="footer-social">
+                <p>
+                    <a href="https://www.instagram.com/nicolesfilmshots/" target="_blank" rel="noopener">
+                        <i class="fa-brands fa-instagram"></i> @nicolesfilmshots
+                    </a>
+                </p>
+                <p>
+                    <a href="https://www.instagram.com/nicoleperezphoto/" target="_blank" rel="noopener">
+                        <i class="fa-brands fa-instagram"></i> @nicoleperezphoto
+                    </a>
+                </p>
+            </div>
+        </div>
+        <small class="copyright">© Nicole Perez Studio 2025</small>
+    </footer>
+
+    <!-- Navigation menu -->
+    <nav id="site-menu" aria-label="Site" class="menu">
+        <button class="menu-close" aria-label="Close menu">×</button>
+        <img class="menu-name" src="assets/logo_w_camera_cream.png" alt="brand logo" loading="lazy">
+        <p class="menu-tag">Film-first photographer in<br>Minneapolis, MN</p>
+        <img class="menu-wave" src="icons/border_tight_cream.png" alt="" aria-hidden="true" loading="lazy">
+        <ul class="menu-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="film.html">Film&nbsp;Photos</a></li>
+            <li><a href="digital.html">Digital&nbsp;Photos</a></li>
+            <li><a href="video.html">Video</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+    
   <script src="js/nav.js"></script>
+    
 </body>
 </html>
