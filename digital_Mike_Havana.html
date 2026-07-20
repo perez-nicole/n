@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nicole Perez Photography</title>
+    <link rel="icon" href="icons/camera2_on_red.png" type="image/png">
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Critical CSS inline -->
+    <style>
+        /* Critical above-the-fold CSS */
+        /* Get rid of all padding and margin */
+        body {
+          background:var(--cream);
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.5s ease; /* Smooth transition effect */
+        }
+        
+        .hero-section {
+            z-index: 0;
+            width: 100%;
+            background-image: url('img/gallery_digital/Mike_Havana/FFIMG_5864.jpg');  /* Hero image */
+            height: 100vh;
+            background-size: cover; /* Ensures the image covers the entire div */
+            background-position: center 75%; /* Centers the image */
+            overflow: hidden;
+            position: relative; /* Ensure the overlay is positioned correctly */
+        }
+
+        .hero-overlay {
+            z-index: 1;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.15); /* 25% transparent black */
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            color: white;
+        }
+
+        .brand-pill {
+        z-index:2;
+        padding:12px 36px;
+        border-radius:4px;
+        margin:100px 5vw 0;        /* centred top     */
+        width:max-content;          /* shrink-wrap     */
+        
+    }
+
+      .brand-pill img {
+          height: 75px;
+
+      }
+
+      @media (max-width: 700px){
+          .brand-pill img {
+          height: 60px;
+
+      }
+
+  }
+
+        .center-aligned {
+            z-index: 2;
+            font-family: var(--headline);
+            color: var(--cream);
+            font-size:clamp(15px , 10vw , 55px);
+            max-width:90vw;          /* prevents words spilling outside the screen */
+            padding:0;           /* gives a little breathing room on small viewports */
+            position: absolute;
+            top: 50%; /* Adjust this value to control the height from the top */
+            left: 50%;
+            transform: translate(-50%, -50%); /* Centers the text horizontally and vertically */
+            text-align: center;
+        }
+
+        /* phones & small tablets get the breathing room */
+        @media (max-width: 768px){     /* tweak the breakpoint to taste */
+            .center-aligned{
+                padding:0 5vw;         /* 5 % of the viewport on each side */
+            }
+        }
+
+        .center-aligned div {
+            line-height: 0.9; /* Adjust line height as needed */
+        }
+
+        /* Masonry gallery (JS column distribution, row-major order) */
+        .gallery-section {
+            display: flex;
+            gap: 14px;            /* tighter gap between photos */
+            padding: 0 40px;
+            min-height: 100vh;
+            align-items: flex-start;
+        }
+
+        .gallery-col {
+            flex: 1 1 0;
+            min-width: 0;         /* let columns shrink evenly */
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .gallery-section img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            background: var(--cream);
+            cursor: pointer;      /* shows hand cursor */
+        }
+
+        /* Row-fade effect */
+        .gallery-section img.row-hidden {
+            opacity: 0;
+            transform: translateY(40px);
+            filter: brightness(1);
+        }
+
+        .gallery-section img.row-visible {
+            opacity: 1;
+            transform: translateY(0);
+            filter: brightness(1);
+            transition: opacity .8s ease-out,
+                        transform .8s ease-out,
+                        filter .8s ease-out;
+        }
+
+/* Lightbox overlay */
+.lightbox {
+  position: fixed;
+  z-index: 1000;
+  inset: 0; /* shorthand for top/left/right/bottom = 0 */
+  background-color: rgba(255,255,255,0.90); /* translucent white background */
+
+  display: none;             /* hidden by default */
+  align-items: center;       /* vertical centering (when shown) */
+  justify-content: center;   /* horizontal centering */
+  overflow: hidden;
+}
+
+.lightbox.show {             /* toggle this class in JS instead of inline display=block */
+  display: flex;
+}
+
+.lightbox img.lightbox-img {
+  max-width: 90%;
+  max-height: 90vh;   /* keeps image within viewport */
+  object-fit: contain;
+  background: white;  /* fade-through-white works */
+  transition: opacity 0.4s ease;
+  border-radius: 4px;
+  z-index: 10;
+}
+
+/* Arrows */
+.lightbox .prev,
+.lightbox .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 40px;
+  font-weight: bold;
+  color: #000;
+  padding: 16px;
+  cursor: pointer;
+  user-select: none;
+  z-index: 20;
+}
+.lightbox .prev { left: 20px; }
+.lightbox .next { right: 20px; }
+
+.lightbox .prev:hover,
+.lightbox .next:hover {
+  color: #555;
+}
+
+/* Close button */
+.lightbox .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #000;
+  cursor: pointer;
+  z-index: 30;
+}
+
+
+
+    </style>
+    
+    <!-- Defer non-critical CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/base.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/nav.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/footer.css" media="print" onload="this.media='all'">
+    
+    <!-- Preload hero image -->
+    <link rel="preload" href="img/MD_cropped2.jpeg" as="image" fetchpriority="high">
+    
+    <!-- Preload first few gallery images -->
+    <link rel="preload" href="img/gallery_digital/Mike_Havana/IMG_0022.jpg" as="image">
+    <link rel="preload" href="img/gallery_digital/Mike_Havana/IMG_0034.jpg" as="image">
+    <link rel="preload" href="img/gallery_digital/Mike_Havana/IMG_0042.jpg" as="image">
+</head>
+<body>
+    <div class="hero-section">
+        <div class="hero-overlay">
+            <div class="brand-pill">
+                <a href="index.html"><img src="assets/logo_cream.png" alt="logo"></a>
+            </div>
+            <div class="hamburger" id="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+            
+            <div class="center-aligned">
+                <div>I MUST LEARN TO BE CONTENT WITH BEING HAPPIER THAN I DESERVE</div>
+            </div>
+        </div>
+    </div>
+
+    <div style="height: 60px;"></div>
+
+    <div id="bottom-div" class="bottom-div">
+        <div class="gallery-section" id="gallery">
+            <!-- Images will be lazy loaded via JavaScript -->
+        </div>
+    </div>
+
+    <div style="height:8vh;"></div>
+
+    <!-- Footer (simplified for example) -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-left">
+                <div style="width: 2vw;"></div>
+                <div class="footer-copy">
+                    <img class="brand-logo" src="assets/logo_w_camera_cream.png" alt="brand logo" loading="lazy">
+                    <p class="footer-email">
+                        <a href="mailto:nicoleandperez@gmail.com">nicoleandperez@gmail.com</a>
+                    </p>
+                    <p class="footer-tag">
+                        Film-first photographer based in Minneapolis, MN.
+                    </p>
+                </div>
+            </div>
+            <div class="footer-social">
+                <p>
+                    <a href="https://www.instagram.com/nicolesfilmshots/" target="_blank" rel="noopener">
+                        <i class="fa-brands fa-instagram"></i> @nicolesfilmshots
+                    </a>
+                </p>
+                <p>
+                    <a href="https://www.instagram.com/nicoleperezphoto/" target="_blank" rel="noopener">
+                        <i class="fa-brands fa-instagram"></i> @nicoleperezphoto
+                    </a>
+                </p>
+            </div>
+        </div>
+        <small class="copyright">© Nicole Perez Studio 2025</small>
+    </footer>
+
+    <!-- Navigation menu -->
+    <nav id="site-menu" aria-label="Site" class="menu">
+        <button class="menu-close" aria-label="Close menu">×</button>
+        <img class="menu-name" src="assets/logo_w_camera_cream.png" alt="brand logo" loading="lazy">
+        <p class="menu-tag">Film-first photographer in<br>Minneapolis, MN</p>
+        <img class="menu-wave" src="icons/border_tight_cream.png" alt="" aria-hidden="true" loading="lazy">
+        <ul class="menu-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="film.html">Film&nbsp;Photos</a></li>
+            <li><a href="digital.html">Digital&nbsp;Photos</a></li>
+            <li><a href="video.html">Video</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <script>
+        // Image list - store as data instead of HTML
+        const imageList = [
+            {src: 'img/gallery_digital/Mike_Havana/AAIMG_4576.jpg', alt: 'Mike Havana 1'},
+            {src: 'img/gallery_digital/Mike_Havana/AAIMG_4602.jpg', alt: 'Mike Havana 2'},
+            {src: 'img/gallery_digital/Mike_Havana/AAIMG_4604.jpg', alt: 'Mike Havana 3'},
+            {src: 'img/gallery_digital/Mike_Havana/BBIMG_4670.jpg', alt: 'Mike Havana 4'},
+            {src: 'img/gallery_digital/Mike_Havana/BBIMG_4704.jpg', alt: 'Mike Havana 5'},
+            {src: 'img/gallery_digital/Mike_Havana/BBIMG_4712.jpg', alt: 'Mike Havana 6'},
+            {src: 'img/gallery_digital/Mike_Havana/BBIMG_5453.jpg', alt: 'Mike Havana 7'},
+            {src: 'img/gallery_digital/Mike_Havana/BBIMG_5481.jpg', alt: 'Mike Havana 8'},
+            {src: 'img/gallery_digital/Mike_Havana/BBIMG_5496.jpg', alt: 'Mike Havana 9'},
+            {src: 'img/gallery_digital/Mike_Havana/CCIMG_5505.jpg', alt: 'Mike Havana 10'},
+            {src: 'img/gallery_digital/Mike_Havana/CCIMG_5511.jpg', alt: 'Mike Havana 11'},
+            {src: 'img/gallery_digital/Mike_Havana/CCIMG_5534.jpg', alt: 'Mike Havana 12'},
+            {src: 'img/gallery_digital/Mike_Havana/CCIMG_5536.jpg', alt: 'Mike Havana 13'},
+            {src: 'img/gallery_digital/Mike_Havana/CCIMG_5557.jpg', alt: 'Mike Havana 14'},
+            {src: 'img/gallery_digital/Mike_Havana/CCIMG_5594.jpg', alt: 'Mike Havana 15'},
+            {src: 'img/gallery_digital/Mike_Havana/CCIMG_5629.jpg', alt: 'Mike Havana 16'},
+            {src: 'img/gallery_digital/Mike_Havana/CCIMG_5641.jpg', alt: 'Mike Havana 17'},
+            {src: 'img/gallery_digital/Mike_Havana/CCIMG_5669.jpg', alt: 'Mike Havana 18'},
+            {src: 'img/gallery_digital/Mike_Havana/CCIMG_5688.jpg', alt: 'Mike Havana 19'},
+            {src: 'img/gallery_digital/Mike_Havana/CCIMG_5700.jpg', alt: 'Mike Havana 20'},
+            {src: 'img/gallery_digital/Mike_Havana/CCIMG_5717.jpg', alt: 'Mike Havana 21'},
+            {src: 'img/gallery_digital/Mike_Havana/DDIMG_4844.jpg', alt: 'Mike Havana 22'},
+            {src: 'img/gallery_digital/Mike_Havana/DDIMG_4890.jpg', alt: 'Mike Havana 23'},
+            {src: 'img/gallery_digital/Mike_Havana/DDIMG_4906.jpg', alt: 'Mike Havana 24'},
+            {src: 'img/gallery_digital/Mike_Havana/DDIMG_5043.jpg', alt: 'Mike Havana 25'},
+            {src: 'img/gallery_digital/Mike_Havana/DDIMG_5054.jpg', alt: 'Mike Havana 26'},
+            {src: 'img/gallery_digital/Mike_Havana/DDIMG_5729.jpg', alt: 'Mike Havana 27'},
+            {src: 'img/gallery_digital/Mike_Havana/EEIMG_5753.jpg', alt: 'Mike Havana 28'},
+            {src: 'img/gallery_digital/Mike_Havana/EEIMG_5795.jpg', alt: 'Mike Havana 29'},
+            {src: 'img/gallery_digital/Mike_Havana/EEIMG_5802.jpg', alt: 'Mike Havana 30'},
+            {src: 'img/gallery_digital/Mike_Havana/EEIMG_5830.jpg', alt: 'Mike Havana 31'},
+            {src: 'img/gallery_digital/Mike_Havana/EEIMG_5832.jpg', alt: 'Mike Havana 32'},
+            {src: 'img/gallery_digital/Mike_Havana/EEIMG_5839.jpg', alt: 'Mike Havana 33'},
+            {src: 'img/gallery_digital/Mike_Havana/EEIMG_5851.jpg', alt: 'Mike Havana 34'},
+            {src: 'img/gallery_digital/Mike_Havana/EEIMG_5852.jpg', alt: 'Mike Havana 35'},
+            {src: 'img/gallery_digital/Mike_Havana/FFIMG_5081.jpg', alt: 'Mike Havana 36'},
+            {src: 'img/gallery_digital/Mike_Havana/FFIMG_5857.jpg', alt: 'Mike Havana 37'},
+            {src: 'img/gallery_digital/Mike_Havana/FFIMG_5864.jpg', alt: 'Mike Havana 38'},
+            {src: 'img/gallery_digital/Mike_Havana/FFIMG_5866.jpg', alt: 'Mike Havana 39'},
+            {src: 'img/gallery_digital/Mike_Havana/FFIMG_5873.jpg', alt: 'Mike Havana 40'},
+            {src: 'img/gallery_digital/Mike_Havana/FFIMG_5877.jpg', alt: 'Mike Havana 41'},
+            {src: 'img/gallery_digital/Mike_Havana/FFIMG_5890.jpg', alt: 'Mike Havana 42'},
+            {src: 'img/gallery_digital/Mike_Havana/FFIMG_5909.jpg', alt: 'Mike Havana 43'},
+            {src: 'img/gallery_digital/Mike_Havana/FFIMG_5964.jpg', alt: 'Mike Havana 44'},
+            {src: 'img/gallery_digital/Mike_Havana/FFIMG_5968.jpg', alt: 'Mike Havana 45'},
+            {src: 'img/gallery_digital/Mike_Havana/GGIMG_5979.jpg', alt: 'Mike Havana 46'},
+            {src: 'img/gallery_digital/Mike_Havana/GGIMG_5980.jpg', alt: 'Mike Havana 47'},
+            {src: 'img/gallery_digital/Mike_Havana/GGIMG_5981.jpg', alt: 'Mike Havana 48'},
+            {src: 'img/gallery_digital/Mike_Havana/GGIMG_5994.jpg', alt: 'Mike Havana 49'},
+            {src: 'img/gallery_digital/Mike_Havana/GGIMG_5998.jpg', alt: 'Mike Havana 50'},
+            {src: 'img/gallery_digital/Mike_Havana/GGIMG_6000.jpg', alt: 'Mike Havana 51'},
+            {src: 'img/gallery_digital/Mike_Havana/GGIMG_6012.jpg', alt: 'Mike Havana 52'},
+            {src: 'img/gallery_digital/Mike_Havana/GGIMG_6022.jpg', alt: 'Mike Havana 53'},
+            {src: 'img/gallery_digital/Mike_Havana/GGIMG_6052.jpg', alt: 'Mike Havana 54'},
+            {src: 'img/gallery_digital/Mike_Havana/GGIMG_6053.jpg', alt: 'Mike Havana 55'},
+            {src: 'img/gallery_digital/Mike_Havana/GGIMG_6058.jpg', alt: 'Mike Havana 56'},
+            {src: 'img/gallery_digital/Mike_Havana/GGIMG_6077.jpg', alt: 'Mike Havana 57'},
+            {src: 'img/gallery_digital/Mike_Havana/GGIMG_6080.jpg', alt: 'Mike Havana 58'},
+            {src: 'img/gallery_digital/Mike_Havana/HHIMG_5093.jpg', alt: 'Mike Havana 59'},
+            {src: 'img/gallery_digital/Mike_Havana/HHIMG_5097.jpg', alt: 'Mike Havana 60'},
+            {src: 'img/gallery_digital/Mike_Havana/HHIMG_6132.jpg', alt: 'Mike Havana 61'},
+            {src: 'img/gallery_digital/Mike_Havana/HHIMG_6137.jpg', alt: 'Mike Havana 62'},
+            {src: 'img/gallery_digital/Mike_Havana/IIIMG_5151.jpg', alt: 'Mike Havana 63'},
+            {src: 'img/gallery_digital/Mike_Havana/IJIMG_6173.jpg', alt: 'Mike Havana 64'},
+            {src: 'img/gallery_digital/Mike_Havana/IJIMG_6179.jpg', alt: 'Mike Havana 65'},
+            {src: 'img/gallery_digital/Mike_Havana/JJIMG_5179.jpg', alt: 'Mike Havana 66'},
+            {src: 'img/gallery_digital/Mike_Havana/JJIMG_5188.jpg', alt: 'Mike Havana 67'},
+            {src: 'img/gallery_digital/Mike_Havana/JJIMG_5245.jpg', alt: 'Mike Havana 68'},
+            {src: 'img/gallery_digital/Mike_Havana/JJIMG_6193.jpg', alt: 'Mike Havana 69'},
+            {src: 'img/gallery_digital/Mike_Havana/JJIMG_6216.jpg', alt: 'Mike Havana 70'},
+   
+        ];
+
+        // Progressive image loading with intersection observer
+        class ProgressiveGallery {
+            constructor() {
+                this.gallery = document.getElementById('gallery');
+                this.loadedImages = new Set();
+                this.imageElements = []; // stored in path order (by index)
+                this.BATCH_SIZE = 20; // Load 20 images at a time
+                this.currentBatch = 0;
+
+                this.columnCount = this.getColumnCount();
+                this.columns = [];
+
+                // Fade-up observer: reveal each image as it enters the viewport
+                this.fadeObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.remove('row-hidden');
+                            entry.target.classList.add('row-visible');
+                            this.fadeObserver.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    root: null,
+                    threshold: 0.05,
+                    rootMargin: '300px' // Start fading in 300px before visible
+                });
+
+                this.buildColumns();
+                this.init();
+            }
+
+            // 4 columns on desktop, 2 on mobile
+            getColumnCount() {
+                return window.innerWidth <= 700 ? 2 : 4;
+            }
+
+            buildColumns() {
+                this.gallery.innerHTML = '';
+                this.columns = [];
+                for (let c = 0; c < this.columnCount; c++) {
+                    const col = document.createElement('div');
+                    col.className = 'gallery-col';
+                    this.gallery.appendChild(col);
+                    this.columns.push(col);
+                }
+            }
+
+            init() {
+                // Load first batch immediately
+                this.loadBatch();
+
+                // Set up scroll observer for loading more images
+                this.setupScrollObserver();
+
+                // Rebuild columns when crossing the mobile/desktop breakpoint
+                this.setupResizeHandler();
+            }
+
+            loadBatch() {
+                const start = this.currentBatch * this.BATCH_SIZE;
+                const end = Math.min(start + this.BATCH_SIZE, imageList.length);
+
+                for (let i = start; i < end; i++) {
+                    if (!this.loadedImages.has(i)) {
+                        this.createImage(imageList[i], i);
+                        this.loadedImages.add(i);
+                    }
+                }
+
+                this.currentBatch++;
+            }
+
+            createImage(imageData, index) {
+                const img = new Image();
+                img.loading = index < 10 ? 'eager' : 'lazy'; // First 10 eager, rest lazy
+                img.decoding = 'async';
+                img.src = imageData.src;
+                img.alt = imageData.alt;
+                img.className = 'row-hidden';
+                img.dataset.index = index; // preserve path order for the lightbox
+
+                // Round-robin placement => images read ACROSS the page in path order
+                this.columns[index % this.columnCount].appendChild(img);
+                this.imageElements[index] = img;
+
+                // Watch this image for the fade-up reveal
+                this.fadeObserver.observe(img);
+            }
+
+            // Move already-loaded images into the new column set, keeping path order
+            redistribute() {
+                this.buildColumns();
+                this.imageElements.forEach((img, i) => {
+                    if (img) this.columns[i % this.columnCount].appendChild(img);
+                });
+            }
+
+            setupScrollObserver() {
+                const sentinel = document.createElement('div');
+                sentinel.style.height = '1px';
+                this.gallery.parentElement.appendChild(sentinel);
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting && this.currentBatch * this.BATCH_SIZE < imageList.length) {
+                            this.loadBatch();
+                        }
+                    });
+                }, {
+                    rootMargin: '500px' // Load more when 500px from bottom
+                });
+
+                observer.observe(sentinel);
+            }
+
+            setupResizeHandler() {
+                let resizeTimer;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTimer);
+                    resizeTimer = setTimeout(() => {
+                        const n = this.getColumnCount();
+                        if (n !== this.columnCount) {
+                            this.columnCount = n;
+                            this.redistribute();
+                        }
+                    }, 200);
+                });
+            }
+        }
+
+        // Initialize gallery when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => new ProgressiveGallery());
+        } else {
+            new ProgressiveGallery();
+        }
+
+        // Defer loading nav.js
+        const navScript = document.createElement('script');
+        navScript.src = 'js/nav.js';
+        navScript.defer = true;
+        document.body.appendChild(navScript);
+    </script>
+
+  <!-- Lightbox javascript -->
+<script>
+  let currentIndex = 0;
+
+  function openLightbox(index) {
+  currentIndex = index;
+  const lightbox = document.getElementById("lightbox");
+  const img = lightbox.querySelector(".lightbox-img");
+  img.src = imageList[currentIndex].src;
+  img.alt = imageList[currentIndex].alt;
+  lightbox.classList.add("show");   // ✅ use class
+}
+
+function closeLightbox() {
+  document.getElementById("lightbox").classList.remove("show");  // ✅ use class
+}
+
+  function changeSlide(step) {
+  const img = document.querySelector(".lightbox-img");
+
+  // Fade out (to white)
+  img.style.opacity = "0";
+
+  setTimeout(() => {
+    currentIndex = (currentIndex + step + imageList.length) % imageList.length;
+    img.src = imageList[currentIndex].src;
+    img.alt = imageList[currentIndex].alt;
+
+    // Fade in
+    img.onload = () => {
+      img.style.opacity = "1";
+    };
+  }, 250); // delay matches fade-out duration
+}
+
+
+
+  // Attach listeners once gallery is loaded
+  document.addEventListener("DOMContentLoaded", () => {
+    const gallery = document.getElementById("gallery");
+    gallery.addEventListener("click", (e) => {
+      if (e.target.tagName === "IMG") {
+        const index = parseInt(e.target.dataset.index, 10);
+        openLightbox(index);
+      }
+    });
+
+    document.querySelector(".lightbox .close").onclick = closeLightbox;
+    document.querySelector(".lightbox .prev").onclick = () => changeSlide(-1);
+    document.querySelector(".lightbox .next").onclick = () => changeSlide(1);
+
+    // Close on background click
+    document.getElementById("lightbox").addEventListener("click", (e) => {
+      if (e.target.id === "lightbox") closeLightbox();
+    });
+
+    // Keyboard controls
+    document.addEventListener("keydown", (e) => {
+      const lightbox = document.getElementById("lightbox");
+      if (lightbox.classList.contains("show")) {
+        if (e.key === "ArrowRight") changeSlide(1);
+        if (e.key === "ArrowLeft") changeSlide(-1);
+        if (e.key === "Escape") closeLightbox();
+      }
+    });
+  });
+</script>
+
+
+  <script src="js/nav.js"></script>
+
+  <!-- Lightbox overlay -->
+  <div id="lightbox" class="lightbox">
+    <span class="close">&times;</span>
+    <div class="lightbox-overlay"></div> <!-- NEW overlay -->
+    <img class="lightbox-img" src="" alt="">
+    <a class="prev">&#10094;</a>
+    <a class="next">&#10095;</a>
+  </div>
+  
+
+
+</body>
+</html>
