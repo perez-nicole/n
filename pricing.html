@@ -23,7 +23,7 @@
         .hero-section {
             z-index: 0;
             width: 100%;
-            background-image: url('img/flowers_cropped.jpg'); /* Hero image  gallery/Matt_Dominique/07-000124090014.jpg*/
+            background-image: url('img/gallery/Aidan_Carmel/A541604-R1-26-10.jpg'); /* Hero image  gallery/Matt_Dominique/07-000124090014.jpg*/
             height: 100vh;
             background-size: cover; /* Ensures the image covers the entire div */
             background-position: center; /* Centers the image */
@@ -85,10 +85,7 @@
 
     .philosophy-section {
     position: relative;
-    background-image: url('img/000161760014.jpg'); /*000161760014*/
-    background-size: cover;
-    background-position: 45% center;
-    background-repeat: no-repeat;
+    background-image: url('img/36822036142-R1-051-24.jpg'); /*000161760014*/
     padding: 130px 10vw;
     display: flex;
     flex-direction: column;
@@ -99,7 +96,7 @@
     /* Parallax Magic */
     background-attachment: fixed; 
     background-size: cover;
-    background-position: center;
+    background-position: center 90%;
     background-repeat: no-repeat;
 }
 
@@ -330,12 +327,13 @@
 .video-overlay-section {
     position: relative;
     width: 100%;
-    /* Set a fixed height for the section, adjust as desired */
-    height: 80vh; 
+    /* Grow with content, but keep a comfortable minimum */
+    min-height: 80vh;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 80px 0;
 }
 
 /* The Background Video */
@@ -357,31 +355,104 @@
     z-index: 1;
 }
 
-/* The Flex Container for Content */
+/* The Content Grid: left column (title/price/video + travel footer),
+   center divider, right column (photo). The footer sits under the left
+   column on desktop and drops to the very end on mobile. */
 .overlay-content {
     position: relative;
     z-index: 2; /* Sits above video and tint */
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    /* Head (title/price) sits alone on top-left so the VIDEO and PHOTO
+       columns start on the same row and stay level with each other. */
+    grid-template-areas:
+        "head   .       ."
+        "left   divider right"
+        "footer divider right";
+    align-items: start;
+    row-gap: clamp(22px, 3vw, 40px);
+    column-gap: 0;
     width: 90%; /* Contains width on large screens */
     max-width: 1200px;
     color: var(--cream); /* Sets all text to cream */
 }
 
-/* Left Column: Title & Price */
-.overlay-left {
-    flex: 1; /* Takes 50% */
+/* Head: title + price (left column, top row) */
+.overlay-head {
+    grid-area: head;
     text-align: left;
     padding-right: clamp(20px, 4vw, 50px);
 }
 
+/* Left Column: VIDEO subheader + bullets */
+.overlay-left {
+    grid-area: left;
+    text-align: left;
+    padding-right: clamp(20px, 4vw, 50px);
+}
+
+/* Travel fee + inquire button. The margin-top adds extra breathing room
+   between the video bullets and this block on desktop. */
+.overlay-footer {
+    grid-area: footer;
+    text-align: left;
+    padding-right: clamp(20px, 4vw, 50px);
+    margin-top: clamp(12px, 2vw, 25px);
+}
+
 .overlay-title {
     font-family: var(--subheader);
-    font-size: clamp(35px, 6vw, 70px);
+    /* Matches the WEDDINGS .offering-title size */
+    font-size: clamp(25px, 6vw, 55px);
     line-height: 0.9;
     margin: 0;
     color: var(--cream);
+}
+
+/* "UP TO 8 HRS:" line — matches .offering-price sizing, cream on video */
+.overlay-subprice {
+    font-family: var(--subheader);
+    font-size: clamp(20px, 4vw, 30px);
+    color: var(--cream);
+    /* No bottom margin — the grid row-gap spaces head from the columns */
+    margin: 12px 0 0;
+}
+
+/* VIDEO / PHOTO subheaders */
+.overlay-subhead {
+    font-family: var(--subheader);
+    font-size: clamp(20px, 3.5vw, 30px);
+    color: var(--cream);
+    margin: 0 0 12px;
+    letter-spacing: 1px;
+}
+
+/* Travel fee block — mirrors the offering sections but in cream */
+.overlay-travel-hd {
+    color: var(--cream);
+    margin: 1rem 0 0;
+    font-family: var(--bodybold);
+}
+
+.overlay-travel-body {
+    color: var(--cream);
+    font-family: var(--body);
+    margin: 0 0 1.5rem;
+    padding-top: 0.5rem;
+    font-size: clamp(13px, 3vw, 16px);
+}
+
+/* Cream variant of the pill button for the dark video background.
+   Double class keeps specificity above the base .inquire-button rules
+   defined later in the stylesheet. */
+.inquire-button.inquire-button--cream {
+    color: var(--cream);
+    border-color: var(--cream);
+}
+
+.inquire-button.inquire-button--cream:hover {
+    background-color: var(--cream);
+    color: var(--red);
 }
 
 .overlay-price {
@@ -393,6 +464,8 @@
 
 /* The Image Border Divider */
 .overlay-divider {
+    grid-area: divider;
+    align-self: center; /* Centered across both grid rows */
     /* Adjust height to control how tall the divider is */
     height: clamp(150px, 30vw, 300px);
     width: auto; /* Maintains aspect ratio */
@@ -402,7 +475,7 @@
 
 /* Right Column: Bullets */
 .overlay-right {
-    flex: 1; /* Takes 50% */
+    grid-area: right;
     text-align: left;
     padding-left: clamp(20px, 4vw, 50px);
 }
@@ -415,7 +488,8 @@
 
 .overlay-list li {
     font-family: var(--body);
-    font-size: clamp(16px, 2vw, 24px);
+    /* Match the bullet size/line-height used in the .offering-list sections */
+    font-size: clamp(14px, 3vw, 18px);
     line-height: 1.4;
     margin-bottom: 15px;
     display: flex;
@@ -613,28 +687,38 @@
     }
     
     .overlay-content {
-        flex-direction: column;
-        /* Ensure the container itself doesn't have extra centering */
-        align-items: flex-start; 
+        /* Single-column stack: head → video → photo → travel/button at the end */
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "head"
+            "left"
+            "right"
+            "footer";
+        align-items: start;
         text-align: left;
-        gap: 40px;
+        row-gap: 40px;
         /* Match your other sections' padding if necessary */
-        padding: 0 8vw; 
+        padding: 0 8vw;
     }
 
+    .overlay-head,
     .overlay-left {
         text-align: left;
         /* REMOVE the desktop right padding and set left to 0 */
-        padding-right: 0; 
+        padding-right: 0;
         padding-left: 0;
-        flex: 0 0 auto;
         width: 100%;
+    }
+
+    .overlay-footer {
+        padding-right: 0;
+        width: 100%;
+        margin-top: 0; /* Rely on the grid row-gap on mobile */
     }
 
     .overlay-right {
         text-align: left;
         padding-left: 0; /* Reset left padding */
-        flex: 0 0 auto;
         width: 100%;
     }
 
@@ -776,21 +860,38 @@
         <div class="video-overlay-tint"></div>
     
         <div class="overlay-content">
-            <div class="overlay-left">
-                <h2 class="overlay-title">VIDEO SHORT<br>ADD-ON</h2>
-
-                <h3 class="overlay-price"><br>Weddings: <span style="font-family: var(--bodybold)">+$750</span></h3>
-                <h3 class="overlay-price">Elopements/micro-weddings: <span style="font-family: var(--bodybold)">+$350</span></h3>
+            <div class="overlay-head">
+                <h2 class="overlay-title">WEDDINGS -<br>PHOTO &amp; VIDEO</h2>
+                <h3 class="overlay-subprice">UP TO 8 HRS: $5,500</h3>
             </div>
-            
-            <img class="overlay-divider" src="icons/border_vertical_cream.png" alt="divider">
-            
-            <div class="overlay-right">
+
+            <div class="overlay-left">
+                <h3 class="overlay-subhead">VIDEO</h3>
                 <ul class="overlay-list">
-                    <li>2-3 minute highlight video shot in 4K</li>
-                    <li>Choice of background soundtrack</li>
-                    <li>Custom quotes available for anything else you might need</li>
+                    <li>1 lead videographer</li>
+                    <li>Standard edit: 5-10 minute highlight video</li>
                 </ul>
+            </div>
+
+            <img class="overlay-divider" src="icons/border_vertical_cream.png" alt="divider">
+
+            <div class="overlay-right">
+                <h3 class="overlay-subhead">PHOTO</h3>
+                <ul class="overlay-list">
+                    <li>1 lead photographer</li>
+                    <li>450+ total photos</li>
+                    <li>All film included at no extra charge</li>
+                    <li>Online gallery of photos on both 35mm and digital mediums.</li>
+                </ul>
+            </div>
+
+            <div class="overlay-footer">
+                <p class="overlay-travel-hd"><b>Travel fee</b></p>
+                <p class="overlay-travel-body">
+                    US (outside MN): $1,000<br>
+                    International: $2,000
+                </p>
+                <a href="contact.html" class="inquire-button inquire-button--cream">INQUIRE</a>
             </div>
         </div>
     </section>
@@ -919,7 +1020,7 @@
   
     </div> <!-- /.footer-inner -->
   
-    <small class="copyright">© Nicole Perez Studio 2025</small>
+    <small class="copyright">© Nicole Perez Photo 2026</small>
   </footer>
   
   <!-- ================================================================== -->
