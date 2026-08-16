@@ -86,6 +86,10 @@
             .center-aligned{
                 padding:0 5vw;         /* 5 % of the viewport on each side */
             }
+
+            .gallery-section{
+                gap: 12px;             /* tighter space between photos (mobile) */
+            }
         }
         .center-aligned div {
             line-height: 0.9; /* Adjust line height as needed */
@@ -95,7 +99,7 @@
         .gallery-section {
             display: flex;
             flex-wrap: wrap;
-            gap: 70px;
+            gap: 40px;
             padding: 0 40px;
             min-height: 100vh;
         }
@@ -604,9 +608,8 @@
                 this.BATCH_SIZE = 20; // Load 20 images at a time
                 this.currentBatch = 0;
                 
-                // Gallery layout constants
-                this.GAP = 70;
-                this.SIDE = 40;
+                // Gallery layout constant (the gap & side padding are read from
+                // the CSS at layout time, so they always match the stylesheet).
                 this.ROW_H = 400;
                 
                 this.init();
@@ -662,7 +665,13 @@
                 const pics = this.imageElements.filter(img => img.complete && img.naturalWidth > 0);
                 if (pics.length === 0) return;
                 
-                const usable = this.gallery.clientWidth - this.SIDE * 2;
+                // Match the JS layout to the actual CSS (gap differs desktop/mobile)
+                const gcs  = getComputedStyle(this.gallery);
+                const gap  = parseFloat(gcs.columnGap)   || 0;
+                const padL = parseFloat(gcs.paddingLeft)  || 0;
+                const padR = parseFloat(gcs.paddingRight) || 0;
+
+                const usable = this.gallery.clientWidth - padL - padR;
                 let row = [], rowSumW = 0;
 
                 pics.forEach(pic => {
@@ -671,10 +680,10 @@
                     row.push({ pic, w });
                     rowSumW += w;
                     
-                    const totalWithGaps = rowSumW + this.GAP * (row.length - 1);
+                    const totalWithGaps = rowSumW + gap * (row.length - 1);
                     
                     if (totalWithGaps >= usable) {
-                        const scale = (usable - this.GAP * (row.length - 1)) / rowSumW;
+                        const scale = (usable - gap * (row.length - 1)) / rowSumW;
                         
                         row.forEach(({ pic, w }) => {
                             pic.style.width = (w * scale) + 'px';
