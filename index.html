@@ -86,7 +86,6 @@
             transform: translate(-50%, -50%); /* Centers the text horizontally and vertically */
             text-align: center;
         }
-
         /* DESKTOP / TABLET: two centered lines */
         .title-lg {
             font-size: clamp(45px, 9vw , 120px); /*clamp(28px , 12vw , 85px);*/
@@ -101,15 +100,14 @@
             .center-aligned { width: 100%; }
             .title-lg { display: none; }
 
-            /* MOBILE: four lines, all the SAME size, centered. "WEDDINGS." is
-               broken into WED / DINGS. The size is set so the widest line
-               ("ALL ON" = 4.646em in Zalando-ExtraBold) fills --fit % of the
-               screen width; every line shares that size, so the shorter ones
-               come out narrower. Nudge --fit to grow/shrink the whole title. */
+            /* MOBILE: two lines ("WEDDINGS." / "ALL ON FILM."), same size,
+               centered. The size is set so the widest line ("ALL ON FILM." =
+               8.197em in Zalando-ExtraBold) fills --fit % of the screen width;
+               "WEDDINGS." shares that size and sits a bit narrower. Nudge --fit. */
             .title-sm {
                 display: block;
                 --fit: 82;          /* % of screen width the widest line fills */
-                font-size: calc(var(--fit) * 1vw / 4.646);
+                font-size: calc(var(--fit) * 1vw / 8.197);
                 line-height: 0.9;
             }
             .title-sm span {
@@ -537,10 +535,8 @@
             <div class="center-aligned">
                 <div class="title-lg">WEDDINGS.<br>ALL ON FILM.</div>
                 <div class="title-sm">
-                    <span>WED</span>
-                    <span>DINGS.</span>
-                    <span>ALL ON</span>
-                    <span>FILM.</span>
+                    <span>WEDDINGS.</span>
+                    <span>ALL ON FILM.</span>
                 </div>
             </div>
             
