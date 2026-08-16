@@ -51,12 +51,6 @@
 
         .brand-pill {
         z-index:2;
-        /*font-family:var(--headline);
-        font-size:clamp(14px , 2.5vw , 20px);
-        letter-spacing:.5px;
-        text-transform:uppercase;
-        color:#616161;                 /* light-grey text
-        background:var(--red);         /* red pill        */
         padding:12px 36px;
         border-radius:4px;
         margin:100px 5vw 0;        /* centred top     */
@@ -81,11 +75,11 @@
 
 }
 
+
         .center-aligned {
             z-index: 2;
             font-family: var(--headline);
             color: var(--cream);
-            font-size:  clamp(25px, 9vw , 60px); /*clamp(28px , 12vw , 85px);*/
             position: absolute;
             top: 50%; /* Adjust this value to control the height from the top */
             left: 50%;
@@ -93,8 +87,35 @@
             text-align: center;
         }
 
-        .center-aligned div {
-            line-height: 0.9; /* Adjust line height as needed */
+        /* DESKTOP / TABLET: two centered lines */
+        .title-lg {
+            font-size: clamp(45px, 9vw , 120px); /*clamp(28px , 12vw , 85px);*/
+            line-height: 0.85;
+            white-space: nowrap;  /* keep each line intact so the <br> gives exactly 2 lines */
+        }
+
+        /* MOBILE three-line version stays hidden until the breakpoint */
+        .title-sm { display: none; }
+
+        @media (max-width: 700px) {
+            .center-aligned { width: 100%; }
+            .title-lg { display: none; }
+
+            /* MOBILE: four lines, all the SAME size, centered. "WEDDINGS." is
+               broken into WED / DINGS. The size is set so the widest line
+               ("ALL ON" = 4.646em in Zalando-ExtraBold) fills --fit % of the
+               screen width; every line shares that size, so the shorter ones
+               come out narrower. Nudge --fit to grow/shrink the whole title. */
+            .title-sm {
+                display: block;
+                --fit: 82;          /* % of screen width the widest line fills */
+                font-size: calc(var(--fit) * 1vw / 4.646);
+                line-height: 0.9;
+            }
+            .title-sm span {
+                display: block;
+                white-space: nowrap;
+            }
         }
 
 
@@ -514,8 +535,15 @@
             </div>
             
             <div class="center-aligned">
-                <div>CAPTURING THE MOMENTS YOU DIDN'T KNOW YOU WANTED TO REMEMBER.</div>
+                <div class="title-lg">WEDDINGS.<br>ALL ON FILM.</div>
+                <div class="title-sm">
+                    <span>WED</span>
+                    <span>DINGS.</span>
+                    <span>ALL ON</span>
+                    <span>FILM.</span>
+                </div>
             </div>
+            
             <div class="button-text">
                 <a href="#galleries" id="scroll-link" style="color: white; text-decoration: underline;">Galleries</a>
             </div>
