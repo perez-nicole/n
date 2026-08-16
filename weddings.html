@@ -84,11 +84,7 @@
         /* phones & small tablets get the breathing room */
         @media (max-width: 768px){     /* tweak the breakpoint to taste */
             .center-aligned{
-                padding:0 5vw;         /* 5 % of the viewport on each side */
-            }
-
-            .gallery-section{
-                gap: 12px;             /* tighter space between photos (mobile) */
+                padding:0 2vw;         /* 2% of the viewport on each side */
             }
         }
         .center-aligned div {
@@ -102,6 +98,16 @@
             gap: 40px;
             padding: 0 40px;
             min-height: 100vh;
+        }
+
+    /* MOBILE: tighter gaps + smaller side margin so photos sit near the
+        screen edges. Placed AFTER the base rule so it wins the cascade
+        (no !important needed). The JS reads these values at layout time. */
+        @media (max-width: 768px){
+            .gallery-section{
+                gap: 6px;           /* space between photos (mobile) */
+                padding: 0 6px;     /* side margin (was 40px) */
+            }
         }
 
         .gallery-section img {
